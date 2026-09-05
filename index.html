@@ -950,9 +950,7 @@
       try {
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings)); 
       } catch (e) {
-        if (e.name === 'QuotaExceededError' || e.message.includes('quota')) {
-          alert('Bộ nhớ trình duyệt bị đầy! Vui lòng chọn ảnh nền dung lượng nhỏ hơn hoặc bấm "Bỏ nền".');
-        }
+        console.warn("Storage warning:", e);
       }
     }
 
