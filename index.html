@@ -36,7 +36,7 @@
           animation: {
             'spin-slow': 'spin 14s linear infinite',
             'bounce-fun': 'bounceFun 1.2s infinite',
-            'sunburst': 'sunburst 30s linear infinite',
+            'sunburst': 'sunburst 35s linear infinite',
             'shake-tense': 'shakeTense 0.14s infinite',
           },
           keyframes: {
@@ -45,8 +45,8 @@
               '50%': { transform: 'translateY(-7px) scale(1.02)' },
             },
             sunburst: {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' },
+              '0%': { transform: 'rotate(0deg) scale(1.8)' },
+              '100%': { transform: 'rotate(360deg) scale(1.8)' },
             },
             shakeTense: {
               '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' },
@@ -85,25 +85,26 @@
 
     .btn-chunky-gold {
       background-color: var(--theme-btn-bg) !important;
-      background-image: linear-gradient(to bottom, rgba(255,255,255,0.18), rgba(0,0,0,0.2));
-      box-shadow: 0 6px 0 rgba(0,0,0,0.4), 0 12px 25px rgba(0, 0, 0, 0.45);
+      background-image: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.2));
+      box-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 12px 25px rgba(0, 0, 0, 0.5);
       transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .btn-chunky-gold:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.12);
       transform: translateY(-2px);
-      box-shadow: 0 8px 0 rgba(0,0,0,0.4), 0 16px 30px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 0 rgba(0,0,0,0.45), 0 16px 30px rgba(0, 0, 0, 0.65);
     }
     .btn-chunky-gold:active {
       transform: translateY(4px);
-      box-shadow: 0 2px 0 rgba(0,0,0,0.4), 0 4px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
-    .sunburst-bg {
+    /* Hiệu ứng tia sáng quay toàn màn hình vô cùng hoành tráng */
+    .sunburst-bg-fullscreen {
       background: repeating-conic-gradient(
         from 0deg,
-        rgba(245, 158, 11, 0.2) 0deg 12deg,
-        rgba(0, 0, 0, 0.05) 12deg 24deg
+        rgba(245, 158, 11, 0.22) 0deg 12deg,
+        rgba(0, 0, 0, 0.15) 12deg 24deg
       );
     }
 
@@ -115,8 +116,7 @@
 
 <body id="appBody" class="font-sans select-none overflow-x-hidden min-h-screen flex flex-col justify-between antialiased transition-colors duration-500">
 
-  <!-- Background Image Overlay chuẩn xác -->
-  <div id="customBgOverlay" class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat transition-opacity duration-500 z-0"></div>
+  <div id="customBgOverlay" class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat transition-opacity duration-500 opacity-30 z-0"></div>
   <div class="fixed inset-0 pointer-events-none bg-[#070a13] opacity-75 z-0"></div>
 
   <!-- TOP HUD -->
@@ -298,11 +298,11 @@
     </div>
   </div>
 
-  <!-- WINNER CELEBRATION MODAL -->
-  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95">
-    <div class="absolute inset-0 sunburst-bg animate-sunburst pointer-events-none opacity-40"></div>
+  <!-- WINNER CELEBRATION MODAL (Với background tia sáng xoay full màn hình) -->
+  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95">
+    <div class="fixed inset-0 sunburst-bg-fullscreen animate-sunburst pointer-events-none opacity-60 z-0"></div>
 
-    <div class="relative w-full max-w-3xl bg-[#0e1628] border-3 border-amber-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_60px_rgba(245,158,11,0.5)] text-center flex flex-col items-center z-10 max-h-[92vh] overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-[#0e1628] border-3 border-amber-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_80px_rgba(245,158,11,0.6)] text-center flex flex-col items-center z-10 max-h-[92vh] overflow-y-auto">
       
       <div class="flex items-center justify-center gap-2 mb-3 w-full px-2">
         <i class="fa-solid fa-trophy text-amber-400 text-lg sm:text-xl animate-bounce-fun flex-shrink-0"></i>
@@ -843,7 +843,7 @@
       </div>
 
       <div class="px-5 py-3.5 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-        <span>Hệ Thống Gala Văng Dây May Mắn <b>v5.9 Final Stable</b></span>
+        <span>Hệ Thống Gala Văng Dây May Mắn <b>v6.0 Perfect Stage</b></span>
         <button id="saveAndCloseAdminBtn" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold flex items-center gap-2">
           <i class="fa-solid fa-check"></i> Đóng & Trở Về Sân Khấu
         </button>
@@ -996,10 +996,10 @@
     const TIER_LABELS = { third: '🥉 Giải Ba', second: '🥈 Giải Nhì', first: '🥇 Giải Nhất', special: '👑 Giải Đặc Biệt', consolation: '🎁 Giải May Mắn' };
 
     const STORAGE_KEYS = {
-      GIFTS: 'gala_lasso_gifts_v25',
-      SETTINGS: 'gala_lasso_settings_v25',
-      HISTORY: 'gala_lasso_history_v25',
-      QUEUE: 'gala_lasso_queue_v25'
+      GIFTS: 'gala_lasso_gifts_v26',
+      SETTINGS: 'gala_lasso_settings_v26',
+      HISTORY: 'gala_lasso_history_v26',
+      QUEUE: 'gala_lasso_queue_v26'
     };
 
     class GameApp {
