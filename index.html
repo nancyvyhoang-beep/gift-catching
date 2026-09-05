@@ -107,17 +107,6 @@
       animation: particleDrift 7s ease-in-out infinite;
     }
 
-    @keyframes beamShimmer {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 0% 200%; }
-    }
-    .golden-beam-energy {
-      background: linear-gradient(180deg, #F59E0B 0%, #FDE68A 25%, #F59E0B 50%, #B45309 75%, #F59E0B 100%);
-      background-size: 100% 200%;
-      animation: beamShimmer 2.2s linear infinite;
-      box-shadow: 0 0 14px rgba(245, 158, 11, 0.7);
-    }
-
     @keyframes liquidBreathing {
       0%, 100% {
         box-shadow: 0 10px 30px -5px rgba(245, 158, 11, 0.45), 0 0 15px rgba(251, 191, 36, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -139,7 +128,6 @@
     }
 
     .sunburst-bg-fullscreen {
-      /* Đã thay đổi thành gradient tỏa tròn mượt mà, khắc phục 100% lag */
       background: radial-gradient(circle at center, rgba(245, 158, 11, 0.25) 0%, rgba(7, 11, 22, 0.9) 70%);
     }
 
@@ -162,7 +150,6 @@
 <!-- BEGIN: Dynamic Fluid Aurora Mesh Background -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" data-purpose="stage-lighting">
   <div class="absolute inset-0 bg-gradient-to-b from-[#060913] via-[#090E1B] to-[#04060C]"></div>
-  <!-- Giảm bớt opacity màng đen để background user hiển thị rõ hơn -->
   <div id="customBgOverlay" class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat transition-all duration-500 z-0 opacity-0"></div>
   <div class="fixed inset-0 pointer-events-none bg-[#070a13] opacity-40 z-0"></div>
   
@@ -182,7 +169,7 @@
 <!-- BEGIN: Top Navigation & Header Bar -->
 <header class="relative z-30 px-6 py-4 flex items-center justify-between glass-frosted border-x-0 border-t-0" data-purpose="main-header">
   <div class="flex items-center space-x-3.5">
-    <!-- Đã xóa ô vuông CH mặc định, khu vực này giờ đây chỉ dùng add logo -->
+    <!-- Vùng chứa này được giữ nguyên hoàn toàn để add logo -->
     <div id="brandLogoContainer" class="flex items-center justify-center flex-shrink-0 min-w-[40px] min-h-[40px]">
       <img id="customLogoImg" src="" alt="Logo" class="h-10 sm:h-12 max-w-[130px] object-contain hidden" />
     </div>
@@ -326,7 +313,6 @@
 
 <!-- BEGIN: Winner Celebration Modal Overlay -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95" id="winnerCelebrationModal">
-  <!-- Đã thay bằng hiệu ứng mượt mà giải quyết hoàn toàn vấn đề lag UI bảng vinh danh -->
   <div class="fixed inset-0 sunburst-bg-fullscreen pointer-events-none opacity-90 z-0"></div>
 
   <div class="relative w-full max-w-3xl glass-card border-amber-400/80 rounded-3xl p-6 sm:p-8 shadow-[0_0_90px_rgba(245,158,11,0.65)] text-center flex flex-col items-center z-10 max-h-[92vh] overflow-y-auto">
@@ -548,7 +534,7 @@
           <h4 class="font-bold text-amber-300 text-sm">Phương Thức Bốc Thưởng (Draw Mode)</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
-              <input type="radio" name="drawModeRadio" value="tiered" checked class="mt-0.5 text-amber-500"/>
+              <input type="radio" name="drawModeRadio" value="tiered" class="mt-0.5 text-amber-500"/>
               <div>
                 <span class="text-xs font-bold text-white block">Theo Hạng Giải (Mặc định)</span>
                 <span class="text-[11px] text-slate-400">Bốc quà tuần tự: Giải Ba ➔ Nhì ➔ Nhất ➔ Đặc Biệt.</span>
@@ -721,14 +707,6 @@
   const TIER_ORDER = ['third', 'second', 'first', 'special', 'consolation'];
   const TIER_LABELS = { third: '🥉 Giải Ba', second: '🥈 Giải Nhì', first: '🥇 Giải Nhất', special: '👑 Giải Đặc Biệt', consolation: '🎁 Giải May Mắn' };
 
-  const THEMES = {
-    dark_luxury: { bg: '#070B16', textTitle: '#FFFFFF', textSub: '#94A3B8', btnBg: '#F59E0B' },
-    festive_ruby: { bg: '#1A0507', textTitle: '#FEF08A', textSub: '#FECACA', btnBg: '#EF4444' },
-    emerald_gold: { bg: '#04140D', textTitle: '#FEF08A', textSub: '#A7F3D0', btnBg: '#10B981' },
-    cartoon_fun: { bg: '#181206', textTitle: '#FDE047', textSub: '#FDE68A', btnBg: '#F59E0B' },
-    royal_gold: { bg: '#1C1606', textTitle: '#FFFFFF', textSub: '#FEF3C7', btnBg: '#D97706' }
-  };
-
   class SoundEngine {
     constructor() {
       this.ctx = null;
@@ -848,10 +826,10 @@
   }
 
   const STORAGE_KEYS = {
-    GIFTS: 'gala_lasso_gifts_v63_final',
-    SETTINGS: 'gala_lasso_settings_v63_final',
-    HISTORY: 'gala_lasso_history_v63_final',
-    QUEUE: 'gala_lasso_queue_v63_final'
+    GIFTS: 'gala_lasso_gifts_v64_final',
+    SETTINGS: 'gala_lasso_settings_v64_final',
+    HISTORY: 'gala_lasso_history_v64_final',
+    QUEUE: 'gala_lasso_queue_v64_final'
   };
 
   class GameApp {
@@ -867,7 +845,6 @@
         customBtnColor: '#F59E0B',
         logoUrl: '',
         bgImageUrl: '',
-        theme: 'dark_luxury', 
         drawMode: 'tiered', // 'tiered' | 'random_all'
         randomPullCount: 1,
         activeTier: 'third',
@@ -913,7 +890,8 @@
       if (this.settings.drawMode === 'random_all') {
         return Math.max(1, parseInt(this.settings.randomPullCount, 10) || 1);
       }
-      return Math.max(1, parseInt(this.settings.tierPullCounts?.[this.settings.activeTier], 10) || 1);
+      if (!this.settings.tierPullCounts) this.settings.tierPullCounts = { third: 3, second: 2, first: 1, special: 1, consolation: 5 };
+      return Math.max(1, parseInt(this.settings.tierPullCounts[this.settings.activeTier], 10) || 1);
     }
 
     setConveyorSpeed(val) {
@@ -946,7 +924,13 @@
         if (storedGifts) this.gifts = JSON.parse(storedGifts);
         else { this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS)); this.saveGifts(); }
 
-        if (storedSettings) this.settings = { ...this.settings, ...JSON.parse(storedSettings) };
+        if (storedSettings) {
+           const parsedSettings = JSON.parse(storedSettings);
+           this.settings = { ...this.settings, ...parsedSettings };
+           if (!this.settings.tierPullCounts) {
+               this.settings.tierPullCounts = { third: 3, second: 2, first: 1, special: 1, consolation: 5 };
+           }
+        }
         if (storedHistory) {
           this.history = JSON.parse(storedHistory);
           this.history.forEach(h => { if (h.luckyNumber) this.usedNumbers.add(h.luckyNumber); });
@@ -961,7 +945,17 @@
     }
 
     saveGifts() { localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(this.gifts)); }
-    saveSettings() { localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings)); }
+    
+    saveSettings() { 
+      try {
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings)); 
+      } catch (e) {
+        if (e.name === 'QuotaExceededError' || e.message.includes('quota')) {
+          alert('Bộ nhớ trình duyệt bị đầy! Vui lòng chọn ảnh nền dung lượng nhỏ hơn hoặc bấm "Bỏ nền".');
+        }
+      }
+    }
+
     saveHistory() { localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(this.history)); }
     saveQueue() { localStorage.setItem(STORAGE_KEYS.QUEUE, JSON.stringify(this.customQueue)); }
 
@@ -1005,9 +999,11 @@
       const bgOverlay = document.getElementById('customBgOverlay');
       if (this.settings.bgImageUrl) {
         bgOverlay.style.backgroundImage = `url("${this.settings.bgImageUrl}")`;
+        bgOverlay.classList.remove('opacity-0');
         bgOverlay.style.opacity = '1';
       } else {
         bgOverlay.style.backgroundImage = 'none';
+        bgOverlay.classList.add('opacity-0');
         bgOverlay.style.opacity = '0';
       }
     }
@@ -1031,7 +1027,6 @@
       if (!track) return;
       track.innerHTML = '';
       
-      // CHỈ lấy những món quà còn số lượng và chưa bị xóa khỏi hệ thống
       const activeGifts = this.gifts.filter(g => g.remaining > 0);
       if (!activeGifts.length) return;
 
@@ -1370,15 +1365,17 @@
 
     checkAndPromptNextTier() {
       if (this.settings.drawMode === 'tiered' && this.checkCurrentTierQuota() <= 0) {
-        const currentIdx = TIER_ORDER.indexOf(this.settings.activeTier);
-        if (currentIdx < TIER_ORDER.length - 1) {
-          const nextTierKey = TIER_ORDER[currentIdx + 1];
+        const availableTiers = TIER_ORDER.filter(t => this.gifts.some(g => g.tier === t));
+        const currentIdx = availableTiers.indexOf(this.settings.activeTier);
+        
+        if (currentIdx >= 0 && currentIdx < availableTiers.length - 1) {
+          const nextTierKey = availableTiers[currentIdx + 1];
           const modal = document.getElementById('tierCompletedModal');
           document.getElementById('tierCompletedMsg').innerHTML = `Đã hoàn tất <b>${TIER_LABELS[this.settings.activeTier]}</b>! Chuyển sang <b>${TIER_LABELS[nextTierKey]}</b>.`;
           modal.classList.remove('hidden');
           setTimeout(() => modal.classList.remove('opacity-0', 'scale-90'), 20);
           this.pendingNextTier = nextTierKey;
-        } else {
+        } else if (currentIdx === availableTiers.length - 1) {
           alert('🎉 CHÚC MỪNG! ĐÃ TRAO HẾT TOÀN BỘ CÁC GIẢI THƯỞNG TRONG SỰ KIỆN!');
         }
       }
@@ -1405,7 +1402,7 @@
         this.settings.nextSecretWinnerName = '';
         this.saveSettings();
         this.renderAdminSecretSettings();
-      } else if (gift.secretNumber && !batchUsed.has(gift.secretNumber) && !this.usedNumbers.has(gift.secretNumber)) {
+      } else if (gift && gift.secretNumber && !batchUsed.has(gift.secretNumber) && !this.usedNumbers.has(gift.secretNumber)) {
         luckyNumber = gift.secretNumber;
         winnerName = (gift.secretWinnerName || '').trim();
       } else {
@@ -1446,70 +1443,76 @@
     }
 
     triggerVictoryCelebration(awardedGifts) {
-      this.sound.playWinFanfare();
-      this.fireConfetti();
+      try {
+        this.sound.playWinFanfare();
+        this.fireConfetti();
 
-      const modal = document.getElementById('winnerCelebrationModal');
-      const container = document.getElementById('winnerPrizesList');
-      container.innerHTML = '';
-      const timeString = new Date().toLocaleTimeString('vi-VN');
-      
-      const batchUsed = new Set();
-
-      awardedGifts.forEach((gift, idx) => {
-        const { luckyNumber, winnerName } = this.generateLuckyNumber(gift, batchUsed);
+        const modal = document.getElementById('winnerCelebrationModal');
+        const container = document.getElementById('winnerPrizesList');
+        container.innerHTML = '';
+        const timeString = new Date().toLocaleTimeString('vi-VN');
         
-        const historyItem = {
-          turn: this.settings.currentTurn, timestamp: timeString,
-          giftId: gift.id, giftName: gift.name, tier: gift.tier || 'third', luckyNumber, winnerName
-        };
-        this.history.unshift(historyItem);
+        const batchUsed = new Set();
 
-        const prizeCard = document.createElement('div');
-        prizeCard.className = 'winner-prize-row w-full glass-card border-amber-400/60 p-3.5 sm:px-5 sm:py-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl transition-all';
-        prizeCard.innerHTML = `
-          <div class="flex items-center gap-3.5 min-w-0 flex-1 w-full sm:w-auto">
-            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-900 border border-amber-400/40 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden shadow">
-              ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="w-full h-full object-contain" />` : `<span class="material-symbols-outlined text-amber-400 text-2xl">featured_seasonal_and_gifts</span>`}
-            </div>
-            <div class="flex items-center gap-2 min-w-0">
-              <span class="px-2.5 py-0.5 rounded-full text-slate-950 font-black text-[10px] sm:text-xs bg-gradient-to-r from-amber-300 to-yellow-400 shadow uppercase">${TIER_LABELS[gift.tier] || gift.badge}</span>
-              <span class="font-extrabold text-sm sm:text-base text-white truncate max-w-[160px]" title="${gift.name}">${gift.name}</span>
-            </div>
-          </div>
+        awardedGifts.forEach((gift, idx) => {
+          if (!gift) return;
+          const { luckyNumber, winnerName } = this.generateLuckyNumber(gift, batchUsed);
           
-          <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
-            <div class="flex items-center gap-1.5 bg-black/60 px-3 py-1 rounded-xl border border-amber-500/40 shadow-inner">
-              <span class="text-[10px] text-amber-300 font-bold uppercase">MÃ:</span>
-              <span id="slotNumber_${idx}" class="font-mono font-black text-lg sm:text-xl text-amber-300 tracking-wider">888</span>
-            </div>
-            <div class="flex items-center gap-1.5 bg-amber-950/50 border border-amber-500/30 px-3 py-1 rounded-xl shadow">
-              <span class="material-symbols-outlined text-amber-400 text-xs">person</span>
-              <span class="text-xs sm:text-sm text-white font-bold truncate max-w-[110px]">${winnerName}</span>
-            </div>
-            <button type="button" class="absent-refund-btn px-2.5 py-1.5 rounded-xl bg-rose-950 hover:bg-rose-600 text-rose-300 hover:text-white text-xs font-bold border border-rose-500/40 transition flex items-center space-x-1 flex-shrink-0 cursor-pointer" data-gift-id="${gift.id}" data-number="${luckyNumber}" title="Khách vắng mặt - Trả giải về kho">
-              <span class="material-symbols-outlined text-[13px]">restart_alt</span>
-              <span class="hidden md:inline">Vắng mặt</span>
-            </button>
-          </div>
-        `;
-        container.appendChild(prizeCard);
-        this.rollSlotNumber(`slotNumber_${idx}`, luckyNumber);
-      });
+          const historyItem = {
+            turn: this.settings.currentTurn, timestamp: timeString,
+            giftId: gift.id, giftName: gift.name, tier: gift.tier || 'third', luckyNumber, winnerName
+          };
+          this.history.unshift(historyItem);
 
-      container.querySelectorAll('.absent-refund-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const gId = btn.dataset.giftId;
-          const num = btn.dataset.number;
-          this.refundAbsentPrize(gId, num, btn);
+          const prizeCard = document.createElement('div');
+          prizeCard.className = 'winner-prize-row w-full glass-card border-amber-400/60 p-3.5 sm:px-5 sm:py-4 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl transition-all';
+          prizeCard.innerHTML = `
+            <div class="flex items-center gap-3.5 min-w-0 flex-1 w-full sm:w-auto">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-900 border border-amber-400/40 p-1 flex items-center justify-center flex-shrink-0 overflow-hidden shadow">
+                ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="w-full h-full object-contain" />` : `<span class="material-symbols-outlined text-amber-400 text-2xl">featured_seasonal_and_gifts</span>`}
+              </div>
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="px-2.5 py-0.5 rounded-full text-slate-950 font-black text-[10px] sm:text-xs bg-gradient-to-r from-amber-300 to-yellow-400 shadow uppercase">${TIER_LABELS[gift.tier] || gift.badge}</span>
+                <span class="font-extrabold text-sm sm:text-base text-white truncate max-w-[160px]" title="${gift.name}">${gift.name}</span>
+              </div>
+            </div>
+            
+            <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+              <div class="flex items-center gap-1.5 bg-black/60 px-3 py-1 rounded-xl border border-amber-500/40 shadow-inner">
+                <span class="text-[10px] text-amber-300 font-bold uppercase">MÃ:</span>
+                <span id="slotNumber_${idx}" class="font-mono font-black text-lg sm:text-xl text-amber-300 tracking-wider">888</span>
+              </div>
+              <div class="flex items-center gap-1.5 bg-amber-950/50 border border-amber-500/30 px-3 py-1 rounded-xl shadow">
+                <span class="material-symbols-outlined text-amber-400 text-xs">person</span>
+                <span class="text-xs sm:text-sm text-white font-bold truncate max-w-[110px]">${winnerName}</span>
+              </div>
+              <button type="button" class="absent-refund-btn px-2.5 py-1.5 rounded-xl bg-rose-950 hover:bg-rose-600 text-rose-300 hover:text-white text-xs font-bold border border-rose-500/40 transition flex items-center space-x-1 flex-shrink-0 cursor-pointer" data-gift-id="${gift.id}" data-number="${luckyNumber}" title="Khách vắng mặt - Trả giải về kho">
+                <span class="material-symbols-outlined text-[13px]">restart_alt</span>
+                <span class="hidden md:inline">Vắng mặt</span>
+              </button>
+            </div>
+          `;
+          container.appendChild(prizeCard);
+          this.rollSlotNumber(`slotNumber_${idx}`, luckyNumber);
         });
-      });
 
-      this.settings.currentTurn += 1;
-      this.saveSettings(); this.saveHistory(); this.renderAdminHistory();
+        container.querySelectorAll('.absent-refund-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const gId = btn.dataset.giftId;
+            const num = btn.dataset.number;
+            this.refundAbsentPrize(gId, num, btn);
+          });
+        });
 
-      modal.classList.remove('hidden');
-      setTimeout(() => modal.classList.remove('opacity-0', 'scale-95'), 20);
+        this.settings.currentTurn += 1;
+        this.saveSettings(); this.saveHistory(); this.renderAdminHistory();
+
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.remove('opacity-0', 'scale-95'), 20);
+
+      } catch (err) {
+        console.error("Lỗi khi hiển thị bảng vinh danh:", err);
+      }
     }
 
     refundAbsentPrize(giftId, luckyNumber, btnElement) {
@@ -1610,19 +1613,36 @@
         randomPullInput.value = this.settings.randomPullCount || 1;
       }
 
+      // Xử lý động cho phép hiển thị/ẩn hoàn toàn các Hạng giải nếu không có quà
       TIER_ORDER.forEach(tKey => {
-        const count = this.gifts.filter(g => g.tier === tKey).reduce((acc, g) => acc + (g.remaining || 0), 0);
+        const tierGifts = this.gifts.filter(g => g.tier === tKey);
+        const hasGifts = tierGifts.length > 0;
+        const count = tierGifts.reduce((acc, g) => acc + (g.remaining || 0), 0);
+        
         const badge = document.getElementById(`badgeCount_${tKey}`);
         if (badge) badge.textContent = count;
+        
+        // Cập nhật ở Tab Số lượng
         const input = document.querySelector(`.tier-rope-input[data-tier="${tKey}"]`);
-        if (input && document.activeElement !== input) input.value = this.settings.tierPullCounts[tKey] || 1;
-      });
-
-      document.querySelectorAll('.tier-step-btn').forEach(btn => {
-        if (btn.dataset.tier === this.settings.activeTier) {
-          btn.className = 'tier-step-btn active flex items-center space-x-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 transition cursor-pointer';
-        } else {
-          btn.className = 'tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer';
+        if (input) {
+          if (document.activeElement !== input) input.value = this.settings.tierPullCounts[tKey] || 1;
+          const container = input.parentElement;
+          if (container) container.style.display = hasGifts ? 'flex' : 'none';
+        }
+        
+        // Cập nhật thanh Bar
+        const btn = document.querySelector(`.tier-step-btn[data-tier="${tKey}"]`);
+        if (btn) {
+          if (!hasGifts) {
+            btn.style.display = 'none';
+          } else {
+            btn.style.display = 'flex';
+            if (tKey === this.settings.activeTier) {
+              btn.className = 'tier-step-btn active flex items-center space-x-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 transition cursor-pointer';
+            } else {
+              btn.className = 'tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer';
+            }
+          }
         }
       });
 
@@ -1773,13 +1793,21 @@
     }
 
     deleteGift(giftId) {
-      if (this.gifts.length <= 1) { alert('Cần ít nhất 1 phần quà!'); return; }
-      if (confirm('Xóa phần quà này?')) {
+      if (this.gifts.length <= 1) { alert('Cần ít nhất 1 phần quà để hệ thống vận hành!'); return; }
+      if (confirm('Xóa phần quà này? (Sẽ bị xóa khỏi Queue và Cấu hình)')) {
         this.gifts = this.gifts.filter(g => g.id !== giftId);
         this.customQueue = this.customQueue.filter(id => id !== giftId);
         this.history = this.history.filter(h => h.giftId !== giftId);
         
-        this.saveGifts(); this.saveQueue(); this.saveHistory();
+        // Nếu xóa hết sạch quà của Tier đang chọn, nhảy sang Tier khác
+        if (!this.gifts.some(g => g.tier === this.settings.activeTier)) {
+          const availableTiers = TIER_ORDER.filter(t => this.gifts.some(g => g.tier === t));
+          if (availableTiers.length > 0) {
+            this.settings.activeTier = availableTiers[0];
+          }
+        }
+        
+        this.saveGifts(); this.saveQueue(); this.saveHistory(); this.saveSettings();
         this.renderAdminGifts(); this.renderAdminQueue(); this.renderAdminHistory();
         this.renderParade(); this.updateHUD();
         this.showToast('Đã xóa vĩnh viễn phần thưởng khỏi hệ thống!');
@@ -1861,13 +1889,16 @@
         });
       });
 
+      // Lắng nghe sự kiện để đổi Random vs Theo giải một cách mượt mà nhất
       document.querySelectorAll('input[name="drawModeRadio"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
-          this.settings.drawMode = e.target.value;
-          this.saveSettings();
-          this.updateHUD();
-          this.renderParade();
-          this.showToast(this.settings.drawMode === 'random_all' ? 'Đã đổi sang: Ngẫu nhiên toàn kho' : 'Đã đổi sang: Theo hạng giải');
+          if (e.target.checked) {
+            this.settings.drawMode = e.target.value;
+            this.saveSettings();
+            this.updateHUD();
+            this.renderParade();
+            this.showToast(this.settings.drawMode === 'random_all' ? 'Đã đổi sang: Ngẫu nhiên toàn kho' : 'Đã đổi sang: Theo hạng giải');
+          }
         });
       });
 
@@ -1904,7 +1935,6 @@
         this.setConveyorSpeed(this.paradeSpeed - 0.2);
       });
 
-      // SỬA LỖI LAG SPEED SLIDER: Chỉ cập nhật giao diện khi kéo, và lưu dữ liệu khi thả tay
       const slider = document.getElementById('conveyorSpeedSlider');
       if (slider) {
         slider.addEventListener('input', (e) => {
@@ -2014,6 +2044,8 @@
         this.showToast('Đã xóa logo');
       });
 
+      // Tối ưu thuật toán nén ảnh xuống cực nhẹ (65% JPEG và Max Height/Width 1280px) 
+      // để giúp khắc phục lỗi bị văng / không hiển thị ảnh vì quá giới hạn bộ nhớ LocalStorage.
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2022,7 +2054,7 @@
             const img = new Image();
             img.onload = () => {
               const canvas = document.createElement('canvas');
-              const maxDim = 1920;
+              const maxDim = 1280;
               let w = img.width, h = img.height;
               if (w > maxDim || h > maxDim) {
                 if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -2031,7 +2063,7 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              this.settings.bgImageUrl = canvas.toDataURL('image/jpeg', 0.82);
+              this.settings.bgImageUrl = canvas.toDataURL('image/jpeg', 0.65);
               this.saveSettings();
               this.applyCustomBrand();
               this.showToast('Đã cập nhật ảnh nền thành công!');
