@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title id="pageTitle">CH TRADING - VĂNG DÂY BẮT QUÀ</title>
+  <title id="pageTitle">CH TRADING - Client Appreciation</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -69,8 +69,8 @@
     :root {
       --theme-bg: #070a13;
       --theme-surface: #0f1629;
-      --theme-surface-glass: rgba(15, 22, 41, 0.85);
-      --theme-border: rgba(217, 164, 43, 0.25);
+      --theme-surface-glass: rgba(15, 22, 41, 0.88);
+      --theme-border: rgba(217, 164, 43, 0.35);
       --theme-text-title: #f8f6ed;
       --theme-text-sub: #cbd5e1;
       --theme-card-bg: #0b1021;
@@ -88,20 +88,21 @@
     ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); }
     ::-webkit-scrollbar-thumb { background: #d9a42b; border-radius: 999px; }
 
+    /* Nút bấm đồng bộ màu nền và màu chữ */
     .btn-chunky-gold {
       background-color: var(--theme-btn-bg) !important;
-      background-image: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(0,0,0,0.2) 100%);
-      box-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 12px 30px rgba(245, 158, 11, 0.35);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: var(--theme-text-title) !important;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.45), 0 12px 25px rgba(0, 0, 0, 0.45);
+      transition: all 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .btn-chunky-gold:hover {
       filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 8px 0 rgba(0,0,0,0.45), 0 16px 35px rgba(245, 158, 11, 0.5);
+      box-shadow: 0 8px 0 rgba(0,0,0,0.45), 0 16px 30px rgba(0, 0, 0, 0.6);
     }
     .btn-chunky-gold:active {
       transform: translateY(4px);
-      box-shadow: 0 2px 0 rgba(0,0,0,0.45), 0 4px 12px rgba(245, 158, 11, 0.25);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .sunburst-bg-fullscreen {
@@ -124,10 +125,10 @@
   <div class="fixed inset-0 pointer-events-none bg-[#070a13] opacity-75 z-0"></div>
 
   <!-- TOP HUD -->
-  <header class="w-full backdrop-blur-xl border-b border-gold-500/20 px-3 py-2.5 sm:px-6 sm:py-3.5 z-30 sticky top-0 shadow-2xl" style="background-color: var(--theme-surface-glass);">
+  <header class="w-full backdrop-blur-md border-b border-gold-500/20 px-3 py-2 sm:px-6 sm:py-3 z-30 sticky top-0 shadow-lg" style="background-color: var(--theme-surface-glass);">
     <div class="max-w-7xl mx-auto flex items-center justify-between gap-3">
       
-      <div class="flex items-center gap-3.5 min-w-0">
+      <div class="flex items-center gap-3 min-w-0">
         <div id="brandLogoContainer" class="flex items-center justify-center flex-shrink-0">
           <img id="customLogoImg" src="" alt="Logo" class="h-10 sm:h-12 max-w-[130px] object-contain hidden" />
           <i id="defaultLogoIcon" class="fa-solid fa-gift text-amber-400 text-2xl sm:text-3xl filter drop-shadow"></i>
@@ -142,7 +143,7 @@
         </div>
       </div>
 
-      <div class="hidden lg:flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold-500/30 bg-black/40 shadow-inner whitespace-nowrap flex-nowrap flex-shrink-0">
+      <div class="hidden lg:flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold-500/30 bg-black/40 shadow-inner whitespace-nowrap flex-nowrap flex-shrink-0">
         <span class="text-xs text-slate-300 font-medium whitespace-nowrap">Chế độ:</span>
         <div id="hudCurrentTierBadge" class="flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/40 whitespace-nowrap flex-nowrap flex-shrink-0">
           <i class="fa-solid fa-trophy text-amber-400" id="hudModeIcon"></i>
@@ -153,7 +154,7 @@
         </span>
       </div>
 
-      <div class="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-amber-500/30 bg-black/50 text-xs text-slate-300 shadow-inner whitespace-nowrap flex-nowrap flex-shrink-0">
+      <div class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-amber-500/30 bg-black/50 text-xs text-slate-300 shadow-inner whitespace-nowrap flex-nowrap flex-shrink-0">
         <i class="fa-solid fa-gauge-high text-amber-400"></i>
         <span class="text-[11px] font-bold text-slate-400 whitespace-nowrap">Tốc độ:</span>
         <button type="button" id="quickSpeedDownBtn" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 flex items-center justify-center font-black text-xs text-amber-300 transition active:scale-95 border border-slate-700 flex-shrink-0">
@@ -165,16 +166,18 @@
         </button>
       </div>
 
-      <div class="flex items-center gap-2.5 flex-shrink-0">
+      <div class="flex items-center gap-2 flex-shrink-0">
         <button id="soundToggleBtn" title="Bật/Tắt âm thanh" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-black/40 hover:bg-black/60 border border-gold-500/40 text-amber-400 flex items-center justify-center transition shadow-sm">
           <i id="soundIcon" class="fa-solid fa-volume-high"></i>
         </button>
         <button id="fullscreenBtn" title="Toàn màn hình" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-black/40 hover:bg-black/60 border border-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition shadow-sm">
           <i class="fa-solid fa-expand"></i>
         </button>
-        <button id="openAdminBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95">
-          <i class="fa-solid fa-sliders"></i>
-          <span class="hidden sm:inline">Cấu Hình</span>
+        
+        <!-- Nút Cấu Hình đồng bộ màu nền và màu chữ -->
+        <button id="openAdminBtn" class="btn-chunky-gold px-4 py-2 rounded-xl font-extrabold text-xs sm:text-sm flex items-center gap-2 transition transform active:scale-95">
+          <i class="fa-solid fa-sliders" style="color: var(--theme-text-title);"></i>
+          <span class="hidden sm:inline" style="color: var(--theme-text-title);">Cấu Hình</span>
         </button>
       </div>
 
@@ -186,7 +189,7 @@
     
     <!-- Progression Bar -->
     <div id="progressionBarContainer" class="mb-3 relative z-10 flex flex-col items-center transition-all duration-300">
-      <div class="w-full max-w-4xl rounded-2xl p-2.5 sm:p-3 border shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-md" style="background-color: var(--theme-surface-glass); border-color: var(--theme-border);">
+      <div class="w-full max-w-4xl rounded-2xl p-2.5 sm:p-3 border shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-3" style="background-color: var(--theme-surface-glass); border-color: var(--theme-border);">
         
         <div class="flex items-center gap-2 text-xs sm:text-sm font-bold pl-2" style="color: var(--theme-text-title);">
           <i class="fa-solid fa-award text-amber-400 text-base animate-bounce-fun"></i>
@@ -224,11 +227,11 @@
       
       <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div class="relative z-10 pt-4 pb-2 text-center px-4">
+      <div class="relative z-10 pt-3 pb-1 text-center px-4">
         <h2 id="stageActiveTitle" class="font-display font-black text-xl sm:text-3xl tracking-wide uppercase" style="color: var(--theme-text-title);">
           QUAY THƯỞNG: GIẢI BA
         </h2>
-        <p id="stageActiveSubtitle" class="text-xs sm:text-sm font-semibold mt-1 opacity-90" style="color: var(--theme-text-sub);">
+        <p id="stageActiveSubtitle" class="text-xs sm:text-sm font-bold mt-0.5" style="color: var(--theme-text-sub);">
           Vòng quay may mắn đang chờ đón • Phóng dây thừng chớp lấy phần quà! (Còn <b id="stageRemainingCount" class="text-amber-400">3</b> suất)
         </p>
       </div>
@@ -244,9 +247,9 @@
       <canvas id="gameCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-25"></canvas>
 
       <!-- Player Station -->
-      <div class="relative mt-auto w-full z-10 flex flex-col items-center justify-end pb-5 pt-1">
+      <div class="relative mt-auto w-full z-10 flex flex-col items-center justify-end pb-4 pt-1">
         
-        <div class="relative flex items-center justify-center mb-2.5">
+        <div class="relative flex items-center justify-center mb-2">
           <div class="relative flex flex-col items-center">
             
             <div id="lassoSwinContainer" class="relative flex items-center justify-center">
@@ -267,15 +270,15 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-center gap-2">
-          <button id="throwLassoBtn" class="btn-chunky-gold group relative px-9 py-4 sm:px-14 sm:py-4.5 rounded-2xl text-slate-950 font-display font-black text-lg sm:text-xl tracking-wider uppercase cursor-pointer flex items-center gap-3 animate-pulse-glow transition">
-            <i class="fa-solid fa-bullseye text-amber-950 text-lg group-hover:rotate-45 transition duration-300"></i>
-            <span id="throwBtnLabel">🎯 PHÓNG DÂY BẮT QUÀ!</span>
-            <span class="text-xs font-bold bg-black/25 px-2 py-0.5 rounded-lg text-white ml-1">SPACE</span>
+          <button id="throwLassoBtn" class="btn-chunky-gold group relative px-8 py-3.5 sm:px-12 sm:py-4 rounded-2xl font-display font-black text-lg sm:text-xl tracking-wider uppercase cursor-pointer flex items-center gap-3 active:scale-95 transition">
+            <i class="fa-solid fa-bullseye text-lg group-hover:rotate-45 transition duration-300" style="color: var(--theme-text-title);"></i>
+            <span id="throwBtnLabel" style="color: var(--theme-text-title);">🎯 PHÓNG DÂY BẮT QUÀ!</span>
+            <span class="text-xs font-bold bg-black/30 px-2 py-0.5 rounded-lg ml-1" style="color: var(--theme-text-title);">SPACE</span>
           </button>
         </div>
 
-        <p class="text-[11px] text-slate-400 mt-2 text-center font-medium">
-          Nhấn phím <kbd class="px-1.5 py-0.5 rounded bg-black/50 border border-slate-700 text-amber-300 font-mono text-[10px]">Spacebar</kbd> hoặc bấm nút để bắt đầu phóng dây
+        <p class="text-[11px] text-slate-400 mt-1.5 text-center font-semibold">
+          Nhấn phím <kbd class="px-1.5 py-0.5 rounded bg-black/40 border border-slate-700 text-amber-300 font-mono text-[10px]">Spacebar</kbd> hoặc bấm nút để bắt đầu phóng dây
         </p>
 
       </div>
@@ -296,31 +299,31 @@
       <p id="tierCompletedMsg" class="text-sm text-slate-200 mt-1 mb-4 font-semibold">
         Đã trao hết toàn bộ phần thưởng. Hệ thống sẵn sàng chuyển sang phần tiếp theo...
       </p>
-      <button id="nextTierConfirmBtn" class="btn-chunky-gold w-full py-3 rounded-xl text-slate-950 font-display font-black text-base uppercase">
-        TIẾP TỤC CHƯƠNG TRÌNH <i class="fa-solid fa-arrow-right ml-1"></i>
+      <button id="nextTierConfirmBtn" class="btn-chunky-gold w-full py-3 rounded-xl font-display font-black text-base uppercase">
+        <span style="color: var(--theme-text-title);">TIẾP TỤC CHƯƠNG TRÌNH</span> <i class="fa-solid fa-arrow-right ml-1" style="color: var(--theme-text-title);"></i>
       </button>
     </div>
   </div>
 
-  <!-- WINNER CELEBRATION MODAL (Với background tia sáng xoay full màn hình không bị cắt) -->
-  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md hidden transition-all duration-300 opacity-0 scale-95">
+  <!-- WINNER CELEBRATION MODAL -->
+  <div id="winnerModal" class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95">
     <div class="fixed inset-0 sunburst-bg-fullscreen animate-sunburst pointer-events-none opacity-60 z-0"></div>
 
-    <div class="relative w-full max-w-3xl bg-[#0e1628]/95 border-3 border-amber-400 rounded-3xl p-6 sm:p-8 shadow-[0_0_90px_rgba(245,158,11,0.65)] text-center flex flex-col items-center z-10 max-h-[92vh] overflow-y-auto">
+    <div class="relative w-full max-w-3xl bg-[#0e1628] border-3 border-amber-400 rounded-3xl p-5 sm:p-7 shadow-[0_0_80px_rgba(245,158,11,0.6)] text-center flex flex-col items-center z-10 max-h-[92vh] overflow-y-auto">
       
-      <div class="flex items-center justify-center gap-2 mb-4 w-full px-2">
-        <i class="fa-solid fa-trophy text-amber-400 text-xl sm:text-2xl animate-bounce-fun flex-shrink-0"></i>
-        <h2 class="font-display font-black text-sm sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 uppercase tracking-wide whitespace-nowrap overflow-visible">
+      <div class="flex items-center justify-center gap-2 mb-3 w-full px-2">
+        <i class="fa-solid fa-trophy text-amber-400 text-lg sm:text-xl animate-bounce-fun flex-shrink-0"></i>
+        <h2 class="font-display font-black text-xs sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 uppercase tracking-wide whitespace-nowrap overflow-visible">
           CHÚC MỪNG KHÁCH MỜI TRÚNG THƯỞNG
         </h2>
-        <i class="fa-solid fa-trophy text-amber-400 text-xl sm:text-2xl animate-bounce-fun flex-shrink-0"></i>
+        <i class="fa-solid fa-trophy text-amber-400 text-lg sm:text-xl animate-bounce-fun flex-shrink-0"></i>
       </div>
 
-      <div id="winnerPrizesList" class="w-full flex flex-col gap-3.5 my-2"></div>
+      <div id="winnerPrizesList" class="w-full flex flex-col gap-3 my-2"></div>
 
-      <div class="flex items-center gap-3 w-full mt-5">
-        <button id="closeWinModalBtn" class="btn-chunky-gold flex-1 py-3.5 sm:py-4 rounded-xl text-slate-950 font-display font-black text-base sm:text-lg tracking-wider uppercase hover:brightness-110 active:scale-95 transition shadow-xl">
-          <i class="fa-solid fa-play mr-2"></i> TIẾP TỤC CHƯƠNG TRÌNH
+      <div class="flex items-center gap-3 w-full mt-4">
+        <button id="closeWinModalBtn" class="btn-chunky-gold flex-1 py-3 sm:py-3.5 rounded-xl font-display font-black text-base sm:text-lg tracking-wider uppercase hover:brightness-110 active:scale-95 transition shadow-lg">
+          <i class="fa-solid fa-play mr-2" style="color: var(--theme-text-title);"></i> <span style="color: var(--theme-text-title);">TIẾP TỤC CHƯƠNG TRÌNH</span>
         </button>
       </div>
 
@@ -390,12 +393,12 @@
               </div>
             </div>
 
-            <!-- TÙY CHỈNH MÀU CHỮ & NÚT BẤM -->
+            <!-- TÙY CHỈNH MÀU SẮC -->
             <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
               <label class="block text-xs font-bold text-amber-300">Tùy Chỉnh Màu Sắc (Text & Buttons):</label>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-xl border border-slate-700">
-                  <span class="text-xs font-semibold text-slate-300">Màu Tiêu Đề:</span>
+                  <span class="text-xs font-semibold text-slate-300">Màu Tiêu Đề & Chữ Nút:</span>
                   <div class="flex items-center gap-2">
                     <input type="color" id="settingTitleColorInput" value="#f8f6ed" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0" />
                     <span id="titleColorHexLabel" class="text-xs font-mono text-amber-300">#f8f6ed</span>
@@ -409,7 +412,7 @@
                   </div>
                 </div>
                 <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-xl border border-slate-700">
-                  <span class="text-xs font-semibold text-slate-300">Màu Nút Chính:</span>
+                  <span class="text-xs font-semibold text-slate-300">Màu Nền Nút Bấm:</span>
                   <div class="flex items-center gap-2">
                     <input type="color" id="settingBtnColorInput" value="#f59e0b" class="w-8 h-8 rounded-lg cursor-pointer bg-transparent border-0" />
                     <span id="btnColorHexLabel" class="text-xs font-mono text-amber-400">#f59e0b</span>
@@ -848,8 +851,8 @@
 
       <div class="px-5 py-3.5 bg-slate-900/90 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
         <span>Hệ Thống Gala Văng Dây May Mắn <b>v6.1 Perfect Stage</b></span>
-        <button id="saveAndCloseAdminBtn" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold flex items-center gap-2">
-          <i class="fa-solid fa-check"></i> Đóng & Trở Về Sân Khấu
+        <button id="saveAndCloseAdminBtn" class="btn-chunky-gold px-5 py-2 rounded-xl font-bold flex items-center gap-2">
+          <i class="fa-solid fa-check" style="color: var(--theme-text-title);"></i> <span style="color: var(--theme-text-title);">Đóng & Trở Về Sân Khấu</span>
         </button>
       </div>
 
@@ -1000,10 +1003,10 @@
     const TIER_LABELS = { third: '🥉 Giải Ba', second: '🥈 Giải Nhì', first: '🥇 Giải Nhất', special: '👑 Giải Đặc Biệt', consolation: '🎁 Giải May Mắn' };
 
     const STORAGE_KEYS = {
-      GIFTS: 'gala_lasso_gifts_v27',
-      SETTINGS: 'gala_lasso_settings_v27',
-      HISTORY: 'gala_lasso_history_v27',
-      QUEUE: 'gala_lasso_queue_v27'
+      GIFTS: 'gala_lasso_gifts_v28',
+      SETTINGS: 'gala_lasso_settings_v28',
+      HISTORY: 'gala_lasso_history_v28',
+      QUEUE: 'gala_lasso_queue_v28'
     };
 
     class GameApp {
@@ -1147,7 +1150,9 @@
       applyCustomBrand() {
         document.getElementById('hudEventTitle').textContent = this.settings.eventTitle;
         document.getElementById('hudEventSubtitle').textContent = this.settings.eventSubtitle;
-        document.getElementById('pageTitle').textContent = `${this.settings.eventTitle} - ${this.settings.eventSubtitle}`;
+        
+        // Đồng bộ chuẩn xác cả Title và Subtitle lên thanh Browser
+        document.title = `${this.settings.eventTitle} - ${this.settings.eventSubtitle}`;
 
         const logoImg = document.getElementById('customLogoImg');
         const defaultLogo = document.getElementById('defaultLogoIcon');
@@ -1164,7 +1169,7 @@
         if (this.settings.bgImageUrl) {
           bgOverlay.style.backgroundImage = `url('${this.settings.bgImageUrl}')`;
           bgOverlay.classList.remove('opacity-0');
-          bgOverlay.classList.add('opacity-30');
+          bgOverlay.classList.add('opacity-35');
         } else {
           bgOverlay.style.backgroundImage = 'none';
           bgOverlay.classList.add('opacity-0');
@@ -1355,9 +1360,10 @@
             usedTargetCards.add(bestCard);
           }
 
-          const targetX = bestCard ? (bestCard.getBoundingClientRect().left + bestCard.getBoundingClientRect().width / 2) - canvasRect.left : screenCenterX;
-          const targetY = bestCard ? (bestCard.getBoundingClientRect().top + bestCard.getBoundingClientRect().height / 2) - canvasRect.top : carouselRect.top + 50;
-          const clampedTargetX = Math.max(50, Math.min(this.canvas.width - 50, targetX));
+          const targetCardRect = bestCard ? bestCard.getBoundingClientRect() : carouselRect;
+          const rawTargetX = (targetCardRect.left + targetCardRect.width / 2) - canvasRect.left;
+          const targetY = (targetCardRect.top + targetCardRect.height / 2) - canvasRect.top;
+          const clampedTargetX = Math.max(50, Math.min(this.canvas.width - 50, rawTargetX));
 
           const maxSpread = Math.min(canvasRect.width * 0.35, 140);
           const spacing = Math.min(30, maxSpread / Math.max(ropeCount, 1));
@@ -2116,6 +2122,7 @@
           });
         });
 
+        // Bắt sự kiện live preview màu chữ & màu nút bấm đồng bộ
         document.getElementById('settingTitleColorInput')?.addEventListener('input', (e) => {
           document.documentElement.style.setProperty('--theme-text-title', e.target.value);
           const hex = document.getElementById('titleColorHexLabel');
