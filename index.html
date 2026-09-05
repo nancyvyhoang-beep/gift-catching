@@ -432,12 +432,6 @@
               </div>
             </div>
           </div>
-
-          <div class="flex justify-end pt-2">
-            <button id="saveThemeSettingsBtn" class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow cursor-pointer">
-              Lưu Thiết Lập Giao Diện
-            </button>
-          </div>
         </div>
       </div>
 
@@ -657,7 +651,7 @@
     <div class="flex items-center justify-between px-6 py-4 border-t border-white/10 bg-slate-950/60">
       <div class="flex items-center space-x-2 text-xs text-slate-400">
         <span class="material-symbols-outlined text-sm text-amber-400">verified_user</span>
-        <span>Các thay đổi được áp dụng trực tiếp lên vòng quay sau khi lưu</span>
+        <span>Các thay đổi được áp dụng tự động, bấm Lưu & Đóng để thoát</span>
       </div>
       <div class="flex items-center space-x-3">
         <button id="saveAndCloseAdminBtn" class="btn-liquid-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 cursor-pointer shadow-lg shadow-amber-500/25">
@@ -803,11 +797,12 @@
     }
   }
 
+  // Loại bỏ các tiền tố Version cũ, dùng 1 tên cố định để từ giờ F5 sẽ không bao giờ mất data
   const STORAGE_KEYS = {
-    GIFTS: 'gala_lasso_gifts_v66_csv',
-    SETTINGS: 'gala_lasso_settings_v66_csv',
-    HISTORY: 'gala_lasso_history_v66_csv',
-    QUEUE: 'gala_lasso_queue_v66_csv'
+    GIFTS: 'ch_trading_gifts_data_final',
+    SETTINGS: 'ch_trading_settings_data_final',
+    HISTORY: 'ch_trading_history_data_final',
+    QUEUE: 'ch_trading_queue_data_final'
   };
 
   class GameApp {
@@ -903,50 +898,65 @@
     }
 
     loadFromStorage() {
+      // Tách khối Try/Catch cho TỪNG mục. Lỗi mục này không làm mất dữ liệu mục kia!
       try {
         const storedGifts = localStorage.getItem(STORAGE_KEYS.GIFTS);
-        const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
-        const storedHistory = localStorage.getItem(STORAGE_KEYS.HISTORY);
-        const storedQueue = localStorage.getItem(STORAGE_KEYS.QUEUE);
-
         if (storedGifts) this.gifts = JSON.parse(storedGifts);
         else { this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS)); this.saveGifts(); }
+      } catch (err) {
+        this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS));
+      }
 
+      try {
+        const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
         if (storedSettings) {
            const parsedSettings = JSON.parse(storedSettings);
            this.settings = { ...this.settings, ...parsedSettings };
-           if (!this.settings.tierPullCounts) {
-               this.settings.tierPullCounts = {};
-           }
-           if (!this.settings.participantList) {
-               this.settings.participantList = [];
-           }
+           if (!this.settings.tierPullCounts) this.settings.tierPullCounts = {};
+           if (!this.settings.participantList) this.settings.participantList = [];
         }
+      } catch (err) { }
+
+      try {
+        const storedHistory = localStorage.getItem(STORAGE_KEYS.HISTORY);
         if (storedHistory) {
           this.history = JSON.parse(storedHistory);
           this.history.forEach(h => { if (h.luckyNumber) this.usedNumbers.add(h.luckyNumber); });
         }
-        if (storedQueue) this.customQueue = JSON.parse(storedQueue);
+      } catch (err) { }
 
-        this.paradeSpeed = parseFloat(this.settings.paradeSpeed) || 1.2;
-        this.sound.enabled = this.settings.soundEnabled;
-      } catch (err) {
-        this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS));
-      }
+      try {
+        const storedQueue = localStorage.getItem(STORAGE_KEYS.QUEUE);
+        if (storedQueue) this.customQueue = JSON.parse(storedQueue);
+      } catch (err) { }
+
+      this.paradeSpeed = parseFloat(this.settings.paradeSpeed) || 1.2;
+      this.sound.enabled = this.settings.soundEnabled;
     }
 
-    saveGifts() { localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(this.gifts)); }
+    saveGifts() { 
+      try { 
+        localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(this.gifts)); 
+      } catch (e) {
+        alert("Cảnh báo: Bộ nhớ trình duyệt bị đầy! Vui lòng xóa bớt ảnh Quà Tặng cũ hoặc dùng ảnh nhẹ hơn.");
+      }
+    }
     
     saveSettings() { 
       try {
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings)); 
       } catch (e) {
-        console.warn("Storage warning:", e);
+        alert("Cảnh báo: Không thể lưu Cấu Hình vì bộ nhớ đầy. Hãy giảm dung lượng ảnh nền!");
       }
     }
 
-    saveHistory() { localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(this.history)); }
-    saveQueue() { localStorage.setItem(STORAGE_KEYS.QUEUE, JSON.stringify(this.customQueue)); }
+    saveHistory() { 
+      try { localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(this.history)); } catch (e) {}
+    }
+    
+    saveQueue() { 
+      try { localStorage.setItem(STORAGE_KEYS.QUEUE, JSON.stringify(this.customQueue)); } catch (e) {} 
+    }
 
     showToast(message) {
       const toast = document.getElementById('toastNotification');
@@ -1152,8 +1162,6 @@
         awardedGifts.push(pickedGift);
       }
 
-      // Vẫn lưu dữ liệu ngay lập tức để an toàn (ko sợ ấn F5), 
-      // Nhưng TUYỆT ĐỐI KO CHẠY updateHUD hay renderParade ngay ở đây để MÓN QUÀ KHÔNG BỊ BIẾN MẤT!
       this.saveGifts(); 
 
       const carouselRect = document.getElementById('targetCarousel').getBoundingClientRect();
@@ -1395,7 +1403,6 @@
         winnerName = (gift.secretWinnerName || '').trim();
       } else {
         luckyNumber = this.getRandomUniqueNumber(batchUsed);
-        // Link tên khách hàng từ CSV nếu có
         if (this.settings.participantList && this.settings.participantList.length > 0) {
             const p = this.settings.participantList.find(x => x.number === luckyNumber);
             if (p && p.name) winnerName = p.name;
@@ -1436,7 +1443,6 @@
     }
 
     triggerVictoryCelebration(awardedGifts) {
-      // 1. UPDATE DỮ LIỆU UI LÊN SAU KHI HOÀN TẤT VÒNG QUAY, ĐỂ QUÀ KO BIẾN MẤT TRƯỚC BẢNG VINH DANH!
       this.renderParade();
       this.renderAdminGifts();
       this.updateHUD();
@@ -1616,7 +1622,6 @@
         randomPullInput.value = this.settings.randomPullCount || 1;
       }
 
-      // Xây dựng Tự Động các nút thanh Tiến trình theo các giải có trong hệ thống
       const progBar = document.getElementById('tierProgressionBar');
       if (progBar) {
           progBar.innerHTML = '';
@@ -1642,7 +1647,6 @@
           });
       }
 
-      // Xây dựng Tự Động ô cài đặt Số Lượng Dây cho từng Giải
       const ropeGrid = document.getElementById('tierRopesConfigGrid');
       if (ropeGrid) {
           ropeGrid.innerHTML = '';
@@ -1667,7 +1671,6 @@
           });
       }
 
-      // Cập nhật số lượng khách trong Tab CSV
       const pCountLabel = document.getElementById('participantCountLabel');
       if (pCountLabel) {
          pCountLabel.textContent = this.settings.participantList ? `${this.settings.participantList.length} khách` : '0 khách';
@@ -1917,7 +1920,6 @@
         }
       });
 
-      // Lắng nghe sự kiện để đổi Random vs Theo giải một cách mượt mà nhất
       document.querySelectorAll('input[name="drawModeRadio"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
@@ -2016,16 +2018,16 @@
         });
       });
 
-      document.getElementById('settingTitleColorInput')?.addEventListener('input', (e) => {
-        document.documentElement.style.setProperty('--theme-text-title', e.target.value);
-      });
-
-      document.getElementById('settingSubColorInput')?.addEventListener('input', (e) => {
-        document.documentElement.style.setProperty('--theme-text-sub', e.target.value);
-      });
-
-      document.getElementById('settingBtnColorInput')?.addEventListener('input', (e) => {
-        document.documentElement.style.setProperty('--theme-btn-bg', e.target.value);
+      // AUTO-SAVE Giao diện mỗi khi sửa
+      ['settingEventTitle', 'settingEventSubtitle', 'settingTitleColorInput', 'settingSubColorInput', 'settingBtnColorInput'].forEach(id => {
+         document.getElementById(id)?.addEventListener('change', (e) => {
+            if(id === 'settingEventTitle') this.settings.eventTitle = e.target.value.trim();
+            if(id === 'settingEventSubtitle') this.settings.eventSubtitle = e.target.value.trim();
+            if(id === 'settingTitleColorInput') this.settings.customTitleColor = e.target.value;
+            if(id === 'settingSubColorInput') this.settings.customSubColor = e.target.value;
+            if(id === 'settingBtnColorInput') this.settings.customBtnColor = e.target.value;
+            this.saveSettings(); this.applyTheme(); this.applyCustomBrand();
+         });
       });
 
       document.getElementById('saveThemeSettingsBtn')?.addEventListener('click', () => {
@@ -2042,7 +2044,7 @@
 
       document.getElementById('saveAndCloseAdminBtn')?.addEventListener('click', () => {
         this.closeAdminModal();
-        this.showToast('Đã lưu cấu hình và quay trở lại sân khấu!');
+        this.showToast('Đã đóng cấu hình!');
       });
 
       document.getElementById('settingLogoFileInput')?.addEventListener('change', (e) => {
@@ -2063,6 +2065,7 @@
         this.showToast('Đã xóa logo');
       });
 
+      // Siêu nén Ảnh Nền để ngăn F5 bay dữ liệu
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2080,7 +2083,7 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              this.settings.bgImageUrl = canvas.toDataURL('image/jpeg', 0.65);
+              this.settings.bgImageUrl = canvas.toDataURL('image/jpeg', 0.5); // Chất lượng 50% là đủ nhẹ
               this.saveSettings();
               this.applyCustomBrand();
               this.showToast('Đã cập nhật ảnh nền thành công!');
@@ -2106,7 +2109,7 @@
       document.getElementById('addNewGiftBtn')?.addEventListener('click', () => this.openGiftForm());
       document.getElementById('cancelGiftFormBtn')?.addEventListener('click', () => document.getElementById('giftFormDrawer')?.classList.add('hidden'));
 
-      // Xử lý nén và tải ảnh giải thưởng
+      // Nén ảnh quà tặng tự động
       document.getElementById('formImageUpload')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2115,7 +2118,7 @@
             const img = new Image();
             img.onload = () => {
               const canvas = document.createElement('canvas');
-              const maxDim = 800; // Ảnh quà tặng không cần quá to, giúp siêu nhẹ data
+              const maxDim = 400; // Quà hiển thị rất nhỏ nên 400px là quá nét
               let w = img.width, h = img.height;
               if (w > maxDim || h > maxDim) {
                 if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -2124,7 +2127,7 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              this.currentGiftImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+              this.currentGiftImageBase64 = canvas.toDataURL('image/jpeg', 0.6); // 60% quality
               
               const preview = document.getElementById('formImagePreview');
               preview.src = this.currentGiftImageBase64;
@@ -2166,7 +2169,6 @@
         this.showToast('Đã lưu phần thưởng!');
       });
 
-      // Nhập CSV khách hàng
       document.getElementById('btnTriggerParticipantCsv')?.addEventListener('click', () => {
         document.getElementById('importParticipantCsv').click();
       });
@@ -2196,17 +2198,36 @@
           this.renderAdminNumbers();
           this.updateHUD();
           this.showToast(`Đã nhập ${list.length} khách hàng từ CSV!`);
-          e.target.value = ''; // Reset input
+          e.target.value = ''; 
         };
         reader.readAsText(file, 'UTF-8');
       });
 
+      // Tự lưu các cài đặt Text ngay khi người dùng ngừng gõ (để tránh F5 mất)
+      document.getElementById('globalNumberRangeInput')?.addEventListener('change', (e) => {
+        this.settings.globalNumberRange = e.target.value.trim(); this.saveSettings();
+      });
+      document.getElementById('globalNumberListInput')?.addEventListener('change', (e) => {
+        this.settings.globalNumberList = e.target.value.trim(); this.saveSettings();
+      });
+      document.getElementById('uniqueNumbersToggle')?.addEventListener('change', (e) => {
+        this.settings.uniqueNumbers = e.target.checked; this.saveSettings();
+      });
+      
       document.getElementById('saveGlobalNumbersBtn')?.addEventListener('click', () => {
         this.settings.globalNumberRange = document.getElementById('globalNumberRangeInput')?.value.trim();
         this.settings.globalNumberList = document.getElementById('globalNumberListInput')?.value.trim();
         this.settings.uniqueNumbers = document.getElementById('uniqueNumbersToggle')?.checked;
         this.saveSettings();
         this.showToast('Đãy số may mắn đã được cập nhật!');
+      });
+
+      // Tự động lưu Ô bốc thăm đặc biệt
+      document.getElementById('nextSecretNumberInput')?.addEventListener('change', (e) => {
+         this.settings.nextSecretNumber = e.target.value.trim(); this.saveSettings();
+      });
+      document.getElementById('nextSecretWinnerNameInput')?.addEventListener('change', (e) => {
+         this.settings.nextSecretWinnerName = e.target.value.trim(); this.saveSettings();
       });
 
       document.getElementById('applyNextSecretBtn')?.addEventListener('click', () => {
@@ -2219,13 +2240,12 @@
         this.showToast(`Đã khóa lượt tới: Số ${secNum}`);
       });
 
-      // Tải Lịch sử Trúng giải (Xuất CSV)
       document.getElementById('exportHistoryCsvBtn')?.addEventListener('click', () => {
         if (!this.history.length) {
           alert('Chưa có dữ liệu người trúng giải để tải về!');
           return;
         }
-        let csvContent = '\uFEFF'; // Thêm BOM để Excel đọc tiếng Việt không bị lỗi font
+        let csvContent = '\uFEFF'; 
         csvContent += "Lượt quay,Thời gian,Phần thưởng,Hạng giải,Mã số trúng,Khách hàng\n";
         this.history.forEach(item => {
           const row = [
