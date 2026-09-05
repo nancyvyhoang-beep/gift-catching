@@ -127,7 +127,7 @@
       }
     }
     .btn-liquid-gold {
-      background: var(--theme-btn-bg) !important;
+      background-color: var(--theme-btn-bg) !important;
       color: var(--theme-text-title) !important;
       animation: liquidBreathing 3s ease-in-out infinite;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -229,7 +229,7 @@
       <span class="material-symbols-outlined text-[19px]">fullscreen</span>
     </button>
     
-    <button id="openAdminBtn" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-200 glass-card hover:border-amber-400/50 hover:text-amber-300 transition cursor-pointer">
+    <button id="openAdminBtn" onclick="window.gameApp &amp;&amp; window.gameApp.openAdminModal()" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-200 glass-card hover:border-amber-400/50 hover:text-amber-300 transition cursor-pointer">
       <span class="material-symbols-outlined text-base">tune</span>
       <span>Cấu hình</span>
     </button>
@@ -287,8 +287,8 @@
 
   <!-- Conveyor Carousel Container -->
   <div class="relative w-full pt-2 pb-2 px-4 z-10 flex flex-col items-center">
-    <div id="targetCarousel" class="relative w-full max-w-5xl h-44 sm:h-52 overflow-hidden rounded-2xl glass-frosted border border-amber-500/30 flex items-center shadow-inner">
-      <div id="paradeTrack" class="flex items-center gap-4 sm:gap-6 absolute left-0 will-change-transform transition-none py-2 px-4"></div>
+    <div id="targetCarousel" class="relative w-full max-w-5xl h-44 sm:h-52 overflow-hidden rounded-3xl glass-frosted border border-amber-500/30 flex items-center shadow-inner">
+      <div id="paradeTrack" class="flex items-center gap-4 sm:gap-6 absolute left-0 will-change-transform transition-none py-2 px-4 whitespace-nowrap"></div>
     </div>
   </div>
 
@@ -372,7 +372,7 @@
 
 <!-- BEGIN: Admin Settings & Configuration Modal -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 select-none hidden" id="configModal">
-  <div class="absolute inset-0 bg-[#04060c]/80 backdrop-blur-md transition-opacity duration-300"></div>
+  <div class="absolute inset-0 bg-[#04060c]/80 backdrop-blur-md transition-opacity duration-300" onclick="window.gameApp &amp;&amp; window.gameApp.closeAdminModal()"></div>
 
   <div class="relative z-10 w-full max-w-5xl h-[88vh] max-h-[780px] rounded-3xl glass-card-active border border-amber-400/40 flex flex-col overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.85)]">
     <!-- Modal Header -->
@@ -389,7 +389,7 @@
           <p class="text-xs text-slate-400 font-medium">Thiết lập phần thưởng, tỷ lệ trúng và kịch bản Gala Night</p>
         </div>
       </div>
-      <button class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-amber-400/50 transition cursor-pointer" id="closeAdminBtn" title="Đóng popup">
+      <button class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white hover:border-amber-400/50 transition cursor-pointer" id="closeAdminBtn" onclick="window.gameApp &amp;&amp; window.gameApp.closeAdminModal()" title="Đóng popup">
         <span class="material-symbols-outlined text-lg">close</span>
       </button>
     </div>
@@ -713,6 +713,25 @@
 
 <!-- JAVASCRIPT ENGINE & LOGIC -->
 <script>
+  const DEFAULT_VIP_GIFTS = [
+    { id: 'g_third', name: 'Loa Marshall Stanmore III', tier: 'third', badge: 'GIẢI BA', quantity: 3, remaining: 3, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_second', name: '1 Chỉ Vàng SJC 9999 Phú Quý', tier: 'second', badge: 'GIẢI NHÌ', quantity: 2, remaining: 2, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_first', name: 'iPhone 16 Pro Max 256GB Titan', tier: 'first', badge: 'GIẢI NHẤT', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_special', name: 'Xe Máy Honda SH 150i ABS', tier: 'special', badge: 'GIẢI ĐẶC BIỆT', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_lucky', name: 'Voucher Mua Sắm VIP 1.000.000đ', tier: 'consolation', badge: 'GIẢI MAY MẮN', quantity: 5, remaining: 5, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&auto=format&fit=crop&q=80' }
+  ];
+
+  const TIER_ORDER = ['third', 'second', 'first', 'special', 'consolation'];
+  const TIER_LABELS = { third: '🥉 Giải Ba', second: '🥈 Giải Nhì', first: '🥇 Giải Nhất', special: '👑 Giải Đặc Biệt', consolation: '🎁 Giải May Mắn' };
+
+  const THEMES = {
+    dark_luxury: { bg: '#070B16', textTitle: '#FFFFFF', textSub: '#94A3B8', btnBg: '#F59E0B' },
+    festive_ruby: { bg: '#1A0507', textTitle: '#FEF08A', textSub: '#FECACA', btnBg: '#EF4444' },
+    emerald_gold: { bg: '#04140D', textTitle: '#FEF08A', textSub: '#A7F3D0', btnBg: '#10B981' },
+    cartoon_fun: { bg: '#181206', textTitle: '#FDE047', textSub: '#FDE68A', btnBg: '#F59E0B' },
+    royal_gold: { bg: '#1C1606', textTitle: '#FFFFFF', textSub: '#FEF3C7', btnBg: '#D97706' }
+  };
+
   class SoundEngine {
     constructor() {
       this.ctx = null;
@@ -832,10 +851,10 @@
   }
 
   const STORAGE_KEYS = {
-    GIFTS: 'gala_lasso_gifts_stitch_v3',
-    SETTINGS: 'gala_lasso_settings_stitch_v3',
-    HISTORY: 'gala_lasso_history_stitch_v3',
-    QUEUE: 'gala_lasso_queue_stitch_v3'
+    GIFTS: 'gala_lasso_gifts_v63_final',
+    SETTINGS: 'gala_lasso_settings_v63_final',
+    HISTORY: 'gala_lasso_history_v63_final',
+    QUEUE: 'gala_lasso_queue_v63_final'
   };
 
   class GameApp {
@@ -881,6 +900,16 @@
       this.struggleTimer = 0;
 
       this.init();
+    }
+
+    openAdminModal() {
+      const modal = document.getElementById('configModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    closeAdminModal() {
+      const modal = document.getElementById('configModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     getActiveTierRopeCount() {
@@ -1005,6 +1034,7 @@
 
     renderParade() {
       const track = document.getElementById('paradeTrack');
+      if (!track) return;
       track.innerHTML = '';
       if (!this.gifts.length) return;
 
@@ -1015,23 +1045,25 @@
         const isHighlighted = (this.settings.drawMode === 'random_all') || isCurrentTier;
 
         const box = document.createElement('div');
-        box.className = `target-gift-card flex-shrink-0 w-32 sm:w-40 h-32 sm:h-40 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border-2 ${isHighlighted ? 'border-amber-400 ring-2 ring-amber-400/30' : 'border-slate-800 opacity-60'} ${isOutOfStock ? 'opacity-40 grayscale' : ''} p-2.5 flex flex-col justify-between items-center shadow-xl relative`;
+        box.className = `target-gift-card shrink-0 w-44 sm:w-52 h-36 sm:h-40 rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-between transition-all duration-300 relative ${
+          isHighlighted ? 'glass-card-active scale-105 opacity-100 z-20' : 'glass-card opacity-60 hover:opacity-90'
+        } ${isOutOfStock ? 'grayscale opacity-30' : ''}`;
         box.dataset.giftId = gift.id;
 
         const quotaBadge = isOutOfStock ? 
-          `<span class="text-[9px] bg-rose-500/25 text-rose-300 px-1.5 py-0.5 rounded font-bold">HẾT</span>` : 
-          `<span class="text-[9px] bg-amber-500/25 text-amber-300 px-1.5 py-0.5 rounded font-bold">Còn ${gift.remaining}/${gift.quantity}</span>`;
+          `<span class="text-[9px] bg-rose-500/20 text-rose-300 border border-rose-500/30 px-1.5 py-0.5 rounded font-bold">HẾT</span>` : 
+          `<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-400/30 px-1.5 py-0.5 rounded font-mono font-bold">${gift.remaining}/${gift.quantity}</span>`;
 
         box.innerHTML = `
-          <div class="w-full flex justify-between items-center">
-            <span class="text-[9px] font-black px-2 py-0.5 rounded-full text-slate-950 bg-gradient-to-r from-amber-300 to-yellow-400 shadow">${TIER_LABELS[gift.tier] || gift.badge}</span>
+          <div class="w-full flex items-center justify-between text-xs mb-1">
+            <span class="font-bold text-amber-400 uppercase tracking-tight text-[10px]">${TIER_LABELS[gift.tier] || gift.badge}</span>
             ${quotaBadge}
           </div>
-          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-950/90 border border-amber-500/20 p-1 flex items-center justify-center overflow-hidden my-0.5">
-            ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="w-full h-full object-contain pointer-events-none" />` : `<i class="fa-solid fa-gift text-xl text-amber-400"></i>`}
+          <div class="w-16 h-16 sm:w-20 sm:h-20 my-0.5 flex items-center justify-center p-1 overflow-hidden">
+            ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="max-h-full object-contain pointer-events-none drop-shadow-md" />` : `<span class="material-symbols-outlined text-amber-400 text-3xl">featured_seasonal_and_gifts</span>`}
           </div>
-          <div class="w-full text-center px-1">
-            <p class="text-[10px] sm:text-xs font-bold text-slate-100 leading-tight line-clamp-2" title="${gift.name}">${gift.name}</p>
+          <div class="text-center w-full mt-0.5">
+            <h3 class="text-xs font-bold text-white truncate px-1">${gift.name}</h3>
           </div>
         `;
         track.appendChild(box);
@@ -1915,16 +1947,6 @@
         setTimeout(() => this.checkAndPromptNextTier(), 300);
       });
 
-      document.getElementById('openAdminBtn')?.addEventListener('click', () => {
-        document.getElementById('configModal')?.classList.remove('hidden');
-      });
-      document.getElementById('closeAdminBtn')?.addEventListener('click', () => {
-        document.getElementById('configModal')?.classList.add('hidden');
-      });
-      document.getElementById('saveAndCloseAdminBtn')?.addEventListener('click', () => {
-        document.getElementById('configModal')?.classList.add('hidden');
-      });
-
       const tabs = document.querySelectorAll('.admin-tab');
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -1961,6 +1983,11 @@
         this.applyTheme();
         this.applyCustomBrand();
         this.showToast('Đã lưu thông tin thương hiệu & màu sắc!');
+      });
+
+      document.getElementById('saveAndCloseAdminBtn')?.addEventListener('click', () => {
+        this.closeAdminModal();
+        this.showToast('Đã lưu cấu hình và quay trở lại sân khấu!');
       });
 
       document.getElementById('settingLogoFileInput')?.addEventListener('change', (e) => {
