@@ -482,19 +482,22 @@
               </div>
             </div>
 
-            <!-- CHỈNH SỬA: NHẬP TỰ DO HẠNG GIẢI VÀ BỎ HUY HIỆU -->
             <div class="grid grid-cols-1 gap-3">
               <div>
                 <label class="block text-xs font-bold text-slate-300 mb-1">Hạng Giải Thưởng (Nhập tùy ý) *</label>
                 <input type="text" id="formGiftTier" required placeholder="VD: Giải Nhất, Giải Đặc Biệt, Lì Xì..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white" />
               </div>
             </div>
-            <!-- KẾT THÚC CHỈNH SỬA -->
 
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1">Link URL hình ảnh</label>
-              <input type="url" id="formImageUrl" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
+              <label class="block text-xs font-bold text-slate-300 mb-1">Hình ảnh giải thưởng</label>
+              <div class="flex items-center gap-3">
+                <input type="file" id="formImageUpload" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-amber-500 file:text-slate-950 cursor-pointer"/>
+                <img id="formImagePreview" src="" class="hidden w-10 h-10 object-contain bg-slate-800 rounded border border-slate-600" />
+                <button type="button" id="removeFormImageBtn" class="hidden px-2 py-1 bg-rose-950 hover:bg-rose-800 text-rose-300 rounded text-[10px] font-bold cursor-pointer transition">Xóa ảnh</button>
+              </div>
             </div>
+            
             <div class="flex items-center justify-end gap-2 pt-2">
               <button type="button" id="cancelGiftFormBtn" class="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-slate-300 cursor-pointer">Hủy</button>
               <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs shadow cursor-pointer">Lưu Quà Tặng</button>
@@ -546,12 +549,30 @@
                 <input type="radio" name="globalNumType" value="list" class="text-amber-500" /> Danh sách mã số vé (List)
               </label>
             </div>
+            
             <div id="globalRangeBox">
               <input type="text" id="globalNumberRangeInput" value="001-150" class="w-full max-w-xs bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-amber-300 font-mono font-bold focus:border-amber-400" />
             </div>
+            
             <div id="globalListBox" class="hidden">
               <textarea id="globalNumberListInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-amber-300 font-mono focus:border-amber-400" placeholder="101, 102, 103..."></textarea>
             </div>
+            
+            <!-- Phần nhập CSV Khách Hàng mới thêm -->
+            <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-slate-300 font-bold block">Danh sách khách hàng (CSV)</span>
+                <span class="text-[10px] text-slate-500">Cột 1: Mã số, Cột 2: Tên. (VD: 001, Nguyễn Văn A)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span id="participantCountLabel" class="text-[10px] text-emerald-400 font-bold">0 khách</span>
+                <button type="button" id="btnTriggerParticipantCsv" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 cursor-pointer flex items-center gap-1 transition">
+                  <span class="material-symbols-outlined text-[14px]">upload_file</span> Nhập CSV
+                </button>
+                <input type="file" id="importParticipantCsv" accept=".csv" class="hidden" />
+              </div>
+            </div>
+
             <div class="pt-2 flex items-center justify-between border-t border-slate-800">
               <span class="text-xs text-slate-300 font-bold">Chống trùng lặp số (Mỗi số chỉ trúng 1 lần)</span>
               <input type="checkbox" id="uniqueNumbersToggle" checked class="w-4 h-4 text-amber-500 rounded cursor-pointer" />
@@ -606,7 +627,12 @@
       <div id="tab-history" class="tab-pane hidden space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="font-bold text-slate-100 text-sm">Lịch Sử Các Lượt Đã Trao Thưởng</h3>
-          <button id="clearHistoryBtn" class="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 text-xs font-bold cursor-pointer">Xóa Lịch Sử</button>
+          <div class="flex items-center gap-2">
+            <button id="exportHistoryCsvBtn" class="px-3 py-1.5 rounded-lg bg-emerald-900/60 hover:bg-emerald-800 text-emerald-300 hover:text-emerald-200 text-xs font-bold cursor-pointer border border-emerald-500/30 flex items-center gap-1 transition">
+              <span class="material-symbols-outlined text-[14px]">download</span> Tải CSV
+            </button>
+            <button id="clearHistoryBtn" class="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-300 text-xs font-bold cursor-pointer">Xóa Lịch Sử</button>
+          </div>
         </div>
         <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden max-h-80 overflow-y-auto">
           <table class="w-full text-left text-xs text-slate-300">
@@ -778,10 +804,10 @@
   }
 
   const STORAGE_KEYS = {
-    GIFTS: 'gala_lasso_gifts_v65_dyn',
-    SETTINGS: 'gala_lasso_settings_v65_dyn',
-    HISTORY: 'gala_lasso_history_v65_dyn',
-    QUEUE: 'gala_lasso_queue_v65_dyn'
+    GIFTS: 'gala_lasso_gifts_v66_csv',
+    SETTINGS: 'gala_lasso_settings_v66_csv',
+    HISTORY: 'gala_lasso_history_v66_csv',
+    QUEUE: 'gala_lasso_queue_v66_csv'
   };
 
   class GameApp {
@@ -789,6 +815,7 @@
       this.sound = new SoundEngine();
       this.gifts = [];
       this.customQueue = [];
+      this.currentGiftImageBase64 = '';
       this.settings = {
         eventTitle: 'CH TRADING',
         eventSubtitle: 'Client Appreciation',
@@ -806,6 +833,7 @@
         globalNumType: 'range',
         globalNumberRange: '001-150',
         globalNumberList: '101, 102, 120',
+        participantList: [], // Format: [{number: '001', name: 'Nguyen Van A'}]
         uniqueNumbers: true,
         soundEnabled: true,
         currentTurn: 1,
@@ -828,7 +856,6 @@
       this.init();
     }
 
-    // Thuật toán quét và lấy ra các Giải thưởng Tự Chọn (Unique Tiers) hiện có
     getUniqueTiers() {
       const tiers = [];
       this.gifts.forEach(g => {
@@ -890,6 +917,9 @@
            this.settings = { ...this.settings, ...parsedSettings };
            if (!this.settings.tierPullCounts) {
                this.settings.tierPullCounts = {};
+           }
+           if (!this.settings.participantList) {
+               this.settings.participantList = [];
            }
         }
         if (storedHistory) {
@@ -1365,6 +1395,11 @@
         winnerName = (gift.secretWinnerName || '').trim();
       } else {
         luckyNumber = this.getRandomUniqueNumber(batchUsed);
+        // Link tên khách hàng từ CSV nếu có
+        if (this.settings.participantList && this.settings.participantList.length > 0) {
+            const p = this.settings.participantList.find(x => x.number === luckyNumber);
+            if (p && p.name) winnerName = p.name;
+        }
       }
 
       batchUsed.add(luckyNumber);
@@ -1632,6 +1667,12 @@
           });
       }
 
+      // Cập nhật số lượng khách trong Tab CSV
+      const pCountLabel = document.getElementById('participantCountLabel');
+      if (pCountLabel) {
+         pCountLabel.textContent = this.settings.participantList ? `${this.settings.participantList.length} khách` : '0 khách';
+      }
+
       const soundIcon = document.getElementById('soundIcon');
       if (soundIcon) soundIcon.textContent = this.sound.enabled ? 'volume_up' : 'volume_off';
     }
@@ -1767,14 +1808,28 @@
         document.getElementById('formGiftName').value = gift.name;
         document.getElementById('formGiftTier').value = gift.tier || 'Giải Ba';
         document.getElementById('formGiftQuantity').value = gift.quantity || 1;
-        document.getElementById('formImageUrl').value = gift.imageUrl || '';
+        this.currentGiftImageBase64 = gift.imageUrl || '';
         document.getElementById('giftFormTitle').textContent = 'Chỉnh Sửa Phần Thưởng';
       } else {
         document.getElementById('giftItemForm').reset();
         document.getElementById('formGiftId').value = '';
         document.getElementById('formGiftQuantity').value = '1';
+        this.currentGiftImageBase64 = '';
         document.getElementById('giftFormTitle').textContent = 'Thêm Phần Thưởng Mới';
       }
+      
+      const preview = document.getElementById('formImagePreview');
+      const removeBtn = document.getElementById('removeFormImageBtn');
+      if (this.currentGiftImageBase64) {
+          preview.src = this.currentGiftImageBase64;
+          preview.classList.remove('hidden');
+          removeBtn.classList.remove('hidden');
+      } else {
+          preview.src = '';
+          preview.classList.add('hidden');
+          removeBtn.classList.add('hidden');
+      }
+      document.getElementById('formImageUpload').value = '';
     }
 
     deleteGift(giftId) {
@@ -2051,13 +2106,52 @@
       document.getElementById('addNewGiftBtn')?.addEventListener('click', () => this.openGiftForm());
       document.getElementById('cancelGiftFormBtn')?.addEventListener('click', () => document.getElementById('giftFormDrawer')?.classList.add('hidden'));
 
+      // Xử lý nén và tải ảnh giải thưởng
+      document.getElementById('formImageUpload')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            const img = new Image();
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const maxDim = 800; // Ảnh quà tặng không cần quá to, giúp siêu nhẹ data
+              let w = img.width, h = img.height;
+              if (w > maxDim || h > maxDim) {
+                if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+                else { w = Math.round((w * maxDim) / h); h = maxDim; }
+              }
+              canvas.width = w; canvas.height = h;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0, w, h);
+              this.currentGiftImageBase64 = canvas.toDataURL('image/jpeg', 0.8);
+              
+              const preview = document.getElementById('formImagePreview');
+              preview.src = this.currentGiftImageBase64;
+              preview.classList.remove('hidden');
+              document.getElementById('removeFormImageBtn').classList.remove('hidden');
+            };
+            img.src = evt.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      document.getElementById('removeFormImageBtn')?.addEventListener('click', () => {
+        this.currentGiftImageBase64 = '';
+        document.getElementById('formImagePreview').classList.add('hidden');
+        document.getElementById('formImagePreview').src = '';
+        document.getElementById('removeFormImageBtn').classList.add('hidden');
+        document.getElementById('formImageUpload').value = '';
+      });
+
       document.getElementById('giftItemForm')?.addEventListener('submit', (e) => {
         e.preventDefault();
         const id = document.getElementById('formGiftId').value || `g_${Date.now()}`;
         const name = document.getElementById('formGiftName').value.trim();
         const tier = document.getElementById('formGiftTier').value.trim() || 'Mặc định';
         const quantity = parseInt(document.getElementById('formGiftQuantity').value, 10) || 1;
-        const imageUrl = document.getElementById('formImageUrl').value.trim();
+        const imageUrl = this.currentGiftImageBase64;
 
         const existingIndex = this.gifts.findIndex(g => g.id === id);
         let remaining = quantity;
@@ -2070,6 +2164,41 @@
         this.saveGifts(); this.renderAdminGifts(); this.renderParade(); this.updateHUD();
         document.getElementById('giftFormDrawer')?.classList.add('hidden');
         this.showToast('Đã lưu phần thưởng!');
+      });
+
+      // Nhập CSV khách hàng
+      document.getElementById('btnTriggerParticipantCsv')?.addEventListener('click', () => {
+        document.getElementById('importParticipantCsv').click();
+      });
+
+      document.getElementById('importParticipantCsv')?.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          const text = evt.target.result;
+          const lines = text.split('\n');
+          const list = [];
+          const numbers = [];
+          lines.forEach(line => {
+            const parts = line.split(',');
+            if (parts.length > 0 && parts[0].trim()) {
+              const num = parts[0].trim();
+              const name = parts[1] ? parts[1].trim() : 'Khách hàng ' + num;
+              list.push({ number: num, name: name });
+              numbers.push(num);
+            }
+          });
+          this.settings.participantList = list;
+          this.settings.globalNumberList = numbers.join(', ');
+          this.settings.globalNumType = 'list';
+          this.saveSettings();
+          this.renderAdminNumbers();
+          this.updateHUD();
+          this.showToast(`Đã nhập ${list.length} khách hàng từ CSV!`);
+          e.target.value = ''; // Reset input
+        };
+        reader.readAsText(file, 'UTF-8');
       });
 
       document.getElementById('saveGlobalNumbersBtn')?.addEventListener('click', () => {
@@ -2088,6 +2217,35 @@
         this.settings.nextSecretWinnerName = secName;
         this.saveSettings(); this.renderAdminSecretSettings();
         this.showToast(`Đã khóa lượt tới: Số ${secNum}`);
+      });
+
+      // Tải Lịch sử Trúng giải (Xuất CSV)
+      document.getElementById('exportHistoryCsvBtn')?.addEventListener('click', () => {
+        if (!this.history.length) {
+          alert('Chưa có dữ liệu người trúng giải để tải về!');
+          return;
+        }
+        let csvContent = '\uFEFF'; // Thêm BOM để Excel đọc tiếng Việt không bị lỗi font
+        csvContent += "Lượt quay,Thời gian,Phần thưởng,Hạng giải,Mã số trúng,Khách hàng\n";
+        this.history.forEach(item => {
+          const row = [
+            item.turn,
+            `"${item.timestamp}"`,
+            `"${item.giftName}"`,
+            `"${item.tier}"`,
+            `"${item.luckyNumber}"`,
+            `"${item.winnerName}"`
+          ];
+          csvContent += row.join(",") + "\n";
+        });
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `danh_sach_trung_thuong_${Date.now()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
 
       document.getElementById('clearHistoryBtn')?.addEventListener('click', () => {
