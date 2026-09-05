@@ -227,28 +227,8 @@
       <span class="material-symbols-outlined text-amber-400 text-sm">military_tech</span>
       <span class="tracking-wider uppercase" id="progressionBarLabel">TIẾN TRÌNH:</span>
     </div>
-    <div id="tierProgressionBar" class="flex items-center flex-wrap gap-2 text-xs">
-      <button class="tier-step-btn active flex items-center space-x-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 transition cursor-pointer" data-tier="third">
-        <span>Giải Ba</span>
-        <span id="badgeCount_third" class="px-1.5 py-0.2 bg-slate-950/20 text-slate-950 rounded-full font-mono text-[11px] font-bold">3</span>
-      </button>
-      <button class="tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer" data-tier="second">
-        <span>Giải Nhì</span>
-        <span id="badgeCount_second" class="font-mono text-amber-400 font-semibold text-[11px]">(2)</span>
-      </button>
-      <button class="tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer" data-tier="first">
-        <span>Giải Nhất</span>
-        <span id="badgeCount_first" class="font-mono text-amber-400 font-semibold text-[11px]">(1)</span>
-      </button>
-      <button class="tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer" data-tier="special">
-        <span>Giải Đặc Biệt</span>
-        <span id="badgeCount_special" class="font-mono text-amber-400 font-semibold text-[11px]">(1)</span>
-      </button>
-      <button class="tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer" data-tier="consolation">
-        <span>May Mắn</span>
-        <span id="badgeCount_consolation" class="font-mono text-amber-400 font-semibold text-[11px]">(5)</span>
-      </button>
-    </div>
+    <!-- Nơi render tự động các nút tiến trình hạng giải -->
+    <div id="tierProgressionBar" class="flex items-center flex-wrap gap-2 text-xs"></div>
   </div>
 </section>
 <!-- END: Award Progress Bar -->
@@ -490,6 +470,7 @@
           <h4 id="giftFormTitle" class="font-bold text-amber-300 text-sm sm:text-base">Thêm Phần Thưởng Mới</h4>
           <form id="giftItemForm" class="space-y-3.5">
             <input type="hidden" id="formGiftId" />
+            
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div class="sm:col-span-2">
                 <label class="block text-xs font-bold text-slate-300 mb-1">Tên Phần Thưởng *</label>
@@ -500,22 +481,16 @@
                 <input type="number" id="formGiftQuantity" min="1" max="999" value="1" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-amber-300 font-bold" />
               </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+            <!-- CHỈNH SỬA: NHẬP TỰ DO HẠNG GIẢI VÀ BỎ HUY HIỆU -->
+            <div class="grid grid-cols-1 gap-3">
               <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">Hạng Giải Thưởng *</label>
-                <select id="formGiftTier" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-                  <option value="third">🥉 Giải Ba</option>
-                  <option value="second">🥈 Giải Nhì</option>
-                  <option value="first">🥇 Giải Nhất</option>
-                  <option value="special">👑 Giải Đặc Biệt</option>
-                  <option value="consolation">🎁 Giải May Mắn</option>
-                </select>
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">Huy hiệu</label>
-                <input type="text" id="formGiftBadge" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white" />
+                <label class="block text-xs font-bold text-slate-300 mb-1">Hạng Giải Thưởng (Nhập tùy ý) *</label>
+                <input type="text" id="formGiftTier" required placeholder="VD: Giải Nhất, Giải Đặc Biệt, Lì Xì..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white" />
               </div>
             </div>
+            <!-- KẾT THÚC CHỈNH SỬA -->
+
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Link URL hình ảnh</label>
               <input type="url" id="formImageUrl" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
@@ -537,7 +512,7 @@
               <input type="radio" name="drawModeRadio" value="tiered" class="mt-0.5 text-amber-500"/>
               <div>
                 <span class="text-xs font-bold text-white block">Theo Hạng Giải (Mặc định)</span>
-                <span class="text-[11px] text-slate-400">Bốc quà tuần tự: Giải Ba ➔ Nhì ➔ Nhất ➔ Đặc Biệt.</span>
+                <span class="text-[11px] text-slate-400">Bốc quà tuần tự các hạng giải.</span>
               </div>
             </label>
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
@@ -556,28 +531,8 @@
 
         <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
           <h4 class="font-bold text-amber-300 text-sm">Số Lượng Quà Bắt Mỗi Lượt (Theo Hạng Giải)</h4>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center">
-              <span class="text-xs font-bold text-amber-300">Giải Ba:</span>
-              <input type="number" min="1" max="10" value="3" data-tier="third" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center">
-              <span class="text-xs font-bold text-amber-300">Giải Nhì:</span>
-              <input type="number" min="1" max="10" value="2" data-tier="second" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center">
-              <span class="text-xs font-bold text-amber-300">Giải Nhất:</span>
-              <input type="number" min="1" max="10" value="1" data-tier="first" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center">
-              <span class="text-xs font-bold text-amber-300">Giải Đặc Biệt:</span>
-              <input type="number" min="1" max="10" value="1" data-tier="special" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center">
-              <span class="text-xs font-bold text-amber-300">Giải May Mắn:</span>
-              <input type="number" min="1" max="10" value="5" data-tier="consolation" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
-            </div>
-          </div>
+          <!-- Nơi render tự động Cấu hình Hạng giải thưởng mới -->
+          <div id="tierRopesConfigGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
 
         <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
@@ -697,15 +652,12 @@
 <!-- JAVASCRIPT ENGINE & LOGIC -->
 <script>
   const DEFAULT_VIP_GIFTS = [
-    { id: 'g_third', name: 'Loa Marshall Stanmore III', tier: 'third', badge: 'GIẢI BA', quantity: 3, remaining: 3, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80' },
-    { id: 'g_second', name: '1 Chỉ Vàng SJC 9999 Phú Quý', tier: 'second', badge: 'GIẢI NHÌ', quantity: 2, remaining: 2, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600&auto=format&fit=crop&q=80' },
-    { id: 'g_first', name: 'iPhone 16 Pro Max 256GB Titan', tier: 'first', badge: 'GIẢI NHẤT', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80' },
-    { id: 'g_special', name: 'Xe Máy Honda SH 150i ABS', tier: 'special', badge: 'GIẢI ĐẶC BIỆT', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&auto=format&fit=crop&q=80' },
-    { id: 'g_lucky', name: 'Voucher Mua Sắm VIP 1.000.000đ', tier: 'consolation', badge: 'GIẢI MAY MẮN', quantity: 5, remaining: 5, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&auto=format&fit=crop&q=80' }
+    { id: 'g_third', name: 'Loa Marshall Stanmore III', tier: 'Giải Ba', quantity: 3, remaining: 3, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_second', name: '1 Chỉ Vàng SJC 9999 Phú Quý', tier: 'Giải Nhì', quantity: 2, remaining: 2, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_first', name: 'iPhone 16 Pro Max 256GB Titan', tier: 'Giải Nhất', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_special', name: 'Xe Máy Honda SH 150i ABS', tier: 'Giải Đặc Biệt', quantity: 1, remaining: 1, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=600&auto=format&fit=crop&q=80' },
+    { id: 'g_lucky', name: 'Voucher Mua Sắm VIP 1.000.000đ', tier: 'Giải May Mắn', quantity: 5, remaining: 5, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&auto=format&fit=crop&q=80' }
   ];
-
-  const TIER_ORDER = ['third', 'second', 'first', 'special', 'consolation'];
-  const TIER_LABELS = { third: '🥉 Giải Ba', second: '🥈 Giải Nhì', first: '🥇 Giải Nhất', special: '👑 Giải Đặc Biệt', consolation: '🎁 Giải May Mắn' };
 
   class SoundEngine {
     constructor() {
@@ -826,10 +778,10 @@
   }
 
   const STORAGE_KEYS = {
-    GIFTS: 'gala_lasso_gifts_v64_final',
-    SETTINGS: 'gala_lasso_settings_v64_final',
-    HISTORY: 'gala_lasso_history_v64_final',
-    QUEUE: 'gala_lasso_queue_v64_final'
+    GIFTS: 'gala_lasso_gifts_v65_dyn',
+    SETTINGS: 'gala_lasso_settings_v65_dyn',
+    HISTORY: 'gala_lasso_history_v65_dyn',
+    QUEUE: 'gala_lasso_queue_v65_dyn'
   };
 
   class GameApp {
@@ -847,8 +799,8 @@
         bgImageUrl: '',
         drawMode: 'tiered', // 'tiered' | 'random_all'
         randomPullCount: 1,
-        activeTier: 'third',
-        tierPullCounts: { third: 3, second: 2, first: 1, special: 1, consolation: 5 },
+        activeTier: 'Giải Ba',
+        tierPullCounts: { 'Giải Ba': 3, 'Giải Nhì': 2, 'Giải Nhất': 1, 'Giải Đặc Biệt': 1, 'Giải May Mắn': 5 },
         paradeSpeed: 1.2,
         autoAdvanceTier: true,
         globalNumType: 'range',
@@ -876,6 +828,15 @@
       this.init();
     }
 
+    // Thuật toán quét và lấy ra các Giải thưởng Tự Chọn (Unique Tiers) hiện có
+    getUniqueTiers() {
+      const tiers = [];
+      this.gifts.forEach(g => {
+        if (g.tier && !tiers.includes(g.tier)) tiers.push(g.tier);
+      });
+      return tiers.length ? tiers : ['Mặc định'];
+    }
+
     openAdminModal() {
       const modal = document.getElementById('configModal');
       if (modal) modal.classList.remove('hidden');
@@ -890,7 +851,7 @@
       if (this.settings.drawMode === 'random_all') {
         return Math.max(1, parseInt(this.settings.randomPullCount, 10) || 1);
       }
-      if (!this.settings.tierPullCounts) this.settings.tierPullCounts = { third: 3, second: 2, first: 1, special: 1, consolation: 5 };
+      if (!this.settings.tierPullCounts) this.settings.tierPullCounts = {};
       return Math.max(1, parseInt(this.settings.tierPullCounts[this.settings.activeTier], 10) || 1);
     }
 
@@ -928,7 +889,7 @@
            const parsedSettings = JSON.parse(storedSettings);
            this.settings = { ...this.settings, ...parsedSettings };
            if (!this.settings.tierPullCounts) {
-               this.settings.tierPullCounts = { third: 3, second: 2, first: 1, special: 1, consolation: 5 };
+               this.settings.tierPullCounts = {};
            }
         }
         if (storedHistory) {
@@ -1043,7 +1004,7 @@
 
         box.innerHTML = `
           <div class="w-full flex items-center justify-between text-xs mb-1">
-            <span class="font-bold text-amber-400 uppercase tracking-tight text-[10px]">${TIER_LABELS[gift.tier] || gift.badge}</span>
+            <span class="font-bold text-amber-400 uppercase tracking-tight text-[10px] truncate max-w-[90px] block">${gift.tier}</span>
             ${quotaBadge}
           </div>
           <div class="w-16 h-16 sm:w-20 sm:h-20 my-0.5 flex items-center justify-center p-1 overflow-hidden">
@@ -1161,10 +1122,9 @@
         awardedGifts.push(pickedGift);
       }
 
-      this.saveGifts();
-      this.renderParade();
-      this.renderAdminGifts();
-      this.updateHUD();
+      // Vẫn lưu dữ liệu ngay lập tức để an toàn (ko sợ ấn F5), 
+      // Nhưng TUYỆT ĐỐI KO CHẠY updateHUD hay renderParade ngay ở đây để MÓN QUÀ KHÔNG BỊ BIẾN MẤT!
+      this.saveGifts(); 
 
       const carouselRect = document.getElementById('targetCarousel').getBoundingClientRect();
       const canvasRect = this.canvas.getBoundingClientRect();
@@ -1363,13 +1323,13 @@
 
     checkAndPromptNextTier() {
       if (this.settings.drawMode === 'tiered' && this.checkCurrentTierQuota() <= 0) {
-        const availableTiers = TIER_ORDER.filter(t => this.gifts.some(g => g.tier === t));
+        const availableTiers = this.getUniqueTiers();
         const currentIdx = availableTiers.indexOf(this.settings.activeTier);
         
         if (currentIdx >= 0 && currentIdx < availableTiers.length - 1) {
           const nextTierKey = availableTiers[currentIdx + 1];
           const modal = document.getElementById('tierCompletedModal');
-          document.getElementById('tierCompletedMsg').innerHTML = `Đã hoàn tất <b>${TIER_LABELS[this.settings.activeTier]}</b>! Chuyển sang <b>${TIER_LABELS[nextTierKey]}</b>.`;
+          document.getElementById('tierCompletedMsg').innerHTML = `Đã hoàn tất <b>${this.settings.activeTier}</b>! Chuyển sang <b>${nextTierKey}</b>.`;
           modal.classList.remove('hidden');
           setTimeout(() => modal.classList.remove('opacity-0', 'scale-90'), 20);
           this.pendingNextTier = nextTierKey;
@@ -1386,7 +1346,7 @@
         this.saveSettings();
         this.updateHUD();
         this.renderParade();
-        this.showToast(`Đã chuyển sang: ${TIER_LABELS[this.settings.activeTier]}`);
+        this.showToast(`Đã chuyển sang: ${this.settings.activeTier}`);
       }
     }
 
@@ -1441,6 +1401,11 @@
     }
 
     triggerVictoryCelebration(awardedGifts) {
+      // 1. UPDATE DỮ LIỆU UI LÊN SAU KHI HOÀN TẤT VÒNG QUAY, ĐỂ QUÀ KO BIẾN MẤT TRƯỚC BẢNG VINH DANH!
+      this.renderParade();
+      this.renderAdminGifts();
+      this.updateHUD();
+
       try {
         this.sound.playWinFanfare();
         this.fireConfetti();
@@ -1458,7 +1423,7 @@
           
           const historyItem = {
             turn: this.settings.currentTurn, timestamp: timeString,
-            giftId: gift.id, giftName: gift.name, tier: gift.tier || 'third', luckyNumber, winnerName
+            giftId: gift.id, giftName: gift.name, tier: gift.tier || 'Giải Mặc Định', luckyNumber, winnerName
           };
           this.history.unshift(historyItem);
 
@@ -1470,7 +1435,7 @@
                 ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="w-full h-full object-contain" />` : `<span class="material-symbols-outlined text-amber-400 text-2xl">featured_seasonal_and_gifts</span>`}
               </div>
               <div class="flex items-center gap-2 min-w-0">
-                <span class="px-2.5 py-0.5 rounded-full text-slate-950 font-black text-[10px] sm:text-xs bg-gradient-to-r from-amber-300 to-yellow-400 shadow uppercase">${TIER_LABELS[gift.tier] || gift.badge}</span>
+                <span class="px-2.5 py-0.5 rounded-full text-slate-950 font-black text-[10px] sm:text-xs bg-gradient-to-r from-amber-300 to-yellow-400 shadow uppercase truncate max-w-[120px]">${gift.tier}</span>
                 <span class="font-extrabold text-sm sm:text-base text-white truncate max-w-[160px]" title="${gift.name}">${gift.name}</span>
               </div>
             </div>
@@ -1566,7 +1531,12 @@
         else progContainer.classList.remove('hidden');
       }
 
-      const tierName = TIER_LABELS[this.settings.activeTier] || 'Giải Thưởng';
+      const uniqueTiers = this.getUniqueTiers();
+      if (!uniqueTiers.includes(this.settings.activeTier)) {
+        this.settings.activeTier = uniqueTiers[0] || 'Giải Mặc Định';
+      }
+
+      const tierName = this.settings.activeTier;
       const hudTierName = document.getElementById('hudTierName');
       const hudModeIcon = document.getElementById('hudModeIcon');
       const stageActiveTitle = document.getElementById('stageActiveTitle');
@@ -1579,9 +1549,9 @@
         const totalRemaining = this.gifts.reduce((acc, g) => acc + (g.remaining || 0), 0);
         if (stageRemainingCount) stageRemainingCount.textContent = totalRemaining;
       } else {
-        if (hudTierName) hudTierName.textContent = tierName.replace(/^[^\s]+\s/, '');
+        if (hudTierName) hudTierName.textContent = tierName;
         if (hudModeIcon) hudModeIcon.textContent = 'military_tech';
-        if (stageActiveTitle) stageActiveTitle.textContent = `QUAY THƯỞNG: ${tierName.replace(/^[^\s]+\s/, '').toUpperCase()}`;
+        if (stageActiveTitle) stageActiveTitle.textContent = `QUAY THƯỞNG: ${tierName.toUpperCase()}`;
         if (stageRemainingCount) stageRemainingCount.textContent = this.checkCurrentTierQuota();
       }
 
@@ -1611,38 +1581,56 @@
         randomPullInput.value = this.settings.randomPullCount || 1;
       }
 
-      // Xử lý động cho phép hiển thị/ẩn hoàn toàn các Hạng giải nếu không có quà
-      TIER_ORDER.forEach(tKey => {
-        const tierGifts = this.gifts.filter(g => g.tier === tKey);
-        const hasGifts = tierGifts.length > 0;
-        const count = tierGifts.reduce((acc, g) => acc + (g.remaining || 0), 0);
-        
-        const badge = document.getElementById(`badgeCount_${tKey}`);
-        if (badge) badge.textContent = count;
-        
-        // Cập nhật ở Tab Số lượng
-        const input = document.querySelector(`.tier-rope-input[data-tier="${tKey}"]`);
-        if (input) {
-          if (document.activeElement !== input) input.value = this.settings.tierPullCounts[tKey] || 1;
-          const container = input.parentElement;
-          if (container) container.style.display = hasGifts ? 'flex' : 'none';
-        }
-        
-        // Cập nhật thanh Bar
-        const btn = document.querySelector(`.tier-step-btn[data-tier="${tKey}"]`);
-        if (btn) {
-          if (!hasGifts) {
-            btn.style.display = 'none';
-          } else {
-            btn.style.display = 'flex';
-            if (tKey === this.settings.activeTier) {
-              btn.className = 'tier-step-btn active flex items-center space-x-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 transition cursor-pointer';
-            } else {
-              btn.className = 'tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer';
-            }
-          }
-        }
-      });
+      // Xây dựng Tự Động các nút thanh Tiến trình theo các giải có trong hệ thống
+      const progBar = document.getElementById('tierProgressionBar');
+      if (progBar) {
+          progBar.innerHTML = '';
+          uniqueTiers.forEach(tKey => {
+              const count = this.gifts.filter(g => g.tier === tKey).reduce((acc, g) => acc + (g.remaining || 0), 0);
+              
+              const btn = document.createElement('button');
+              btn.className = (tKey === this.settings.activeTier) 
+                  ? 'tier-step-btn active flex items-center space-x-2 px-4 py-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-extrabold shadow-md shadow-amber-500/25 transition cursor-pointer'
+                  : 'tier-step-btn flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/50 text-slate-300 border border-white/10 hover:border-amber-400/30 transition cursor-pointer';
+              btn.dataset.tier = tKey;
+              btn.innerHTML = `
+                  <span>${tKey}</span>
+                  <span class="${tKey === this.settings.activeTier ? 'px-1.5 py-0.2 bg-slate-950/20 text-slate-950 rounded-full font-mono text-[11px] font-bold' : 'font-mono text-amber-400 font-semibold text-[11px]'}">${tKey === this.settings.activeTier ? count : `(${count})`}</span>
+              `;
+              btn.addEventListener('click', () => {
+                  this.sound.playClick();
+                  this.settings.activeTier = tKey;
+                  this.saveSettings(); this.updateHUD(); this.renderParade();
+                  this.showToast(`Đang trao: ${tKey}`);
+              });
+              progBar.appendChild(btn);
+          });
+      }
+
+      // Xây dựng Tự Động ô cài đặt Số Lượng Dây cho từng Giải
+      const ropeGrid = document.getElementById('tierRopesConfigGrid');
+      if (ropeGrid) {
+          ropeGrid.innerHTML = '';
+          uniqueTiers.forEach(tKey => {
+              if (!this.settings.tierPullCounts[tKey]) this.settings.tierPullCounts[tKey] = 1;
+              const div = document.createElement('div');
+              div.className = 'bg-slate-950/80 p-3 rounded-xl border border-amber-500/20 flex justify-between items-center';
+              div.innerHTML = `
+                  <span class="text-xs font-bold text-amber-300 truncate max-w-[85px] block" title="${tKey}">${tKey}:</span>
+                  <input type="number" min="1" max="10" value="${this.settings.tierPullCounts[tKey]}" data-tier="${tKey}" class="tier-rope-input w-16 bg-slate-900 border border-amber-400/40 rounded-lg p-1 text-center text-xs font-black text-amber-300" />
+              `;
+              ropeGrid.appendChild(div);
+          });
+          ropeGrid.querySelectorAll('.tier-rope-input').forEach(input => {
+              input.addEventListener('change', (e) => {
+                  const tier = e.target.dataset.tier;
+                  const val = parseInt(e.target.value, 10) || 1;
+                  this.settings.tierPullCounts[tier] = Math.max(1, Math.min(10, val));
+                  this.saveSettings(); 
+                  this.updateHUD();
+              });
+          });
+      }
 
       const soundIcon = document.getElementById('soundIcon');
       if (soundIcon) soundIcon.textContent = this.sound.enabled ? 'volume_up' : 'volume_off';
@@ -1685,8 +1673,8 @@
             </div>
             <div class="min-w-0">
               <div class="flex items-center space-x-2">
-                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 font-mono">${TIER_LABELS[gift.tier] || gift.badge}</span>
-                <h4 class="text-sm font-bold text-white truncate">${gift.name}</h4>
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30 font-mono max-w-[120px] truncate block">${gift.tier}</span>
+                <h4 class="text-sm font-bold text-white truncate max-w-[200px]">${gift.name}</h4>
               </div>
               <p class="text-xs font-mono text-slate-400 mt-0.5">Số lượng: ${gift.remaining} / ${gift.quantity}</p>
             </div>
@@ -1720,7 +1708,7 @@
         this.gifts.forEach(g => {
           const opt = document.createElement('option');
           opt.value = g.id;
-          opt.textContent = `[${TIER_LABELS[g.tier]}] ${g.name} (Còn ${g.remaining})`;
+          opt.textContent = `[${g.tier}] ${g.name} (Còn ${g.remaining})`;
           select.appendChild(opt);
         });
       }
@@ -1748,7 +1736,7 @@
           <div class="flex items-center gap-2">
             <span class="font-bold text-amber-400">#${index + 1}</span>
             <span class="text-white font-semibold">${gift.name}</span>
-            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded">${TIER_LABELS[gift.tier]}</span>
+            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded truncate max-w-[80px] block">${gift.tier}</span>
           </div>
           <button type="button" class="remove-queue-item text-rose-400 hover:text-rose-300 text-xs font-bold px-2 py-1 cursor-pointer" data-index="${index}">
             Xóa
@@ -1777,9 +1765,8 @@
         if (!gift) return;
         document.getElementById('formGiftId').value = gift.id;
         document.getElementById('formGiftName').value = gift.name;
-        document.getElementById('formGiftTier').value = gift.tier || 'third';
+        document.getElementById('formGiftTier').value = gift.tier || 'Giải Ba';
         document.getElementById('formGiftQuantity').value = gift.quantity || 1;
-        document.getElementById('formGiftBadge').value = gift.badge || '';
         document.getElementById('formImageUrl').value = gift.imageUrl || '';
         document.getElementById('giftFormTitle').textContent = 'Chỉnh Sửa Phần Thưởng';
       } else {
@@ -1797,12 +1784,9 @@
         this.customQueue = this.customQueue.filter(id => id !== giftId);
         this.history = this.history.filter(h => h.giftId !== giftId);
         
-        // Nếu xóa hết sạch quà của Tier đang chọn, nhảy sang Tier khác
-        if (!this.gifts.some(g => g.tier === this.settings.activeTier)) {
-          const availableTiers = TIER_ORDER.filter(t => this.gifts.some(g => g.tier === t));
-          if (availableTiers.length > 0) {
-            this.settings.activeTier = availableTiers[0];
-          }
+        const availableTiers = this.getUniqueTiers();
+        if (!availableTiers.includes(this.settings.activeTier)) {
+          this.settings.activeTier = availableTiers[0] || 'Mặc định';
         }
         
         this.saveGifts(); this.saveQueue(); this.saveHistory(); this.saveSettings();
@@ -1858,7 +1842,7 @@
           <td class="py-2.5 px-3 font-bold text-amber-400">#${item.turn}</td>
           <td class="py-2.5 px-3 text-slate-400">${item.timestamp}</td>
           <td class="py-2.5 px-3 font-bold text-slate-100">${item.giftName}</td>
-          <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300">${TIER_LABELS[item.tier] || item.tier}</span></td>
+          <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 truncate max-w-[90px] block">${item.tier}</span></td>
           <td class="py-2.5 px-3 font-mono text-amber-300 font-bold">${item.luckyNumber}</td>
           <td class="py-2.5 px-3 text-emerald-300">${item.winnerName}</td>
         `;
@@ -1876,15 +1860,6 @@
         if (e.code === 'Enter' && !document.getElementById('winnerCelebrationModal').classList.contains('hidden')) {
           document.getElementById('closeWinModalBtn')?.click();
         }
-      });
-
-      document.querySelectorAll('.tier-step-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          this.sound.playClick();
-          this.settings.activeTier = btn.dataset.tier;
-          this.saveSettings(); this.updateHUD(); this.renderParade();
-          this.showToast(`Đang trao: ${TIER_LABELS[this.settings.activeTier]}`);
-        });
       });
 
       // Lắng nghe sự kiện để đổi Random vs Theo giải một cách mượt mà nhất
@@ -1947,15 +1922,6 @@
           this.setConveyorSpeed(e.target.value);
         });
       }
-
-      document.querySelectorAll('.tier-rope-input').forEach(input => {
-        input.addEventListener('change', (e) => {
-          const tier = e.target.dataset.tier;
-          const val = parseInt(e.target.value, 10) || 1;
-          this.settings.tierPullCounts[tier] = Math.max(1, Math.min(10, val));
-          this.saveSettings(); this.updateHUD();
-        });
-      });
 
       document.getElementById('soundToggleBtn')?.addEventListener('click', () => {
         this.sound.enabled = !this.sound.enabled;
@@ -2042,8 +2008,6 @@
         this.showToast('Đã xóa logo');
       });
 
-      // Tối ưu thuật toán nén ảnh xuống cực nhẹ (65% JPEG và Max Height/Width 1280px) 
-      // để giúp khắc phục lỗi bị văng / không hiển thị ảnh vì quá giới hạn bộ nhớ LocalStorage.
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2091,16 +2055,15 @@
         e.preventDefault();
         const id = document.getElementById('formGiftId').value || `g_${Date.now()}`;
         const name = document.getElementById('formGiftName').value.trim();
-        const tier = document.getElementById('formGiftTier').value;
+        const tier = document.getElementById('formGiftTier').value.trim() || 'Mặc định';
         const quantity = parseInt(document.getElementById('formGiftQuantity').value, 10) || 1;
-        const badge = document.getElementById('formGiftBadge').value.trim() || TIER_LABELS[tier].replace(/^[^\s]+\s/, '');
         const imageUrl = document.getElementById('formImageUrl').value.trim();
 
         const existingIndex = this.gifts.findIndex(g => g.id === id);
         let remaining = quantity;
         if (existingIndex >= 0) remaining = Math.min(this.gifts[existingIndex].remaining, quantity);
 
-        const giftData = { id, name, tier, badge, quantity, remaining, secretNumber: '', secretWinnerName: '', imageUrl };
+        const giftData = { id, name, tier, badge: '', quantity, remaining, secretNumber: '', secretWinnerName: '', imageUrl };
         if (existingIndex >= 0) this.gifts[existingIndex] = giftData;
         else this.gifts.push(giftData);
 
