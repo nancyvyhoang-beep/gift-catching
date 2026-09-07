@@ -1097,7 +1097,8 @@
     GIFTS: 'ch_trading_gifts_data_final',
     SETTINGS: 'ch_trading_settings_data_final',
     HISTORY: 'ch_trading_history_data_final',
-    QUEUE: 'ch_trading_queue_data_final'
+    QUEUE: 'ch_trading_queue_data_final',
+    PERSISTENT_BG: 'ch_custom_bg_persistent' // Khóa lưu ảnh nền độc lập
   };
 
   class GameApp {
@@ -1218,12 +1219,23 @@
         }
       } catch (err) { }
 
-      // ĐỌC LẠI LOGO & BACKGROUND TỪ INDEXEDDB (BẢO TOÀN DATA 100% SAU F5)
+      // 1. Phục hồi trực tiếp từ khóa chuyên biệt trong localStorage
+      try {
+        const localBg = localStorage.getItem(STORAGE_KEYS.PERSISTENT_BG);
+        if (localBg) {
+          this.settings.bgImageUrl = localBg;
+        }
+      } catch (e) {}
+
+      // 2. Phục hồi hỗ trợ thêm từ IndexedDB (Fallback phòng khi ảnh lớn)
       try {
         const idbLogo = await idbGet('brand_logo');
         if (idbLogo) this.settings.logoUrl = idbLogo;
-        const idbBg = await idbGet('brand_background');
-        if (idbBg) this.settings.bgImageUrl = idbBg;
+        
+        if (!this.settings.bgImageUrl) {
+          const idbBg = await idbGet('brand_background');
+          if (idbBg) this.settings.bgImageUrl = idbBg;
+        }
       } catch (e) {}
 
       try {
@@ -1251,15 +1263,23 @@
       } catch (e) {}
     }
     
-    // TÁCH RỜI CHUỖI ẢNH ĐỂ LOCALSTORAGE KHÔNG BAO GIỜ BỊ QUÁ TẢI (TRÁNH LỖI MẤT DỮ LIỆU KHI F5)
     saveSettings() { 
       try { 
         const safeSettings = { ...this.settings };
-        // Không nhồi Base64 khổng lồ vào localStorage
-        safeSettings.bgImageUrl = '';
-        safeSettings.logoUrl = '';
+        // Giữ ảnh nền an toàn và lưu song song
+        if (this.settings.bgImageUrl) {
+          try {
+            localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, this.settings.bgImageUrl);
+          } catch (err) {}
+        }
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(safeSettings)); 
-      } catch (e) {}
+      } catch (e) {
+        try {
+          const safeSettings = { ...this.settings };
+          safeSettings.bgImageUrl = ''; // Nếu quá tải thì chỉ xóa trong obj tổng, khóa persistent vẫn còn
+          localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(safeSettings));
+        } catch (e2) {}
+      }
     }
 
     saveHistory() { 
@@ -2419,7 +2439,6 @@
         });
       }
 
-      // TỐC ĐỘ DÂY KÉO & KÉO HỤT
       document.getElementById('settingRopeSpeed')?.addEventListener('input', (e) => {
         const val = parseFloat(e.target.value).toFixed(1);
         this.settings.ropeSpeed = parseFloat(val);
@@ -2530,7 +2549,6 @@
         });
       });
 
-      // LẮNG NGHE ĐỔI MÀU SẮC, TIÊU ĐỀ & AUTO-SAVE (ĐẢM BẢO F5 GIỮ NGUYÊN)
       ['settingEventTitle', 'settingEventSubtitle', 'settingAccentColorInput', 'settingTitleColorInput', 'settingSubColorInput', 'settingBtnColorInput'].forEach(id => {
          const el = document.getElementById(id);
          const handler = (e) => {
@@ -2555,7 +2573,6 @@
         this.showToast('Đã lưu & đóng cấu hình!');
       });
 
-      // UPLOAD LOGO LƯU TRỰC TIẾP VÀO INDEXEDDB
       document.getElementById('settingLogoFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2577,7 +2594,7 @@
         this.showToast('Đã xóa logo');
       });
 
-      // UPLOAD BACKGROUND LƯU TRỰC TIẾP VÀO INDEXEDDB
+      // LƯU ẢNH NỀN SONG SONG (CẢ LOCALSTORAGE VÀ INDEXEDDB)
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2586,7 +2603,7 @@
             const img = new Image();
             img.onload = async () => {
               const canvas = document.createElement('canvas');
-              const maxDim = 1600;
+              const maxDim = 1280; // Giới hạn kích thước vừa vặn cho màn chiếu
               let w = img.width, h = img.height;
               if (w > maxDim || h > maxDim) {
                 if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -2595,11 +2612,16 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
+              
               this.settings.bgImageUrl = dataUrl;
+              try {
+                localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, dataUrl);
+              } catch (err) {}
               await idbSet('brand_background', dataUrl);
+              this.saveSettings();
               this.applyCustomBrand();
-              this.showToast('Đã lưu Ảnh nền vĩnh viễn (F5 không mất)!');
+              this.showToast('Đã lưu Ảnh nền thành công (F5 không mất)!');
             };
             img.src = evt.target.result;
           };
@@ -2609,7 +2631,11 @@
 
       document.getElementById('removeBgBtn')?.addEventListener('click', async () => {
         this.settings.bgImageUrl = '';
+        try {
+          localStorage.removeItem(STORAGE_KEYS.PERSISTENT_BG);
+        } catch (e) {}
         await idbSet('brand_background', '');
+        this.saveSettings();
         this.applyCustomBrand();
         this.showToast('Đã bỏ ảnh nền');
       });
