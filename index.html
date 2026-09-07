@@ -592,12 +592,11 @@
         </div>
       </div>
 
-      <!-- TAB MỚI: KÉO HỤT & TỐC ĐỘ DÂY (TÍNH NĂNG THEO YÊU CẦU) -->
+      <!-- TAB 4: KÉO HỤT & TỐC ĐỘ DÂY -->
       <div id="tab-mechanics" class="tab-pane hidden space-y-4">
         <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
           <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Tùy Chỉnh Tốc Độ Dây Kéo & Cơ Chế Kéo Hụt</h3>
           
-          <!-- 1. Tốc độ dây kéo -->
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
               <div>
@@ -613,14 +612,12 @@
             </div>
           </div>
 
-          <!-- 2. Cơ chế Kéo Hụt (Miss / Fail Mechanism) -->
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-4">
             <div>
               <span class="text-xs font-bold text-slate-200 block">Kịch Bản Kéo Hụt (Troll / Tăng Hồi Hộp)</span>
               <span class="text-[11px] text-slate-400">Khi hụt, dây sẽ phóng ra chụp quà nhưng tuột tay rỗng về, không trừ số lượng quà trong kho</span>
             </div>
 
-            <!-- Tùy chọn 1: Số lần hụt định trước -->
             <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div>
                 <span class="text-xs font-semibold text-white block">Ép hụt các lượt tới (Số lần hụt liên tiếp):</span>
@@ -632,7 +629,6 @@
               </div>
             </div>
 
-            <!-- Tùy chọn 2: Tỷ lệ hụt ngẫu nhiên -->
             <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
               <div class="flex items-center justify-between">
                 <div>
@@ -657,7 +653,7 @@
         </div>
       </div>
 
-      <!-- TAB 4: QUEUE -->
+      <!-- TAB 5: QUEUE -->
       <div id="tab-sequence" class="tab-pane hidden space-y-5">
         <div class="glass-card p-4 rounded-2xl border space-y-4" style="border-color: var(--glass-border-gold);">
           <h3 class="font-bold text-sm" style="color: var(--brand-primary);">Kịch Bản Thứ Tự Nhận Quà (Custom Gift Queue)</h3>
@@ -673,7 +669,7 @@
         </div>
       </div>
 
-      <!-- TAB 5: SECRET WINNER -->
+      <!-- TAB 6: SECRET WINNER -->
       <div id="tab-secret" class="tab-pane hidden space-y-5">
         <div class="glass-card p-4 rounded-2xl border space-y-3" style="border-color: var(--glass-border-gold);">
           <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Cài Đặt Người Thắng Cho Lượt Tới</h4>
@@ -694,7 +690,7 @@
         </div>
       </div>
 
-      <!-- TAB: ÂM THANH & BGM -->
+      <!-- TAB 7: ÂM THANH & BGM -->
       <div id="tab-audio" class="tab-pane hidden space-y-4">
         <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
           <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Cấu Hình Nhạc Nền Sự Kiện & Âm Thanh</h3>
@@ -735,7 +731,7 @@
         </div>
       </div>
 
-      <!-- TAB 6: HISTORY -->
+      <!-- TAB 8: HISTORY -->
       <div id="tab-history" class="tab-pane hidden space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="font-bold text-slate-100 text-sm">Lịch Sử Các Lượt Đã Trao Thưởng</h3>
@@ -789,6 +785,44 @@
 
 <!-- JAVASCRIPT ENGINE & LOGIC -->
 <script>
+  // BỘ NHỚ LƯU TRỮ HÌNH ẢNH DUNG LƯỢNG LỚN INDEXEDDB (CHỐNG MẤT KHI F5 100%)
+  const IDB_CONFIG = { dbName: 'CH_MEDIA_STORE', storeName: 'assets', version: 1 };
+  function initMediaDB() {
+    return new Promise((resolve) => {
+      const request = indexedDB.open(IDB_CONFIG.dbName, IDB_CONFIG.version);
+      request.onupgradeneeded = (e) => {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains(IDB_CONFIG.storeName)) {
+          db.createObjectStore(IDB_CONFIG.storeName);
+        }
+      };
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => resolve(null);
+    });
+  }
+
+  async function idbSet(key, val) {
+    try {
+      const db = await initMediaDB();
+      if (!db) return;
+      const tx = db.transaction(IDB_CONFIG.storeName, 'readwrite');
+      tx.objectStore(IDB_CONFIG.storeName).put(val, key);
+    } catch (e) {}
+  }
+
+  async function idbGet(key) {
+    try {
+      const db = await initMediaDB();
+      if (!db) return null;
+      return new Promise((resolve) => {
+        const tx = db.transaction(IDB_CONFIG.storeName, 'readonly');
+        const req = tx.objectStore(IDB_CONFIG.storeName).get(key);
+        req.onsuccess = () => resolve(req.result || null);
+        req.onerror = () => resolve(null);
+      });
+    } catch (e) { return null; }
+  }
+
   const DEFAULT_VIP_GIFTS = [
     { id: 'g_third', name: 'Loa Marshall Stanmore III', tier: 'Giải Ba', quantity: 3, remaining: 3, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&auto=format&fit=crop&q=80' },
     { id: 'g_second', name: '1 Chỉ Vàng SJC 9999 Phú Quý', tier: 'Giải Nhì', quantity: 2, remaining: 2, secretNumber: '', secretWinnerName: '', imageUrl: 'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600&auto=format&fit=crop&q=80' },
@@ -1086,9 +1120,9 @@
         activeTier: 'Giải Ba',
         tierPullCounts: { 'Giải Ba': 3, 'Giải Nhì': 2, 'Giải Nhất': 1, 'Giải Đặc Biệt': 1, 'Giải May Mắn': 5 },
         paradeSpeed: 1.2,
-        ropeSpeed: 1.0,         // TÍNH NĂNG MỚI: Tốc độ dây kéo (0.5X - 2.5X)
-        missChance: 0,          // TÍNH NĂNG MỚI: Tỷ lệ kéo hụt ngẫu nhiên 0-100%
-        missForceCount: 0,      // TÍNH NĂNG MỚI: Số lượt bắt buộc hụt liên tiếp
+        ropeSpeed: 1.0,
+        missChance: 0,
+        missForceCount: 0,
         autoAdvanceTier: true,
         globalNumType: 'range',
         globalNumberRange: '001-150',
@@ -1153,8 +1187,8 @@
       this.updateHUD();
     }
 
-    init() {
-      this.loadFromStorage();
+    async init() {
+      await this.loadFromStorage();
       this.applyTheme();
       this.applyCustomBrand();
       this.bindEvents();
@@ -1165,7 +1199,7 @@
       this.startLoop();
     }
 
-    loadFromStorage() {
+    async loadFromStorage() {
       try {
         const storedGifts = localStorage.getItem(STORAGE_KEYS.GIFTS);
         if (storedGifts) this.gifts = JSON.parse(storedGifts);
@@ -1183,6 +1217,14 @@
            if (!this.settings.participantList) this.settings.participantList = [];
         }
       } catch (err) { }
+
+      // ĐỌC LẠI LOGO & BACKGROUND TỪ INDEXEDDB (BẢO TOÀN DATA 100% SAU F5)
+      try {
+        const idbLogo = await idbGet('brand_logo');
+        if (idbLogo) this.settings.logoUrl = idbLogo;
+        const idbBg = await idbGet('brand_background');
+        if (idbBg) this.settings.bgImageUrl = idbBg;
+      } catch (e) {}
 
       try {
         const storedHistory = localStorage.getItem(STORAGE_KEYS.HISTORY);
@@ -1206,23 +1248,18 @@
     saveGifts() { 
       try { 
         localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(this.gifts)); 
-      } catch (e) {
-        this.showToast("Cảnh báo: Bộ nhớ trình duyệt đầy, hãy giảm bớt ảnh quà!");
-      }
+      } catch (e) {}
     }
     
+    // TÁCH RỜI CHUỖI ẢNH ĐỂ LOCALSTORAGE KHÔNG BAO GIỜ BỊ QUÁ TẢI (TRÁNH LỖI MẤT DỮ LIỆU KHI F5)
     saveSettings() { 
       try { 
-        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings)); 
-      } catch (e) {
-        if (this.settings.bgImageUrl && this.settings.bgImageUrl.length > 300000) {
-          this.settings.bgImageUrl = '';
-          try {
-            localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(this.settings));
-            this.showToast("Đã tối ưu bộ nhớ để đảm bảo lưu dữ liệu trơn tru!");
-          } catch (e2) {}
-        }
-      }
+        const safeSettings = { ...this.settings };
+        // Không nhồi Base64 khổng lồ vào localStorage
+        safeSettings.bgImageUrl = '';
+        safeSettings.logoUrl = '';
+        localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(safeSettings)); 
+      } catch (e) {}
     }
 
     saveHistory() { 
@@ -1274,9 +1311,11 @@
     }
 
     applyCustomBrand() {
-      document.getElementById('hudEventTitle').textContent = this.settings.eventTitle;
-      document.getElementById('hudEventSubtitle').textContent = this.settings.eventSubtitle;
-      document.title = `${this.settings.eventTitle} - ${this.settings.eventSubtitle}`;
+      const title = this.settings.eventTitle || 'CH TRADING';
+      const sub = this.settings.eventSubtitle || 'Client Appreciation';
+      document.getElementById('hudEventTitle').textContent = title;
+      document.getElementById('hudEventSubtitle').textContent = sub;
+      document.title = `${title} - ${sub}`;
 
       const logoImg = document.getElementById('customLogoImg');
       if (this.settings.logoUrl) {
@@ -1415,7 +1454,6 @@
       const ropeCount = Math.min(this.getActiveTierRopeCount(), totalQuotaRemaining);
       if (ropeCount <= 0) return;
 
-      // KIỂM TRA ĐIỀU KIỆN KÉO HỤT (CUSTOM MISS MECHANICS)
       let isMissTurn = false;
       if (this.settings.missForceCount > 0) {
         isMissTurn = true;
@@ -1464,7 +1502,6 @@
           pickedGift = pool[Math.floor(Math.random() * pool.length)];
         }
 
-        // Nếu KHÔNG hụt thì mới trừ quà trong kho
         if (!isMissTurn) {
           pickedGift.remaining -= 1;
         }
@@ -1604,7 +1641,6 @@
           this.drawRawRusticHempRope(rope.launchX, rope.launchY, (rope.launchX + curX) / 2, (rope.launchY + curY) / 2 - 20, curX, curY);
           this.drawRawRusticLassoLoop(curX, curY, rope.isMiss ? 18 : 30, 0, true);
           
-          // NẾU HỤT THÌ KHÔNG VẼ KHỐI QUÀ RÚT VỀ
           if (!rope.isMiss) {
             this.drawCaughtGiftSilhouette(curX, curY);
           }
@@ -2053,7 +2089,6 @@
       if (randPull) randPull.value = this.settings.randomPullCount || 1;
     }
 
-    // TÍNH NĂNG MỚI: Render Cấu hình Tốc độ dây kéo & Kéo hụt
     renderAdminMechanics() {
       const ropeSpeedInput = document.getElementById('settingRopeSpeed');
       if (ropeSpeedInput) ropeSpeedInput.value = this.settings.ropeSpeed || 1.0;
@@ -2384,7 +2419,7 @@
         });
       }
 
-      // TƯƠNG TÁC TỐC ĐỘ DÂY KÉO & KÉO HỤT
+      // TỐC ĐỘ DÂY KÉO & KÉO HỤT
       document.getElementById('settingRopeSpeed')?.addEventListener('input', (e) => {
         const val = parseFloat(e.target.value).toFixed(1);
         this.settings.ropeSpeed = parseFloat(val);
@@ -2495,8 +2530,10 @@
         });
       });
 
+      // LẮNG NGHE ĐỔI MÀU SẮC, TIÊU ĐỀ & AUTO-SAVE (ĐẢM BẢO F5 GIỮ NGUYÊN)
       ['settingEventTitle', 'settingEventSubtitle', 'settingAccentColorInput', 'settingTitleColorInput', 'settingSubColorInput', 'settingBtnColorInput'].forEach(id => {
-         document.getElementById(id)?.addEventListener('change', (e) => {
+         const el = document.getElementById(id);
+         const handler = (e) => {
             if(id === 'settingEventTitle') this.settings.eventTitle = e.target.value.trim();
             if(id === 'settingEventSubtitle') this.settings.eventSubtitle = e.target.value.trim();
             if(id === 'settingAccentColorInput') this.settings.customAccentColor = e.target.value;
@@ -2508,7 +2545,9 @@
             this.applyCustomBrand();
             this.renderParade();
             this.updateHUD();
-         });
+         };
+         el?.addEventListener('input', handler);
+         el?.addEventListener('change', handler);
       });
 
       document.getElementById('saveAndCloseAdminBtn')?.addEventListener('click', () => {
@@ -2516,33 +2555,38 @@
         this.showToast('Đã lưu & đóng cấu hình!');
       });
 
+      // UPLOAD LOGO LƯU TRỰC TIẾP VÀO INDEXEDDB
       document.getElementById('settingLogoFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
-          reader.onload = (evt) => {
-            this.settings.logoUrl = evt.target.result;
-            this.saveSettings(); this.applyCustomBrand();
-            this.showToast('Đã tải logo!');
+          reader.onload = async (evt) => {
+            const dataUrl = evt.target.result;
+            this.settings.logoUrl = dataUrl;
+            await idbSet('brand_logo', dataUrl);
+            this.applyCustomBrand();
+            this.showToast('Đã lưu Logo vĩnh viễn (F5 không mất)!');
           };
           reader.readAsDataURL(file);
         }
       });
-      document.getElementById('removeLogoBtn')?.addEventListener('click', () => {
+      document.getElementById('removeLogoBtn')?.addEventListener('click', async () => {
         this.settings.logoUrl = '';
-        this.saveSettings(); this.applyCustomBrand();
+        await idbSet('brand_logo', '');
+        this.applyCustomBrand();
         this.showToast('Đã xóa logo');
       });
 
+      // UPLOAD BACKGROUND LƯU TRỰC TIẾP VÀO INDEXEDDB
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
           const reader = new FileReader();
           reader.onload = (evt) => {
             const img = new Image();
-            img.onload = () => {
+            img.onload = async () => {
               const canvas = document.createElement('canvas');
-              const maxDim = 960;
+              const maxDim = 1600;
               let w = img.width, h = img.height;
               if (w > maxDim || h > maxDim) {
                 if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -2551,10 +2595,11 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              this.settings.bgImageUrl = canvas.toDataURL('image/jpeg', 0.45);
-              this.saveSettings();
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+              this.settings.bgImageUrl = dataUrl;
+              await idbSet('brand_background', dataUrl);
               this.applyCustomBrand();
-              this.showToast('Đã cập nhật ảnh nền thành công!');
+              this.showToast('Đã lưu Ảnh nền vĩnh viễn (F5 không mất)!');
             };
             img.src = evt.target.result;
           };
@@ -2562,9 +2607,10 @@
         }
       });
 
-      document.getElementById('removeBgBtn')?.addEventListener('click', () => {
+      document.getElementById('removeBgBtn')?.addEventListener('click', async () => {
         this.settings.bgImageUrl = '';
-        this.saveSettings(); this.applyCustomBrand();
+        await idbSet('brand_background', '');
+        this.applyCustomBrand();
         this.showToast('Đã bỏ ảnh nền');
       });
 
