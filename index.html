@@ -445,28 +445,28 @@
         </div>
       </div>
 
-      <!-- TAB 3: DÃY SỐ & CHẾ ĐỘ BĂNG CHUYỀN (TÍNH NĂNG MỚI ĐẢO NGƯỢC) -->
+      <!-- TAB 3: DÃY SỐ -->
       <div id="tab-numbers" class="tab-pane hidden space-y-5">
         
-        <!-- BỔ SUNG: THIẾT LẬP ĐẢO NGƯỢC NỘI DUNG BĂNG CHUYỀN -->
+        <!-- FIX UI MŨI TÊN: SỬA KÝ TỰ $ \rightarrow $ THÀNH MŨI TÊN CHUẨN HTML -->
         <div class="glass-card p-4 rounded-2xl border border-amber-500/40 space-y-3">
           <div class="flex items-center justify-between">
             <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Kiểu Nội Dung Băng Chuyền (Carousel Mode)</h4>
-            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">Cài Đặt Mới</span>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">Đã Fix Lỗi UI</span>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
               <input type="radio" name="carouselContentMode" value="gifts" checked class="mt-0.5 text-amber-500"/>
               <div>
                 <span class="text-xs font-bold text-white block">Mặc Định: Băng Chuyền Quà Tặng</span>
-                <span class="text-[11px] text-slate-400">Dây phóng vào món quà $\rightarrow$ Quay số hiển thị người nhận trúng giải.</span>
+                <span class="text-[11px] text-slate-400">Dây phóng vào món quà &rarr; Quay số hiển thị người nhận trúng giải.</span>
               </div>
             </label>
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
               <input type="radio" name="carouselContentMode" value="participants" class="mt-0.5 text-amber-500"/>
               <div>
                 <span class="text-xs font-bold text-white block">Đảo Ngược: Băng Chuyền Người Tham Gia</span>
-                <span class="text-[11px] text-slate-400">Băng chuyền chạy Tên & Mã số khách $\rightarrow$ Phóng dây bắt trúng người nhận.</span>
+                <span class="text-[11px] text-slate-400">Băng chuyền chạy Tên & Mã số khách &rarr; Phóng dây bắt trúng người nhận.</span>
               </div>
             </label>
           </div>
@@ -1117,7 +1117,7 @@
         logoUrl: '',
         bgImageUrl: '',
         drawMode: 'tiered',
-        carouselMode: 'gifts', // 'gifts' (Mặc định) | 'participants' (Đảo ngược)
+        carouselMode: 'gifts', 
         randomPullCount: 1,
         activeTier: 'Giải Ba',
         tierPullCounts: { 'Giải Ba': 3, 'Giải Nhì': 2, 'Giải Nhất': 1, 'Giải Đặc Biệt': 1, 'Giải May Mắn': 5 },
@@ -1416,29 +1416,32 @@
       return this.gifts.filter(g => g.tier === this.settings.activeTier).reduce((acc, g) => acc + (g.remaining || 0), 0);
     }
 
-    // TỔNG HỢP DANH SÁCH NGƯỜI THAM GIA KHẢ DỤNG
     getAllParticipants() {
+      let list = [];
       if (this.settings.participantList && this.settings.participantList.length > 0) {
-        return this.settings.participantList;
-      }
-      if (this.settings.globalNumType === 'list' && this.settings.globalNumberList) {
-        return this.settings.globalNumberList.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).map(n => ({ number: n, name: `Khách hàng ${n}` }));
-      }
-      if (this.settings.globalNumberRange) {
+        list = [...this.settings.participantList];
+      } else if (this.settings.globalNumType === 'list' && this.settings.globalNumberList) {
+        list = this.settings.globalNumberList.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).map(n => ({ number: n, name: `Khách hàng ${n}` }));
+      } else if (this.settings.globalNumberRange) {
         const parts = this.settings.globalNumberRange.split('-').map(s => s.trim());
         const min = parseInt(parts[0], 10) || 1, max = parseInt(parts[1], 10) || 150;
         const padLen = Math.max(parts[0].length, parts[1] ? parts[1].length : 3);
-        const list = [];
         for (let i = min; i <= max; i++) {
           const num = String(i).padStart(padLen, '0');
           list.push({ number: num, name: `Khách ${num}` });
         }
-        return list;
+      } else {
+        list = [{ number: '001', name: 'Khách mời' }];
       }
-      return [{ number: '001', name: 'Khách mời' }];
+
+      // XÁO TRỘN NGẪU NHIÊN (FISHER-YATES SHUFFLE) ĐẢM BẢO CÔNG BẰNG CHO KHÁCH STT SAU
+      for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+      }
+      return list;
     }
 
-    // RENDER BĂNG CHUYỀN (HỖ TRỢ CẢ CHẾ ĐỘ QUÀ VÀ CHẾ ĐỘ KHÁCH HÀNG ĐẢO NGƯỢC)
     renderParade() {
       const track = document.getElementById('paradeTrack');
       if (!track) return;
@@ -1447,16 +1450,15 @@
       const isReverseMode = (this.settings.carouselMode === 'participants');
 
       if (isReverseMode) {
-        // CHẾ ĐỘ ĐẢO NGƯỢC: Render danh sách người tham gia
         const participants = this.getAllParticipants();
         if (!participants.length) return;
         
         const activeParticipants = participants.filter(p => !this.usedNumbers.has(p.number));
         const pool = activeParticipants.length ? activeParticipants : participants;
-        const displayPool = pool.slice(0, 40); // Tối ưu DOM
+        const displayPool = pool.slice(0, 50); 
         const items = [...displayPool, ...displayPool, ...displayPool, ...displayPool];
 
-        items.forEach((p, idx) => {
+        items.forEach((p) => {
           const box = document.createElement('div');
           box.className = 'target-participant-card shrink-0 w-44 sm:w-52 h-36 sm:h-40 rounded-2xl p-3 flex flex-col items-center justify-between glass-card-active scale-105 opacity-100 z-20 shadow-lg';
           box.dataset.participantNum = p.number;
@@ -1476,7 +1478,6 @@
           track.appendChild(box);
         });
       } else {
-        // CHẾ ĐỘ MẶC ĐỊNH: Render phần thưởng
         const activeGifts = this.gifts.filter(g => g.remaining > 0);
         if (!activeGifts.length) return;
 
@@ -1601,8 +1602,6 @@
       }, 7000);
 
       const awardedGifts = [];
-      const isReverse = (this.settings.carouselMode === 'participants');
-
       for (let r = 0; r < ropeCount; r++) {
         let pickedGift = null;
 
@@ -1645,18 +1644,17 @@
       const launchY = canvasRect.height - 30;
       const usedTargetCards = new Set();
       const batchUsed = new Set();
+      const isReverse = (this.settings.carouselMode === 'participants');
 
       awardedGifts.forEach((gift, idx) => {
         const { luckyNumber, winnerName } = this.generateLuckyNumber(gift, batchUsed);
         
         let candidateCards = [];
         if (isReverse) {
-          // Bắt theo mã số thẻ người tham gia
           const allCards = Array.from(document.querySelectorAll(`.target-participant-card`));
           const matchCard = allCards.find(c => c.dataset.participantNum === luckyNumber);
           candidateCards = matchCard ? [matchCard] : allCards;
         } else {
-          // Bắt theo quà
           candidateCards = Array.from(document.querySelectorAll(`.target-gift-card[data-gift-id="${gift.id}"]`));
         }
 
@@ -2011,7 +2009,7 @@
             <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
               <div class="flex items-center gap-1.5 bg-black/60 px-3 py-1 rounded-xl shadow-inner" style="border: 1px solid var(--glass-border-gold);">
                 <span class="text-[10px] font-bold uppercase" style="color: var(--brand-primary);">MÃ:</span>
-                <span id="slotNumber_${idx}" class="font-mono font-black text-lg sm:text-xl tracking-wider" style="color: var(--brand-primary);">888</span>
+                <span id="slotNumber_${idx}" class="font-mono font-black text-lg sm:text-xl tracking-wider" style="color: var(--brand-primary);">${luckyNumber}</span>
               </div>
               <div class="flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-xl shadow" style="border: 1px solid var(--glass-border-gold);">
                 <span class="material-symbols-outlined text-xs" style="color: var(--brand-primary);">person</span>
@@ -2024,7 +2022,6 @@
             </div>
           `;
           container.appendChild(prizeCard);
-          this.rollSlotNumber(`slotNumber_${idx}`, luckyNumber);
         });
 
         container.querySelectorAll('.absent-refund-btn').forEach(btn => {
@@ -2069,21 +2066,6 @@
 
       btnElement.outerHTML = `<span class="text-xs text-rose-400 font-bold px-2 py-0.5 bg-rose-950/40 rounded border border-rose-500/30">Đã trả về kho</span>`;
       this.showToast(`Đã trả giải "${gift ? gift.name : ''}" về kho!`);
-    }
-
-    rollSlotNumber(elementId, finalNumber) {
-      const el = document.getElementById(elementId);
-      if (!el) return;
-      let rolls = 0;
-      const interval = setInterval(() => {
-        rolls++;
-        el.textContent = Math.floor(Math.random() * 90 + 10);
-        this.sound.playSlotTick();
-        if (rolls >= 16) {
-          clearInterval(interval);
-          el.textContent = finalNumber;
-        }
-      }, 65);
     }
 
     fireConfetti() {
@@ -2248,6 +2230,10 @@
       if (accentInput) accentInput.value = this.settings.customAccentColor || '#F59E0B';
       const radios = document.querySelectorAll('input[name="drawModeRadio"]');
       radios.forEach(r => r.checked = (r.value === this.settings.drawMode));
+
+      const carouselRadios = document.querySelectorAll('input[name="carouselContentMode"]');
+      carouselRadios.forEach(r => r.checked = (r.value === (this.settings.carouselMode || 'gifts')));
+
       const randPull = document.getElementById('settingRandomPullCount');
       if (randPull) randPull.value = this.settings.randomPullCount || 1;
     }
@@ -2548,7 +2534,6 @@
         });
       });
 
-      // LẮNG NGHE ĐỔI CHẾ ĐỘ BĂNG CHUYỀN (MẶC ĐỊNH / ĐẢO NGƯỢC KHÁCH HÀNG)
       document.querySelectorAll('input[name="carouselContentMode"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
           if (e.target.checked) {
