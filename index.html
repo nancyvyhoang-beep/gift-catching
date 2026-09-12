@@ -8,7 +8,7 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
@@ -20,16 +20,9 @@
       --brand-primary-hover: #FBBF24;
       --brand-primary-glow: rgba(245, 158, 11, 0.45);
       --brand-gold-subtle: rgba(245, 158, 11, 0.15);
-      --brand-bg: #070B16;
-      --brand-bg-deep: #03060C;
-      --brand-accent-cyan: #38bdf8;
-      --brand-accent-indigo: #4f46e5;
-      
       --glass-surface-base: rgba(14, 22, 41, 0.58);
       --glass-surface-card: rgba(15, 23, 42, 0.65);
-      --glass-surface-hover: rgba(26, 38, 66, 0.72);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-border-light: rgba(255, 255, 255, 0.16);
       --glass-border-gold: rgba(245, 158, 11, 0.45);
       --glass-blur: blur(20px);
 
@@ -40,7 +33,7 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       user-select: none;
       background-color: var(--theme-bg);
       color: #F1F5F9;
@@ -72,44 +65,9 @@
       box-shadow: 0 0 40px -5px var(--brand-primary-glow), 0 20px 45px -10px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.3);
     }
 
-    @keyframes auroraFloatOne {
-      0%, 100% { transform: translate(0px, 0px) scale(1); }
-      33% { transform: translate(60px, -45px) scale(1.15); }
-      66% { transform: translate(-40px, 35px) scale(0.92); }
-    }
-    @keyframes auroraFloatTwo {
-      0%, 100% { transform: translate(0px, 0px) scale(1); }
-      33% { transform: translate(-50px, 50px) scale(1.12); }
-      66% { transform: translate(45px, -30px) scale(0.95); }
-    }
-    @keyframes auroraFloatThree {
-      0%, 100% { transform: translate(0px, 0px) scale(1); }
-      50% { transform: translate(30px, -60px) scale(1.2); }
-    }
-
-    .aurora-orb-1 { animation: auroraFloatOne 24s ease-in-out infinite; }
-    .aurora-orb-2 { animation: auroraFloatTwo 28s ease-in-out infinite; }
-    .aurora-orb-3 { animation: auroraFloatThree 22s ease-in-out infinite; }
-
-    @keyframes particleDrift {
-      0% { transform: translateY(0) scale(0.9); opacity: 0.2; }
-      50% { transform: translateY(-35px) scale(1.2); opacity: 0.8; }
-      100% { transform: translateY(0) scale(0.9); opacity: 0.2; }
-    }
-    .light-particle {
-      position: absolute;
-      border-radius: 9999px;
-      pointer-events: none;
-      animation: particleDrift 7s ease-in-out infinite;
-    }
-
     @keyframes liquidBreathing {
-      0%, 100% {
-        box-shadow: 0 10px 30px -5px var(--brand-primary-glow), 0 0 15px var(--brand-gold-subtle), inset 0 1px 1px rgba(255, 255, 255, 0.75);
-      }
-      50% {
-        box-shadow: 0 14px 45px 0px var(--brand-primary-glow), 0 0 35px var(--brand-primary), inset 0 1px 2px rgba(255, 255, 255, 0.9);
-      }
+      0%, 100% { box-shadow: 0 10px 30px -5px var(--brand-primary-glow), 0 0 15px var(--brand-gold-subtle), inset 0 1px 1px rgba(255, 255, 255, 0.75); }
+      50% { box-shadow: 0 14px 45px 0px var(--brand-primary-glow), 0 0 35px var(--brand-primary), inset 0 1px 2px rgba(255, 255, 255, 0.9); }
     }
     .btn-liquid-gold {
       background-color: var(--theme-btn-bg) !important;
@@ -130,9 +88,7 @@
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     
-    .screen-shaking {
-      animation: shakeTense 0.08s infinite !important;
-    }
+    .screen-shaking { animation: shakeTense 0.08s infinite !important; }
     @keyframes shakeTense {
       0%, 100% { transform: translate(0, 0) rotate(0deg); }
       25% { transform: translate(-3px, 2px) rotate(-1deg); }
@@ -143,24 +99,14 @@
 </head>
 <body id="appBody" class="h-full overflow-x-hidden flex flex-col justify-between relative selection:bg-amber-400 selection:text-slate-950 font-sans">
 
-<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" data-purpose="stage-lighting">
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
   <div class="absolute inset-0 bg-gradient-to-b from-[#060913] via-[#090E1B] to-[#04060C]"></div>
   <div id="customBgOverlay" class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat transition-all duration-500 z-0 opacity-0"></div>
   <div class="fixed inset-0 pointer-events-none bg-[#070a13] opacity-40 z-0"></div>
-  
-  <div class="aurora-orb-1 absolute -top-32 left-1/2 -translate-x-1/2 w-[720px] h-[520px] rounded-full bg-gradient-to-br from-amber-500/15 via-yellow-600/10 to-transparent blur-[110px]"></div>
-  <div class="aurora-orb-2 absolute top-1/3 -left-28 w-[580px] h-[580px] rounded-full bg-gradient-to-tr from-cyan-600/10 via-blue-700/10 to-transparent blur-[120px]"></div>
-  <div class="aurora-orb-3 absolute bottom-10 -right-20 w-[640px] h-[540px] rounded-full bg-gradient-to-bl from-amber-500/10 via-indigo-700/10 to-transparent blur-[115px]"></div>
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[450px] bg-amber-500/8 rounded-full blur-[90px]"></div>
-  
-  <div class="light-particle w-1.5 h-1.5 bg-amber-300 shadow-[0_0_8px_#fde68a] top-1/4 left-[18%]" style="animation-delay: 0s;"></div>
-  <div class="light-particle w-1 h-1 bg-amber-200 shadow-[0_0_6px_#fde68a] top-1/3 right-[22%]" style="animation-delay: 2.3s;"></div>
-  <div class="light-particle w-2 h-2 bg-sky-200 shadow-[0_0_10px_#7dd3fc] top-2/3 left-[28%]" style="animation-delay: 1.2s;"></div>
-  <div class="light-particle w-1 h-1 bg-amber-100 shadow-[0_0_6px_#fef08a] bottom-1/4 right-[32%]" style="animation-delay: 3.8s;"></div>
-  <div class="light-particle w-1.5 h-1.5 bg-amber-400 shadow-[0_0_8px_#fbbf24] top-1/2 left-[12%]" style="animation-delay: 4.5s;"></div>
 </div>
 
-<header class="relative z-30 px-6 py-4 flex items-center justify-between glass-frosted border-x-0 border-t-0" data-purpose="main-header">
+<!-- HEADER -->
+<header class="relative z-30 px-6 py-4 flex items-center justify-between glass-frosted border-x-0 border-t-0">
   <div class="flex items-center space-x-3.5">
     <div id="brandLogoContainer" class="flex items-center justify-center flex-shrink-0 min-w-[40px] min-h-[40px]">
       <img id="customLogoImg" src="" alt="Logo" class="h-10 sm:h-12 max-w-[130px] object-contain hidden" />
@@ -180,13 +126,11 @@
         <span class="material-symbols-outlined text-[15px]" id="hudModeIcon">military_tech</span>
         <span id="hudTierName">Giải Ba</span>
       </div>
-      <span class="text-emerald-400 font-bold ml-1 pl-2 border-l border-slate-700" id="hudCatchRopesCount">
-        1 Dây
-      </span>
+      <span class="text-emerald-400 font-bold ml-1 pl-2 border-l border-slate-700" id="hudCatchRopesCount">1 Dây</span>
     </div>
 
     <div class="hidden md:flex items-center space-x-2 glass-card px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300">
-      <span class="text-slate-400">Tốc độ băng chuyền:</span>
+      <span class="text-slate-400">Tốc độ băng:</span>
       <button type="button" id="quickSpeedDownBtn" class="hover:opacity-80 transition cursor-pointer" style="color: var(--brand-primary);">
         <span class="material-symbols-outlined text-[15px]">remove</span>
       </button>
@@ -196,11 +140,11 @@
       </button>
     </div>
 
-    <button id="bgmToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Nhạc Nền Xổ Số (BGM)">
+    <button id="bgmToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Nhạc Nền (BGM)">
       <span id="bgmIcon" class="material-symbols-outlined text-[19px]">music_note</span>
     </button>
 
-    <button id="soundToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Hiệu Ứng Âm Thanh">
+    <button id="soundToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Âm Thanh Hiệu Ứng">
       <span id="soundIcon" class="material-symbols-outlined text-[19px]">volume_up</span>
     </button>
     
@@ -208,31 +152,30 @@
       <span class="material-symbols-outlined text-[19px]">fullscreen</span>
     </button>
     
-    <button id="openAdminBtn" onclick="window.gameApp && window.gameApp.openAdminModal()" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-200 glass-card hover:opacity-90 transition cursor-pointer" style="border-color: var(--glass-border-gold);">
+    <button id="openAdminBtn" onclick="window.gameApp.openAdminModal()" class="flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-200 glass-card hover:opacity-90 transition cursor-pointer" style="border-color: var(--glass-border-gold);">
       <span class="material-symbols-outlined text-base">tune</span>
       <span>Cấu hình</span>
     </button>
   </div>
 </header>
 
-<section id="progressionBarContainer" class="relative z-20 mx-auto w-full max-w-5xl px-4 mt-3 transition-all duration-300" data-purpose="award-progress">
+<!-- PROGRESS BAR -->
+<section id="progressionBarContainer" class="relative z-20 mx-auto w-full max-w-5xl px-4 mt-3 transition-all duration-300">
   <div class="flex flex-wrap items-center justify-between gap-3 glass-frosted px-5 py-2.5 rounded-2xl">
     <div class="flex items-center space-x-2 text-xs font-bold text-slate-300">
       <span class="material-symbols-outlined text-sm" style="color: var(--brand-primary);">military_tech</span>
-      <span class="tracking-wider uppercase" id="progressionBarLabel">TIẾN TRÌNH:</span>
+      <span class="tracking-wider uppercase">TIẾN TRÌNH:</span>
     </div>
     <div id="tierProgressionBar" class="flex items-center flex-wrap gap-2 text-xs"></div>
   </div>
 </section>
 
-<main id="stageCard" class="relative z-10 flex-1 flex flex-col justify-between max-w-7xl w-full mx-auto p-2 sm:p-5 overflow-hidden" data-purpose="stage-main-area">
-  
-  <div class="text-center mb-2 relative z-10" data-purpose="stage-title">
-    <div class="inline-block relative">
-      <h1 id="stageActiveTitle" class="text-2xl md:text-4xl font-black tracking-tight uppercase text-white drop-shadow-sm" style="color: var(--theme-text-title);">
-        QUAY THƯỞNG: GIẢI BA
-      </h1>
-    </div>
+<!-- MAIN STAGE -->
+<main id="stageCard" class="relative z-10 flex-1 flex flex-col justify-between max-w-7xl w-full mx-auto p-2 sm:p-5 overflow-hidden">
+  <div class="text-center mb-2 relative z-10">
+    <h1 id="stageActiveTitle" class="text-2xl md:text-4xl font-black tracking-tight uppercase text-white drop-shadow-sm" style="color: var(--theme-text-title);">
+      QUAY THƯỞNG: GIẢI BA
+    </h1>
     <p id="stageActiveSubtitle" class="text-xs md:text-sm text-slate-400 mt-1 font-medium flex items-center justify-center space-x-2" style="color: var(--theme-text-sub);">
       <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
       <span>Vòng quay may mắn sẵn sàng • Còn lại <b id="stageRemainingCount" style="color: var(--brand-primary);">3</b> suất</span>
@@ -247,25 +190,24 @@
 
   <canvas id="gameCanvas" class="absolute inset-0 w-full h-full pointer-events-none z-25"></canvas>
 
-  <div class="relative mt-auto w-full z-10 flex flex-col items-center justify-end pb-3 pt-1" data-purpose="rope-launcher-rig">
+  <div class="relative mt-auto w-full z-10 flex flex-col items-center justify-end pb-3 pt-1">
     <div class="relative flex items-center justify-center mb-2">
-      <div class="relative flex flex-col items-center">
-        <div id="lassoSwinContainer" class="relative flex items-center justify-center">
-          <div id="lassoSwinger" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-dashed animate-spin-slow flex items-center justify-center shadow-lg" style="border-color: var(--brand-primary); background: rgba(0, 0, 0, 0.25);">
-            <div class="w-8 h-8 rounded-full border-2 border-dashed flex items-center justify-center" style="border-color: var(--brand-primary);">
-              <span class="material-symbols-outlined text-xs opacity-80" style="color: var(--brand-primary);">all_inclusive</span>
-            </div>
+      <div id="lassoSwinContainer" class="relative flex items-center justify-center">
+        <div id="lassoSwinger" class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-dashed animate-spin flex items-center justify-center shadow-lg" style="border-color: var(--brand-primary); background: rgba(0, 0, 0, 0.25);">
+          <div class="w-8 h-8 rounded-full border-2 border-dashed flex items-center justify-center" style="border-color: var(--brand-primary);">
+            <span class="material-symbols-outlined text-xs opacity-80" style="color: var(--brand-primary);">all_inclusive</span>
           </div>
-          <span id="multiRopeBadge" class="hidden absolute -top-1 -right-1 bg-emerald-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full shadow border border-white">
-            x2 DÂY
-          </span>
         </div>
+        <span id="multiRopeBadge" class="hidden absolute -top-1 -right-1 bg-emerald-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full shadow border border-white">
+          x2 DÂY
+        </span>
       </div>
     </div>
   </div>
 </main>
 
-<footer class="relative z-30 pb-5 pt-1 px-4 flex flex-col items-center" data-purpose="interaction-footer">
+<!-- FOOTER CTA -->
+<footer class="relative z-30 pb-5 pt-1 px-4 flex flex-col items-center">
   <button id="throwLassoBtn" class="group relative w-full max-w-lg py-3.5 px-8 font-extrabold text-base md:text-lg tracking-wider uppercase btn-liquid-gold rounded-2xl flex items-center justify-center space-x-3 cursor-pointer select-none">
     <span class="material-symbols-outlined text-2xl font-bold" style="color: var(--theme-text-title);">my_location</span>
     <span id="throwBtnLabel" class="font-extrabold tracking-wide" style="color: var(--theme-text-title);">PHÓNG DÂY BẮT QUÀ</span>
@@ -274,10 +216,11 @@
   <p class="text-xs text-slate-400 mt-2 font-medium flex items-center space-x-2">
     <span>Nhấn phím</span>
     <kbd class="px-2 py-0.5 glass-card rounded text-slate-300 font-mono text-[11px] font-semibold">SPACE</kbd>
-    <span>hoặc click chuột để phóng dây nhận quà</span>
+    <span>hoặc click chuột để phóng dây</span>
   </p>
 </footer>
 
+<!-- CELEBRATION MODAL -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95" id="winnerCelebrationModal">
   <div class="fixed inset-0 sunburst-bg-fullscreen pointer-events-none opacity-90 z-0"></div>
 
@@ -300,25 +243,23 @@
   </div>
 </div>
 
+<!-- TIER FINISHED MODAL -->
 <div id="tierCompletedModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-all duration-300 opacity-0 scale-90">
   <div class="relative w-full max-w-md glass-card rounded-3xl p-6 text-center shadow-2xl flex flex-col items-center" style="border: 1px solid var(--glass-border-gold);">
     <div class="w-16 h-16 rounded-full text-slate-950 flex items-center justify-center text-3xl font-black mb-3 shadow-lg" style="background-color: var(--brand-primary);">
       <span class="material-symbols-outlined text-3xl font-bold">military_tech</span>
     </div>
-    <h3 class="text-2xl font-black uppercase leading-tight mb-1" style="color: var(--brand-primary);">
-      HOÀN TẤT HẠNG GIẢI!
-    </h3>
-    <p id="tierCompletedMsg" class="text-sm text-slate-200 mt-1 mb-4 font-semibold">
-      Đã trao hết toàn bộ phần thưởng. Hệ thống sẵn sàng chuyển sang phần tiếp theo...
-    </p>
+    <h3 class="text-2xl font-black uppercase leading-tight mb-1" style="color: var(--brand-primary);">HOÀN TẤT HẠNG GIẢI!</h3>
+    <p id="tierCompletedMsg" class="text-sm text-slate-200 mt-1 mb-4 font-semibold"></p>
     <button id="nextTierConfirmBtn" class="btn-liquid-gold w-full py-3 rounded-xl font-extrabold text-base uppercase cursor-pointer" style="color: var(--theme-text-title);">
       <span>TIẾP TỤC CHƯƠNG TRÌNH</span>
     </button>
   </div>
 </div>
 
+<!-- ADMIN MODAL -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 select-none hidden" id="configModal">
-  <div class="absolute inset-0 bg-[#04060c]/80 backdrop-blur-md transition-opacity duration-300" onclick="window.gameApp && window.gameApp.closeAdminModal()"></div>
+  <div class="absolute inset-0 bg-[#04060c]/80 backdrop-blur-md transition-opacity duration-300" onclick="window.gameApp.closeAdminModal()"></div>
 
   <div class="relative z-10 w-full max-w-5xl h-[88vh] max-h-[780px] rounded-3xl glass-card-active border flex flex-col overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.85)]" style="border-color: var(--glass-border-gold);">
     <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/40">
@@ -331,30 +272,31 @@
             <span>CẤU HÌNH & QUẢN TRỊ HỆ THỐNG</span>
             <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold text-slate-950 uppercase" style="background-color: var(--brand-primary);">Admin Mode</span>
           </h2>
-          <p class="text-xs text-slate-400 font-medium">Thiết lập phần thưởng, tỷ lệ trúng và kịch bản Gala Night</p>
+          <p class="text-xs text-slate-400 font-medium">Thiết lập sự kiện, tỷ lệ trúng và kịch bản Gala</p>
         </div>
       </div>
-      <button class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white transition cursor-pointer" id="closeAdminBtn" onclick="window.gameApp && window.gameApp.closeAdminModal()" title="Đóng popup">
+      <button class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-white transition cursor-pointer" onclick="window.gameApp.closeAdminModal()">
         <span class="material-symbols-outlined text-lg">close</span>
       </button>
     </div>
 
+    <!-- TABS NAVIGATION -->
     <div class="flex items-center px-6 pt-3 border-b border-white/5 bg-slate-950/20 overflow-x-auto no-scrollbar gap-2">
       <button class="admin-tab active py-3 px-3 font-bold text-xs sm:text-sm border-b-2 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="theme" style="border-color: var(--brand-primary); color: var(--brand-primary);">
-        <span class="material-symbols-outlined text-base">palette</span> Thương Hiệu
+        <span class="material-symbols-outlined text-base">palette</span> Giao Diện
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="gifts">
         <span class="material-symbols-outlined text-base">featured_seasonal_and_gifts</span> Quà & Số Lượng
         <span id="giftTotalBadge" class="px-1.5 py-0.2 rounded-full text-slate-950 text-[10px] font-mono font-black ml-1" style="background-color: var(--brand-primary);">5</span>
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="numbers">
-        <span class="material-symbols-outlined text-base">pin</span> Chế Độ & Dãy Số
+        <span class="material-symbols-outlined text-base">pin</span> Chế Độ & Băng Chuyền
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="mechanics">
-        <span class="material-symbols-outlined text-base">psychology</span> Kéo Hụt & Tốc Độ Dây
+        <span class="material-symbols-outlined text-base">psychology</span> Kéo Hụt & Tốc Độ
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="sequence">
-        <span class="material-symbols-outlined text-base">queue_music</span> Kịch Bản (Queue)
+        <span class="material-symbols-outlined text-base">queue_music</span> Hàng Đợi (Queue)
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="secret">
         <span class="material-symbols-outlined text-base">person_search</span> Người Thắng & Loại Trừ
@@ -367,12 +309,13 @@
       </button>
     </div>
 
+    <!-- TABS CONTENT -->
     <div class="flex-1 overflow-y-auto px-6 py-5 space-y-5 bg-gradient-to-b from-slate-950/30 to-[#070b16]/60">
       
-      <!-- TAB 1: THƯƠNG HIỆU -->
+      <!-- TAB 1: GIAO DIỆN -->
       <div id="tab-theme" class="tab-pane space-y-4">
         <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
-          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Tùy Biến Thương Hiệu & Tiêu Đề Sự Kiện</h3>
+          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Tùy Biến Thương Hiệu & Sự Kiện</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Tên Thương Hiệu / Sự Kiện:</label>
@@ -385,11 +328,11 @@
           </div>
 
           <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-3">
-            <label class="block text-xs font-bold" style="color: var(--brand-primary);">Tùy Chỉnh Màu Sắc & Hiệu Ứng Ánh Sáng:</label>
+            <label class="block text-xs font-bold" style="color: var(--brand-primary);">Tùy Chỉnh Màu Sắc & Hiệu Ứng:</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-xl border border-slate-700">
                 <span class="text-xs font-semibold text-slate-300">Màu Hiệu Ứng:</span>
-                <input type="color" id="settingAccentColorInput" value="#F59E0B" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0" title="Đổi màu chủ đạo hiệu ứng toàn web"/>
+                <input type="color" id="settingAccentColorInput" value="#F59E0B" class="w-8 h-8 rounded cursor-pointer bg-transparent border-0"/>
               </div>
               <div class="flex items-center justify-between bg-slate-900 p-2.5 rounded-xl border border-slate-700">
                 <span class="text-xs font-semibold text-slate-300">Màu Nút Bấm:</span>
@@ -408,14 +351,14 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-              <label class="block text-xs font-bold" style="color: var(--brand-primary);">Logo Doanh Nghiệp</label>
+              <label class="block text-xs font-bold" style="color: var(--brand-primary);">Logo Doanh Nghiệp (Lưu vĩnh viễn)</label>
               <div class="flex items-center gap-2">
                 <input type="file" id="settingLogoFileInput" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-amber-500 file:text-slate-950 cursor-pointer"/>
                 <button type="button" id="removeLogoBtn" class="px-2.5 py-1 bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white rounded-lg text-xs cursor-pointer">Xóa</button>
               </div>
             </div>
             <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
-              <label class="block text-xs font-bold" style="color: var(--brand-primary);">Hình Nền Sân Khấu</label>
+              <label class="block text-xs font-bold" style="color: var(--brand-primary);">Hình Nền Sân Khấu (Lưu vĩnh viễn)</label>
               <div class="flex items-center gap-2">
                 <input type="file" id="settingBgFileInput" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-amber-500 file:text-slate-950 cursor-pointer"/>
                 <button type="button" id="removeBgBtn" class="px-2.5 py-1 bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white rounded-lg text-xs cursor-pointer">Bỏ nền</button>
@@ -466,15 +409,13 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 gap-3">
-              <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">Hạng Giải Thưởng (Nhập tùy ý) *</label>
-                <input type="text" id="formGiftTier" required placeholder="VD: Giải Nhất, Giải Đặc Biệt, Lì Xì..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white" />
-              </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Hạng Giải Thưởng *</label>
+              <input type="text" id="formGiftTier" required placeholder="VD: Giải Nhất, Giải Đặc Biệt..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white" />
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1">Hình ảnh giải thưởng</label>
+              <label class="block text-xs font-bold text-slate-300 mb-1">Hình ảnh giải thưởng (Lưu vĩnh viễn)</label>
               <div class="flex items-center gap-3">
                 <input type="file" id="formImageUpload" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-amber-500 file:text-slate-950 cursor-pointer"/>
                 <img id="formImagePreview" src="" class="hidden w-10 h-10 object-contain bg-slate-800 rounded border border-slate-600" />
@@ -483,10 +424,10 @@
             </div>
 
             <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
-              <span class="text-xs font-bold block" style="color: var(--brand-primary);">Cài đặt người trúng đích danh cho giải thưởng này (Tùy chọn)</span>
+              <span class="text-xs font-bold block" style="color: var(--brand-primary);">Cài đặt người trúng đích danh cho giải này (Tùy chọn)</span>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-[11px] text-slate-400 mb-1">Mã số trúng định sẵn:</label>
+                  <label class="block text-[11px] text-slate-400 mb-1">Mã số trúng sẵn:</label>
                   <input type="text" id="formGiftSecretNumber" placeholder="VD: 088" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" />
                 </div>
                 <div>
@@ -504,10 +445,35 @@
         </div>
       </div>
 
-      <!-- TAB 3: CHẾ ĐỘ & DÃY SỐ -->
+      <!-- TAB 3: DÃY SỐ & CHẾ ĐỘ BĂNG CHUYỀN (TÍNH NĂNG MỚI ĐẢO NGƯỢC) -->
       <div id="tab-numbers" class="tab-pane hidden space-y-5">
+        
+        <!-- BỔ SUNG: THIẾT LẬP ĐẢO NGƯỢC NỘI DUNG BĂNG CHUYỀN -->
+        <div class="glass-card p-4 rounded-2xl border border-amber-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Kiểu Nội Dung Băng Chuyền (Carousel Mode)</h4>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">Cài Đặt Mới</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
+              <input type="radio" name="carouselContentMode" value="gifts" checked class="mt-0.5 text-amber-500"/>
+              <div>
+                <span class="text-xs font-bold text-white block">Mặc Định: Băng Chuyền Quà Tặng</span>
+                <span class="text-[11px] text-slate-400">Dây phóng vào món quà $\rightarrow$ Quay số hiển thị người nhận trúng giải.</span>
+              </div>
+            </label>
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
+              <input type="radio" name="carouselContentMode" value="participants" class="mt-0.5 text-amber-500"/>
+              <div>
+                <span class="text-xs font-bold text-white block">Đảo Ngược: Băng Chuyền Người Tham Gia</span>
+                <span class="text-[11px] text-slate-400">Băng chuyền chạy Tên & Mã số khách $\rightarrow$ Phóng dây bắt trúng người nhận.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
         <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
-          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Phương Thức Bốc Thưởng (Draw Mode)</h4>
+          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Phương Thức Bốc Thưởng</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
               <input type="radio" name="drawModeRadio" value="tiered" class="mt-0.5 text-amber-500"/>
@@ -519,24 +485,24 @@
             <label class="flex items-start gap-3 p-3 rounded-xl bg-slate-950 border border-slate-800 cursor-pointer hover:border-amber-400 transition">
               <input type="radio" name="drawModeRadio" value="random_all" class="mt-0.5 text-amber-500"/>
               <div>
-                <span class="text-xs font-bold text-white block">Ngẫu Nhiên Toàn Kho (Random All)</span>
+                <span class="text-xs font-bold text-white block">Ngẫu Nhiên Toàn Kho</span>
                 <span class="text-[11px] text-slate-400">Bốc ngẫu nhiên bất kỳ món quà nào còn lại trong kho.</span>
               </div>
             </label>
           </div>
           <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-200">Số lượng quà kéo mỗi lượt (Chế độ Ngẫu Nhiên Toàn Kho):</span>
+            <span class="text-xs font-bold text-slate-200">Số lượng quà kéo mỗi lượt (Ngẫu Nhiên Toàn Kho):</span>
             <input type="number" id="settingRandomPullCount" min="1" max="10" value="1" class="w-16 bg-slate-950 border rounded-lg px-2.5 py-1 text-center text-sm font-black" style="border-color: var(--glass-border-gold); color: var(--brand-primary);" />
           </div>
         </div>
 
         <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
-          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Số Lượng Quà Bắt Mỗi Lượt (Theo Hạng Giải)</h4>
+          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Số Lượng Dây Kéo Mỗi Lượt (Theo Hạng Giải)</h4>
           <div id="tierRopesConfigGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
         </div>
 
         <div class="glass-card p-4 rounded-2xl border border-white/10 space-y-3">
-          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Dãy Số May Mắn Chung Cho Các Giải</h4>
+          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Dãy Số May Mắn Chung</h4>
           <div class="space-y-3">
             <div class="flex items-center gap-5 text-xs font-bold text-slate-200">
               <label class="flex items-center gap-2 cursor-pointer">
@@ -558,7 +524,7 @@
             <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
               <div>
                 <span class="text-xs text-slate-300 font-bold block">Danh sách khách hàng (CSV)</span>
-                <span class="text-[10px] text-slate-500">Cột 1: Mã số, Cột 2: Tên. (VD: 001, Nguyễn Văn A)</span>
+                <span class="text-[10px] text-slate-500">Cột 1: Mã số, Cột 2: Tên.</span>
               </div>
               <div class="flex items-center gap-2">
                 <span id="participantCountLabel" class="text-[10px] text-emerald-400 font-bold">0 khách</span>
@@ -582,36 +548,36 @@
         </div>
       </div>
 
-      <!-- TAB 4: KÉO HỤT & TỐC ĐỘ DÂY -->
+      <!-- TAB 4: KÉO HỤT -->
       <div id="tab-mechanics" class="tab-pane hidden space-y-4">
         <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
-          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Tùy Chỉnh Tốc Độ Dây Kéo & Cơ Chế Kéo Hụt</h3>
+          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Tốc Độ Dây Kéo & Cơ Chế Kéo Hụt</h3>
           
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-slate-200 block">Tốc độ phóng & thu dây kéo (Rope Speed)</span>
-                <span class="text-[11px] text-slate-400">Điều chỉnh độ nhanh/chậm của animation phóng dây, giằng co và kéo quà về</span>
+                <span class="text-xs font-bold text-slate-200 block">Tốc độ phóng & thu dây kéo:</span>
+                <span class="text-[11px] text-slate-400">Điều chỉnh độ nhanh/chậm của animation giằng co và kéo quà</span>
               </div>
               <span id="ropeSpeedLabel" class="text-xs font-mono font-bold px-2 py-0.5 rounded" style="color: var(--brand-primary); background: var(--brand-gold-subtle); border: 1px solid var(--glass-border-gold);">1.0X</span>
             </div>
             <div class="flex items-center gap-3 pt-1">
-              <span class="text-[11px] text-slate-400 font-mono">0.5X (Kịch tính)</span>
+              <span class="text-[11px] text-slate-400 font-mono">0.5X (Chậm)</span>
               <input type="range" id="settingRopeSpeed" min="0.5" max="2.5" step="0.1" value="1.0" class="flex-1 h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-400" />
-              <span class="text-[11px] text-slate-400 font-mono">2.5X (Nhanh gọn)</span>
+              <span class="text-[11px] text-slate-400 font-mono">2.5X (Nhanh)</span>
             </div>
           </div>
 
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-4">
             <div>
-              <span class="text-xs font-bold text-slate-200 block">Kịch Bản Kéo Hụt (Troll / Tăng Hồi Hộp)</span>
-              <span class="text-[11px] text-slate-400">Khi hụt, dây sẽ phóng ra chụp quà nhưng tuột tay rỗng về, không trừ số lượng quà trong kho</span>
+              <span class="text-xs font-bold text-slate-200 block">Cơ Chế Kéo Hụt (Troll / Tăng Kịch Tính)</span>
+              <span class="text-[11px] text-slate-400">Khi hụt, dây tuột tay rỗng về, hoàn trả 100% quà vào kho</span>
             </div>
 
             <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div>
-                <span class="text-xs font-semibold text-white block">Ép hụt các lượt tới (Số lần hụt liên tiếp):</span>
-                <span class="text-[11px] text-slate-400">Sau khi hụt hết số lần này, hệ thống sẽ tự quay về trúng bình thường</span>
+                <span class="text-xs font-semibold text-white block">Ép hụt các lượt tới (Số lần liên tiếp):</span>
+                <span class="text-[11px] text-slate-400">Sau khi hết số lần này sẽ tự quay về trúng bình thường</span>
               </div>
               <div class="flex items-center gap-2">
                 <input type="number" id="settingMissForceCount" min="0" max="20" value="0" class="w-16 bg-slate-950 border rounded-lg px-2 py-1 text-center text-xs font-mono font-bold" style="border-color: var(--glass-border-gold); color: var(--brand-primary);" />
@@ -622,8 +588,8 @@
             <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
               <div class="flex items-center justify-between">
                 <div>
-                  <span class="text-xs font-semibold text-white block">Tỷ lệ kéo hụt ngẫu nhiên (Random Miss %):</span>
-                  <span class="text-[11px] text-slate-400">0% = Không bao giờ hụt | 20% = Có 20% khả năng hụt ngẫu nhiên</span>
+                  <span class="text-xs font-semibold text-white block">Tỷ lệ kéo hụt ngẫu nhiên (%):</span>
+                  <span class="text-[11px] text-slate-400">0% = Không bao giờ hụt | 50% = 50% khả năng kéo hụt</span>
                 </div>
                 <span id="missChanceLabel" class="text-xs font-mono font-bold px-2 py-0.5 rounded" style="color: var(--brand-primary); background: var(--brand-gold-subtle); border: 1px solid var(--glass-border-gold);">0%</span>
               </div>
@@ -646,7 +612,7 @@
       <!-- TAB 5: QUEUE -->
       <div id="tab-sequence" class="tab-pane hidden space-y-5">
         <div class="glass-card p-4 rounded-2xl border space-y-4" style="border-color: var(--glass-border-gold);">
-          <h3 class="font-bold text-sm" style="color: var(--brand-primary);">Kịch Bản Thứ Tự Nhận Quà (Custom Gift Queue)</h3>
+          <h3 class="font-bold text-sm" style="color: var(--brand-primary);">Kịch Bản Thứ Tự Nhận Quà (Queue)</h3>
           <div class="flex items-center gap-3">
             <select id="queueSelectGiftId" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white"></select>
             <button type="button" id="addToQueueBtn" class="px-4 py-2 text-slate-950 rounded-xl text-xs font-extrabold cursor-pointer" style="background-color: var(--brand-primary);">+ Thêm Vào Queue</button>
@@ -659,7 +625,7 @@
         </div>
       </div>
 
-      <!-- TAB 6: SECRET WINNER & BLACKLIST -->
+      <!-- TAB 6: SECRET & BLACKLIST -->
       <div id="tab-secret" class="tab-pane hidden space-y-5">
         <div class="glass-card p-4 rounded-2xl border space-y-3" style="border-color: var(--glass-border-gold);">
           <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Cài Đặt Người Thắng Cho Lượt Bấm Kế Tiếp</h4>
@@ -683,30 +649,30 @@
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
               <span class="material-symbols-outlined text-rose-400 text-lg">block</span>
-              <h4 class="font-bold text-sm text-rose-300">Danh Sách Loại Trừ (Không Cho Phép Trúng Giải)</h4>
+              <h4 class="font-bold text-sm text-rose-300">Danh Sách Loại Trừ (Blacklist - Cấm Trúng Giải)</h4>
             </div>
             <span id="blacklistCountBadge" class="text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-rose-950 text-rose-300 border border-rose-500/30">0 mục</span>
           </div>
-          <p class="text-[11px] text-slate-400">Nhập mã số vé hoặc tên khách mời không được phép trúng thưởng (cách nhau bằng dấu phẩy hoặc xuống dòng). Hệ thống sẽ tự động bỏ qua các số/người này.</p>
+          <p class="text-[11px] text-slate-400">Nhập mã số vé hoặc tên khách mời không được trúng giải (cách nhau bởi dấu phẩy hoặc dòng mới).</p>
           <textarea id="settingBlacklistInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-rose-300 font-mono focus:border-rose-500" placeholder="VD: 004, 015, Nguyễn Văn B..."></textarea>
           <div class="flex justify-end pt-1">
             <button type="button" id="saveBlacklistBtn" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow cursor-pointer transition">
-              Cập Nhật Loại Trừ
+              Lưu Blacklist
             </button>
           </div>
         </div>
       </div>
 
-      <!-- TAB 7: ÂM THANH & BGM -->
+      <!-- TAB 7: ÂM THANH -->
       <div id="tab-audio" class="tab-pane hidden space-y-4">
         <div class="glass-card p-4 sm:p-5 rounded-2xl border border-white/10 space-y-4">
-          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Cấu Hình Nhạc Nền Sự Kiện & Âm Thanh</h3>
+          <h3 class="text-sm sm:text-base font-bold" style="color: var(--brand-primary);">Âm Thanh & BGM</h3>
           
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 space-y-3">
             <div class="flex items-center justify-between">
               <div>
                 <span class="text-xs font-bold text-slate-200 block">Nhạc nền Gala / Xổ số sôi động (BGM)</span>
-                <span class="text-[11px] text-slate-400">Giai điệu Funk/Disco hào hứng, vui tai, chuẩn không khí sân khấu</span>
+                <span class="text-[11px] text-slate-400">Âm thanh Funk/Disco tạo nhiệt sân khấu</span>
               </div>
               <input type="checkbox" id="settingBgmToggle" class="w-4 h-4 text-amber-500 rounded cursor-pointer" />
             </div>
@@ -723,7 +689,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <span class="text-xs font-bold text-slate-200 block">Hiệu ứng âm thanh khi quay thưởng (SFX)</span>
-                <span class="text-[11px] text-slate-400">Tiếng phóng dây, giằng co, slot nhảy số, pháo hoa fanfare</span>
+                <span class="text-[11px] text-slate-400">Tiếng phóng dây, giằng co, slot số, fanfare</span>
               </div>
               <input type="checkbox" id="settingSfxToggle" checked class="w-4 h-4 text-amber-500 rounded cursor-pointer" />
             </div>
@@ -738,7 +704,7 @@
         </div>
       </div>
 
-      <!-- TAB 8: HISTORY -->
+      <!-- TAB 8: LỊCH SỬ & RESET -->
       <div id="tab-history" class="tab-pane hidden space-y-4">
         <div class="flex items-center justify-between">
           <h3 class="font-bold text-slate-100 text-sm">Lịch Sử Các Lượt Đã Trao Thưởng</h3>
@@ -764,21 +730,37 @@
             <tbody id="adminHistoryTableBody" class="divide-y divide-slate-900"></tbody>
           </table>
         </div>
+
+        <div class="p-4 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-2 mt-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-rose-300 block">Dọn Dẹp / Làm Mới Hệ Thống Cho Sự Kiện Mới</span>
+              <span class="text-[11px] text-slate-400">Xóa dữ liệu cũ để trang web nhẹ, mượt và sẵn sàng cho buổi lễ tiếp theo</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" onclick="window.gameApp.resetForNewEvent(true)" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-bold border border-amber-500/40 cursor-pointer transition">
+                Reset Quay (Giữ Logo & Nền)
+              </button>
+              <button type="button" onclick="window.gameApp.resetForNewEvent(false)" class="px-3 py-1.5 rounded-xl bg-rose-900 hover:bg-rose-700 text-white text-xs font-bold cursor-pointer transition shadow">
+                Xóa Sạch Trắng Dữ Liệu
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
 
+    <!-- MODAL FOOTER -->
     <div class="flex items-center justify-between px-6 py-4 border-t border-white/10 bg-slate-950/60">
       <div class="flex items-center space-x-2 text-xs text-slate-400">
         <span class="material-symbols-outlined text-sm" style="color: var(--brand-primary);">verified_user</span>
-        <span>Các thay đổi được áp dụng tự động, bấm Lưu & Đóng để thoát</span>
+        <span>Dữ liệu được bảo toàn vĩnh viễn trên thiết bị</span>
       </div>
-      <div class="flex items-center space-x-3">
-        <button id="saveAndCloseAdminBtn" class="btn-liquid-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 cursor-pointer shadow-lg">
-          <span class="material-symbols-outlined text-base font-bold">check_circle</span>
-          <span>Lưu & Đóng</span>
-        </button>
-      </div>
+      <button onclick="window.gameApp.closeAdminModal()" class="btn-liquid-gold px-5 py-2.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 cursor-pointer shadow-lg">
+        <span class="material-symbols-outlined text-base font-bold">check_circle</span>
+        <span>Đóng Cấu Hình</span>
+      </button>
     </div>
   </div>
 </div>
@@ -789,7 +771,7 @@
 </div>
 
 <script>
-  const IDB_CONFIG = { dbName: 'CH_MEDIA_STORE_V2', storeName: 'assets', version: 1 };
+  const IDB_CONFIG = { dbName: 'CH_MEDIA_STORE_FINAL', storeName: 'assets', version: 1 };
   function initMediaDB() {
     return new Promise((resolve) => {
       const request = indexedDB.open(IDB_CONFIG.dbName, IDB_CONFIG.version);
@@ -1112,11 +1094,11 @@
   }
 
   const STORAGE_KEYS = {
-    GIFTS: 'ch_trading_gifts_data_final',
-    SETTINGS: 'ch_trading_settings_data_final',
-    HISTORY: 'ch_trading_history_data_final',
-    QUEUE: 'ch_trading_queue_data_final',
-    PERSISTENT_BG: 'ch_custom_bg_persistent'
+    GIFTS: 'ch_trading_gifts_final',
+    SETTINGS: 'ch_trading_settings_final',
+    HISTORY: 'ch_trading_history_final',
+    QUEUE: 'ch_trading_queue_final',
+    PERSISTENT_BG: 'ch_custom_bg_final'
   };
 
   class GameApp {
@@ -1135,6 +1117,7 @@
         logoUrl: '',
         bgImageUrl: '',
         drawMode: 'tiered',
+        carouselMode: 'gifts', // 'gifts' (Mặc định) | 'participants' (Đảo ngược)
         randomPullCount: 1,
         activeTier: 'Giải Ba',
         tierPullCounts: { 'Giải Ba': 3, 'Giải Nhì': 2, 'Giải Nhất': 1, 'Giải Đặc Biệt': 1, 'Giải May Mắn': 5 },
@@ -1241,6 +1224,7 @@
            if (!this.settings.tierPullCounts) this.settings.tierPullCounts = {};
            if (!this.settings.participantList) this.settings.participantList = [];
            if (!this.settings.blacklist) this.settings.blacklist = [];
+           if (!this.settings.carouselMode) this.settings.carouselMode = 'gifts';
         }
       } catch (err) {}
 
@@ -1310,6 +1294,41 @@
     
     saveQueue() { 
       try { localStorage.setItem(STORAGE_KEYS.QUEUE, JSON.stringify(this.customQueue)); } catch (e) {} 
+    }
+
+    async resetForNewEvent(keepBranding = true) {
+      const confirmMsg = keepBranding 
+        ? "Bạn có chắc muốn LÀM MỚI HỆ THỐNG cho sự kiện mới?\n- Xóa: Lịch sử trúng giải, Khách CSV, Queue, Lượt hụt.\n- Hồi phục: Toàn bộ số lượng quà về ban đầu.\n- Giữ lại: Logo, Hình nền và Màu sắc thương hiệu."
+        : "CẢNH BÁO TỐI CAO: Thao tác này sẽ XÓA TRẮNG TOÀN BỘ DỮ LIỆU, bao gồm cả Logo, Hình nền và đưa ứng dụng về nguyên bản xuất xưởng?";
+
+      if (!confirm(confirmMsg)) return;
+
+      localStorage.removeItem(STORAGE_KEYS.HISTORY);
+      localStorage.removeItem(STORAGE_KEYS.QUEUE);
+
+      this.gifts.forEach(g => {
+        g.remaining = g.quantity;
+        g.secretNumber = '';
+        g.secretWinnerName = '';
+      });
+      await this.saveGifts();
+
+      this.settings.participantList = [];
+      this.settings.currentTurn = 1;
+      this.settings.nextSecretNumber = '';
+      this.settings.nextSecretWinnerName = '';
+      this.settings.missForceCount = 0;
+      this.settings.blacklist = [];
+      this.saveSettings();
+
+      if (!keepBranding) {
+        localStorage.removeItem(STORAGE_KEYS.PERSISTENT_BG);
+        localStorage.removeItem(STORAGE_KEYS.GIFTS);
+        localStorage.removeItem(STORAGE_KEYS.SETTINGS);
+        indexedDB.deleteDatabase(IDB_CONFIG.dbName);
+      }
+
+      location.reload();
     }
 
     showToast(message) {
@@ -1397,41 +1416,98 @@
       return this.gifts.filter(g => g.tier === this.settings.activeTier).reduce((acc, g) => acc + (g.remaining || 0), 0);
     }
 
+    // TỔNG HỢP DANH SÁCH NGƯỜI THAM GIA KHẢ DỤNG
+    getAllParticipants() {
+      if (this.settings.participantList && this.settings.participantList.length > 0) {
+        return this.settings.participantList;
+      }
+      if (this.settings.globalNumType === 'list' && this.settings.globalNumberList) {
+        return this.settings.globalNumberList.split(/[\n,]+/).map(s => s.trim()).filter(Boolean).map(n => ({ number: n, name: `Khách hàng ${n}` }));
+      }
+      if (this.settings.globalNumberRange) {
+        const parts = this.settings.globalNumberRange.split('-').map(s => s.trim());
+        const min = parseInt(parts[0], 10) || 1, max = parseInt(parts[1], 10) || 150;
+        const padLen = Math.max(parts[0].length, parts[1] ? parts[1].length : 3);
+        const list = [];
+        for (let i = min; i <= max; i++) {
+          const num = String(i).padStart(padLen, '0');
+          list.push({ number: num, name: `Khách ${num}` });
+        }
+        return list;
+      }
+      return [{ number: '001', name: 'Khách mời' }];
+    }
+
+    // RENDER BĂNG CHUYỀN (HỖ TRỢ CẢ CHẾ ĐỘ QUÀ VÀ CHẾ ĐỘ KHÁCH HÀNG ĐẢO NGƯỢC)
     renderParade() {
       const track = document.getElementById('paradeTrack');
       if (!track) return;
       track.innerHTML = '';
       
-      const activeGifts = this.gifts.filter(g => g.remaining > 0);
-      if (!activeGifts.length) return;
+      const isReverseMode = (this.settings.carouselMode === 'participants');
 
-      const items = [...activeGifts, ...activeGifts, ...activeGifts, ...activeGifts];
-      items.forEach((gift) => {
-        const isCurrentTier = (gift.tier === this.settings.activeTier);
-        const isHighlighted = (this.settings.drawMode === 'random_all') || isCurrentTier;
+      if (isReverseMode) {
+        // CHẾ ĐỘ ĐẢO NGƯỢC: Render danh sách người tham gia
+        const participants = this.getAllParticipants();
+        if (!participants.length) return;
+        
+        const activeParticipants = participants.filter(p => !this.usedNumbers.has(p.number));
+        const pool = activeParticipants.length ? activeParticipants : participants;
+        const displayPool = pool.slice(0, 40); // Tối ưu DOM
+        const items = [...displayPool, ...displayPool, ...displayPool, ...displayPool];
 
-        const box = document.createElement('div');
-        box.className = `target-gift-card shrink-0 w-44 sm:w-52 h-36 sm:h-40 rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-between transition-all duration-300 relative ${
-          isHighlighted ? 'glass-card-active scale-105 opacity-100 z-20' : 'glass-card opacity-60 hover:opacity-90'
-        }`;
-        box.dataset.giftId = gift.id;
+        items.forEach((p, idx) => {
+          const box = document.createElement('div');
+          box.className = 'target-participant-card shrink-0 w-44 sm:w-52 h-36 sm:h-40 rounded-2xl p-3 flex flex-col items-center justify-between glass-card-active scale-105 opacity-100 z-20 shadow-lg';
+          box.dataset.participantNum = p.number;
 
-        const quotaBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style="color: var(--brand-primary); background: var(--brand-gold-subtle); border: 1px solid var(--glass-border-gold);">${gift.remaining}/${gift.quantity}</span>`;
+          box.innerHTML = `
+            <div class="w-full flex items-center justify-between text-xs mb-1">
+              <span class="font-mono text-emerald-400 font-black text-xs px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40">SỐ: ${p.number}</span>
+              <span class="text-[10px] font-bold text-slate-400">KHÁCH MỜI</span>
+            </div>
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-slate-900 border flex items-center justify-center shadow-inner" style="border-color: var(--glass-border-gold);">
+              <span class="material-symbols-outlined text-3xl" style="color: var(--brand-primary);">person</span>
+            </div>
+            <div class="text-center w-full mt-1">
+              <h3 class="text-xs sm:text-sm font-black text-white truncate px-1" title="${p.name}">${p.name}</h3>
+            </div>
+          `;
+          track.appendChild(box);
+        });
+      } else {
+        // CHẾ ĐỘ MẶC ĐỊNH: Render phần thưởng
+        const activeGifts = this.gifts.filter(g => g.remaining > 0);
+        if (!activeGifts.length) return;
 
-        box.innerHTML = `
-          <div class="w-full flex items-center justify-between text-xs mb-1">
-            <span class="font-bold uppercase tracking-tight text-[10px] truncate max-w-[90px] block" style="color: var(--brand-primary);">${gift.tier}</span>
-            ${quotaBadge}
-          </div>
-          <div class="w-16 h-16 sm:w-20 sm:h-20 my-0.5 flex items-center justify-center p-1 overflow-hidden">
-            ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="max-h-full object-contain pointer-events-none drop-shadow-md" />` : `<span class="material-symbols-outlined text-3xl" style="color: var(--brand-primary);">featured_seasonal_and_gifts</span>`}
-          </div>
-          <div class="text-center w-full mt-0.5">
-            <h3 class="text-xs font-bold text-white truncate px-1">${gift.name}</h3>
-          </div>
-        `;
-        track.appendChild(box);
-      });
+        const items = [...activeGifts, ...activeGifts, ...activeGifts, ...activeGifts];
+        items.forEach((gift) => {
+          const isCurrentTier = (gift.tier === this.settings.activeTier);
+          const isHighlighted = (this.settings.drawMode === 'random_all') || isCurrentTier;
+
+          const box = document.createElement('div');
+          box.className = `target-gift-card shrink-0 w-44 sm:w-52 h-36 sm:h-40 rounded-2xl p-2.5 sm:p-3 flex flex-col items-center justify-between transition-all duration-300 relative ${
+            isHighlighted ? 'glass-card-active scale-105 opacity-100 z-20' : 'glass-card opacity-60 hover:opacity-90'
+          }`;
+          box.dataset.giftId = gift.id;
+
+          const quotaBadge = `<span class="text-[9px] px-1.5 py-0.5 rounded font-mono font-bold" style="color: var(--brand-primary); background: var(--brand-gold-subtle); border: 1px solid var(--glass-border-gold);">${gift.remaining}/${gift.quantity}</span>`;
+
+          box.innerHTML = `
+            <div class="w-full flex items-center justify-between text-xs mb-1">
+              <span class="font-bold uppercase tracking-tight text-[10px] truncate max-w-[90px] block" style="color: var(--brand-primary);">${gift.tier}</span>
+              ${quotaBadge}
+            </div>
+            <div class="w-16 h-16 sm:w-20 sm:h-20 my-0.5 flex items-center justify-center p-1 overflow-hidden">
+              ${gift.imageUrl ? `<img src="${gift.imageUrl}" alt="${gift.name}" class="max-h-full object-contain pointer-events-none drop-shadow-md" />` : `<span class="material-symbols-outlined text-3xl" style="color: var(--brand-primary);">featured_seasonal_and_gifts</span>`}
+            </div>
+            <div class="text-center w-full mt-0.5">
+              <h3 class="text-xs font-bold text-white truncate px-1">${gift.name}</h3>
+            </div>
+          `;
+          track.appendChild(box);
+        });
+      }
     }
 
     startLoop() {
@@ -1525,6 +1601,8 @@
       }, 7000);
 
       const awardedGifts = [];
+      const isReverse = (this.settings.carouselMode === 'participants');
+
       for (let r = 0; r < ropeCount; r++) {
         let pickedGift = null;
 
@@ -1566,17 +1644,30 @@
       const baseLaunchX = canvasRect.width / 2;
       const launchY = canvasRect.height - 30;
       const usedTargetCards = new Set();
+      const batchUsed = new Set();
 
       awardedGifts.forEach((gift, idx) => {
-        const cards = Array.from(document.querySelectorAll(`.target-gift-card[data-gift-id="${gift.id}"]`));
-        const unusedCards = cards.filter(c => !usedTargetCards.has(c));
-        const candidateCards = unusedCards.length ? unusedCards : cards;
+        const { luckyNumber, winnerName } = this.generateLuckyNumber(gift, batchUsed);
+        
+        let candidateCards = [];
+        if (isReverse) {
+          // Bắt theo mã số thẻ người tham gia
+          const allCards = Array.from(document.querySelectorAll(`.target-participant-card`));
+          const matchCard = allCards.find(c => c.dataset.participantNum === luckyNumber);
+          candidateCards = matchCard ? [matchCard] : allCards;
+        } else {
+          // Bắt theo quà
+          candidateCards = Array.from(document.querySelectorAll(`.target-gift-card[data-gift-id="${gift.id}"]`));
+        }
 
-        let bestCard = candidateCards[0];
+        const unusedCards = candidateCards.filter(c => !usedTargetCards.has(c));
+        const finalPool = unusedCards.length ? unusedCards : candidateCards;
+
+        let bestCard = finalPool[0];
         let minDistance = Infinity;
 
-        if (candidateCards.length > 0) {
-          candidateCards.forEach(card => {
+        if (finalPool.length > 0) {
+          finalPool.forEach(card => {
             const rect = card.getBoundingClientRect();
             const dist = Math.abs((rect.left + rect.width / 2) - screenCenterX);
             if (dist < minDistance) { minDistance = dist; bestCard = card; }
@@ -1595,6 +1686,7 @@
         this.activeRopes.push({
           id: idx, launchX: baseLaunchX + ropeOffset, launchY: launchY,
           targetX: clampedTargetX, targetY, targetBox: bestCard, awardedGift: gift,
+          luckyNumber, winnerName,
           progress: 0, phase: 'throwing', isMiss: isMissTurn
         });
       });
@@ -1708,7 +1800,7 @@
         clearTimeout(this._safetyTimer);
         this.activeRopes.forEach(r => { if (r.targetBox) r.targetBox.classList.remove('screen-shaking', 'ring-4', 'ring-amber-400'); });
         const isMissTurn = this.activeRopes[0].isMiss;
-        const awardedGifts = this.activeRopes.map(r => r.awardedGift);
+        const awardedBatch = this.activeRopes.map(r => ({ gift: r.awardedGift, luckyNumber: r.luckyNumber, winnerName: r.winnerName }));
         this.activeRopes = [];
         this.isThrowing = false;
         this.isReeling = false;
@@ -1716,7 +1808,7 @@
         if (isMissTurn) {
           this.showToast('🎯 TIẾC QUÁ! DÂY ĐÃ KÉO HỤT RỒI, HÃY THỬ LẠI LẦN NỮA!');
         } else {
-          this.triggerVictoryCelebration(awardedGifts);
+          this.triggerVictoryCelebration(awardedBatch);
         }
       }
 
@@ -1878,7 +1970,7 @@
       return luckyNumber;
     }
 
-    triggerVictoryCelebration(awardedGifts) {
+    triggerVictoryCelebration(awardedBatch) {
       this.renderParade();
       this.renderAdminGifts();
       this.updateHUD();
@@ -1891,13 +1983,11 @@
         const container = document.getElementById('winnerPrizesList');
         container.innerHTML = '';
         const timeString = new Date().toLocaleTimeString('vi-VN');
-        
-        const batchUsed = new Set();
 
-        awardedGifts.forEach((gift, idx) => {
+        awardedBatch.forEach((item, idx) => {
+          const { gift, luckyNumber, winnerName } = item;
           if (!gift) return;
-          const { luckyNumber, winnerName } = this.generateLuckyNumber(gift, batchUsed);
-          
+
           const historyItem = {
             turn: this.settings.currentTurn, timestamp: timeString,
             giftId: gift.id, giftName: gift.name, tier: gift.tier || 'Giải Mặc Định', luckyNumber, winnerName
@@ -2352,6 +2442,9 @@
       const drawModeRadios = document.querySelectorAll('input[name="drawModeRadio"]');
       drawModeRadios.forEach(r => r.checked = (r.value === this.settings.drawMode));
 
+      const carouselRadios = document.querySelectorAll('input[name="carouselContentMode"]');
+      carouselRadios.forEach(r => r.checked = (r.value === (this.settings.carouselMode || 'gifts')));
+
       const randPullInput = document.getElementById('settingRandomPullCount');
       if (randPullInput) randPullInput.value = this.settings.randomPullCount || 1;
 
@@ -2451,6 +2544,20 @@
             this.updateHUD();
             this.renderParade();
             this.showToast(this.settings.drawMode === 'random_all' ? 'Đã đổi sang: Ngẫu nhiên toàn kho' : 'Đã đổi sang: Theo hạng giải');
+          }
+        });
+      });
+
+      // LẮNG NGHE ĐỔI CHẾ ĐỘ BĂNG CHUYỀN (MẶC ĐỊNH / ĐẢO NGƯỢC KHÁCH HÀNG)
+      document.querySelectorAll('input[name="carouselContentMode"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            this.settings.carouselMode = e.target.value;
+            this.saveSettings();
+            this.renderParade();
+            const label = (e.target.value === 'participants') ? 'Đã kích hoạt: Băng chuyền Người tham gia!' : 'Đã đổi sang: Băng chuyền Quà tặng!';
+            document.getElementById('throwBtnLabel').textContent = (e.target.value === 'participants') ? 'PHÓNG DÂY BẮT NGƯỜI NHẬN' : 'PHÓNG DÂY BẮT QUÀ';
+            this.showToast(label);
           }
         });
       });
@@ -2632,11 +2739,6 @@
          el?.addEventListener('change', handler);
       });
 
-      document.getElementById('saveAndCloseAdminBtn')?.addEventListener('click', () => {
-        this.closeAdminModal();
-        this.showToast('Đã lưu & đóng cấu hình!');
-      });
-
       document.getElementById('settingLogoFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2764,7 +2866,7 @@
         let remaining = quantity;
         if (existingIndex >= 0) remaining = Math.min(this.gifts[existingIndex].remaining, quantity);
 
-        const giftData = { id, name, tier, badge: '', quantity, remaining, secretNumber: secNum, secretWinnerName: secName, imageUrl };
+        const giftData = { id, name, tier, quantity, remaining, secretNumber: secNum, secretWinnerName: secName, imageUrl };
         if (existingIndex >= 0) this.gifts[existingIndex] = giftData;
         else this.gifts.push(giftData);
 
@@ -2803,6 +2905,7 @@
           this.settings.globalNumType = 'list';
           this.saveSettings();
           this.renderAdminNumbers();
+          this.renderParade();
           this.updateHUD();
           this.showToast(`Đã nhập ${list.length} khách hàng từ CSV!`);
           e.target.value = ''; 
@@ -2811,10 +2914,10 @@
       });
 
       document.getElementById('globalNumberRangeInput')?.addEventListener('change', (e) => {
-        this.settings.globalNumberRange = e.target.value.trim(); this.saveSettings();
+        this.settings.globalNumberRange = e.target.value.trim(); this.saveSettings(); this.renderParade();
       });
       document.getElementById('globalNumberListInput')?.addEventListener('change', (e) => {
-        this.settings.globalNumberList = e.target.value.trim(); this.saveSettings();
+        this.settings.globalNumberList = e.target.value.trim(); this.saveSettings(); this.renderParade();
       });
       document.getElementById('uniqueNumbersToggle')?.addEventListener('change', (e) => {
         this.settings.uniqueNumbers = e.target.checked; this.saveSettings();
@@ -2825,6 +2928,7 @@
         this.settings.globalNumberList = document.getElementById('globalNumberListInput')?.value.trim();
         this.settings.uniqueNumbers = document.getElementById('uniqueNumbersToggle')?.checked;
         this.saveSettings();
+        this.renderParade();
         this.showToast('Dãy số may mắn đã được cập nhật!');
       });
 
