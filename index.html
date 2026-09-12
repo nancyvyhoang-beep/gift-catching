@@ -5,19 +5,15 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
   <title id="pageTitle">CH TRADING - Client Appreciation</title>
   
-  <!-- Tailwind CSS v3 CDN with plugins -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <!-- Modern Sans-Serif Fonts with Vietnamese Subsets -->
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   
-  <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <!-- Brand Guidelines & Glassmorphic Custom Properties -->
   <style>
     :root {
       --brand-primary: #F59E0B;
@@ -147,7 +143,6 @@
 </head>
 <body id="appBody" class="h-full overflow-x-hidden flex flex-col justify-between relative selection:bg-amber-400 selection:text-slate-950 font-sans">
 
-<!-- BEGIN: Dynamic Fluid Aurora Mesh Background -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" data-purpose="stage-lighting">
   <div class="absolute inset-0 bg-gradient-to-b from-[#060913] via-[#090E1B] to-[#04060C]"></div>
   <div id="customBgOverlay" class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat transition-all duration-500 z-0 opacity-0"></div>
@@ -164,9 +159,7 @@
   <div class="light-particle w-1 h-1 bg-amber-100 shadow-[0_0_6px_#fef08a] bottom-1/4 right-[32%]" style="animation-delay: 3.8s;"></div>
   <div class="light-particle w-1.5 h-1.5 bg-amber-400 shadow-[0_0_8px_#fbbf24] top-1/2 left-[12%]" style="animation-delay: 4.5s;"></div>
 </div>
-<!-- END: Dynamic Fluid Aurora Mesh Background -->
 
-<!-- BEGIN: Top Navigation & Header Bar -->
 <header class="relative z-30 px-6 py-4 flex items-center justify-between glass-frosted border-x-0 border-t-0" data-purpose="main-header">
   <div class="flex items-center space-x-3.5">
     <div id="brandLogoContainer" class="flex items-center justify-center flex-shrink-0 min-w-[40px] min-h-[40px]">
@@ -203,12 +196,10 @@
       </button>
     </div>
 
-    <!-- Nút Bật/Tắt Nhạc Nền BGM -->
     <button id="bgmToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Nhạc Nền Xổ Số (BGM)">
       <span id="bgmIcon" class="material-symbols-outlined text-[19px]">music_note</span>
     </button>
 
-    <!-- Nút Bật/Tắt Hiệu Ứng Âm Thanh -->
     <button id="soundToggleBtn" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-white transition cursor-pointer" title="Bật/Tắt Hiệu Ứng Âm Thanh">
       <span id="soundIcon" class="material-symbols-outlined text-[19px]">volume_up</span>
     </button>
@@ -223,9 +214,7 @@
     </button>
   </div>
 </header>
-<!-- END: Top Navigation & Header Bar -->
 
-<!-- BEGIN: Award Progress Bar -->
 <section id="progressionBarContainer" class="relative z-20 mx-auto w-full max-w-5xl px-4 mt-3 transition-all duration-300" data-purpose="award-progress">
   <div class="flex flex-wrap items-center justify-between gap-3 glass-frosted px-5 py-2.5 rounded-2xl">
     <div class="flex items-center space-x-2 text-xs font-bold text-slate-300">
@@ -235,9 +224,7 @@
     <div id="tierProgressionBar" class="flex items-center flex-wrap gap-2 text-xs"></div>
   </div>
 </section>
-<!-- END: Award Progress Bar -->
 
-<!-- BEGIN: Main Stage & Conveyor Carousel Area -->
 <main id="stageCard" class="relative z-10 flex-1 flex flex-col justify-between max-w-7xl w-full mx-auto p-2 sm:p-5 overflow-hidden" data-purpose="stage-main-area">
   
   <div class="text-center mb-2 relative z-10" data-purpose="stage-title">
@@ -252,7 +239,6 @@
     </p>
   </div>
 
-  <!-- Conveyor Carousel Container -->
   <div class="relative w-full pt-2 pb-2 px-4 z-10 flex flex-col items-center">
     <div id="targetCarousel" class="relative w-full max-w-5xl h-44 sm:h-52 overflow-hidden rounded-3xl glass-frosted flex items-center shadow-inner" style="border: 1px solid var(--glass-border-gold);">
       <div id="paradeTrack" class="flex items-center gap-4 sm:gap-6 absolute left-0 will-change-transform transition-none py-2 px-4 whitespace-nowrap"></div>
@@ -278,9 +264,7 @@
     </div>
   </div>
 </main>
-<!-- END: Main Stage & Conveyor Carousel Area -->
 
-<!-- BEGIN: Bottom Big CTA -->
 <footer class="relative z-30 pb-5 pt-1 px-4 flex flex-col items-center" data-purpose="interaction-footer">
   <button id="throwLassoBtn" class="group relative w-full max-w-lg py-3.5 px-8 font-extrabold text-base md:text-lg tracking-wider uppercase btn-liquid-gold rounded-2xl flex items-center justify-center space-x-3 cursor-pointer select-none">
     <span class="material-symbols-outlined text-2xl font-bold" style="color: var(--theme-text-title);">my_location</span>
@@ -293,9 +277,7 @@
     <span>hoặc click chuột để phóng dây nhận quà</span>
   </p>
 </footer>
-<!-- END: Bottom Big CTA -->
 
-<!-- BEGIN: Winner Celebration Modal Overlay -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-lg hidden transition-all duration-300 opacity-0 scale-95" id="winnerCelebrationModal">
   <div class="fixed inset-0 sunburst-bg-fullscreen pointer-events-none opacity-90 z-0"></div>
 
@@ -317,9 +299,7 @@
     </div>
   </div>
 </div>
-<!-- END: Winner Celebration Modal Overlay -->
 
-<!-- TIER COMPLETED MODAL -->
 <div id="tierCompletedModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden transition-all duration-300 opacity-0 scale-90">
   <div class="relative w-full max-w-md glass-card rounded-3xl p-6 text-center shadow-2xl flex flex-col items-center" style="border: 1px solid var(--glass-border-gold);">
     <div class="w-16 h-16 rounded-full text-slate-950 flex items-center justify-center text-3xl font-black mb-3 shadow-lg" style="background-color: var(--brand-primary);">
@@ -337,12 +317,10 @@
   </div>
 </div>
 
-<!-- BEGIN: Admin Settings & Configuration Modal -->
 <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 select-none hidden" id="configModal">
   <div class="absolute inset-0 bg-[#04060c]/80 backdrop-blur-md transition-opacity duration-300" onclick="window.gameApp && window.gameApp.closeAdminModal()"></div>
 
   <div class="relative z-10 w-full max-w-5xl h-[88vh] max-h-[780px] rounded-3xl glass-card-active border flex flex-col overflow-hidden shadow-[0_25px_80px_rgba(0,0,0,0.85)]" style="border-color: var(--glass-border-gold);">
-    <!-- Modal Header -->
     <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-950/40">
       <div class="flex items-center space-x-3">
         <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm" style="background: var(--brand-gold-subtle); border: 1px solid var(--glass-border-gold); color: var(--brand-primary);">
@@ -361,10 +339,9 @@
       </button>
     </div>
 
-    <!-- Navigation Tabs -->
     <div class="flex items-center px-6 pt-3 border-b border-white/5 bg-slate-950/20 overflow-x-auto no-scrollbar gap-2">
       <button class="admin-tab active py-3 px-3 font-bold text-xs sm:text-sm border-b-2 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="theme" style="border-color: var(--brand-primary); color: var(--brand-primary);">
-        <span class="material-symbols-outlined text-base">palette</span> Thương Hiệu & Giao Diện
+        <span class="material-symbols-outlined text-base">palette</span> Thương Hiệu
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="gifts">
         <span class="material-symbols-outlined text-base">featured_seasonal_and_gifts</span> Quà & Số Lượng
@@ -380,7 +357,7 @@
         <span class="material-symbols-outlined text-base">queue_music</span> Kịch Bản (Queue)
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="secret">
-        <span class="material-symbols-outlined text-base">person_search</span> Người Thắng Ẩn
+        <span class="material-symbols-outlined text-base">person_search</span> Người Thắng & Loại Trừ
       </button>
       <button class="admin-tab py-3 px-3 font-bold text-xs sm:text-sm border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition whitespace-nowrap cursor-pointer" data-tab="audio">
         <span class="material-symbols-outlined text-base">music_note</span> Âm Thanh & BGM
@@ -390,7 +367,6 @@
       </button>
     </div>
 
-    <!-- Modal Content Body -->
     <div class="flex-1 overflow-y-auto px-6 py-5 space-y-5 bg-gradient-to-b from-slate-950/30 to-[#070b16]/60">
       
       <!-- TAB 1: THƯƠNG HIỆU -->
@@ -503,6 +479,20 @@
                 <input type="file" id="formImageUpload" accept="image/*" class="text-xs text-slate-400 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:bg-amber-500 file:text-slate-950 cursor-pointer"/>
                 <img id="formImagePreview" src="" class="hidden w-10 h-10 object-contain bg-slate-800 rounded border border-slate-600" />
                 <button type="button" id="removeFormImageBtn" class="hidden px-2 py-1 bg-rose-950 hover:bg-rose-800 text-rose-300 rounded text-[10px] font-bold cursor-pointer transition">Xóa ảnh</button>
+              </div>
+            </div>
+
+            <div class="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+              <span class="text-xs font-bold block" style="color: var(--brand-primary);">Cài đặt người trúng đích danh cho giải thưởng này (Tùy chọn)</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-[11px] text-slate-400 mb-1">Mã số trúng định sẵn:</label>
+                  <input type="text" id="formGiftSecretNumber" placeholder="VD: 088" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono" />
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 mb-1">Tên khách nhận:</label>
+                  <input type="text" id="formGiftSecretName" placeholder="VD: Nguyễn Văn A" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
+                </div>
               </div>
             </div>
             
@@ -669,10 +659,10 @@
         </div>
       </div>
 
-      <!-- TAB 6: SECRET WINNER -->
+      <!-- TAB 6: SECRET WINNER & BLACKLIST -->
       <div id="tab-secret" class="tab-pane hidden space-y-5">
         <div class="glass-card p-4 rounded-2xl border space-y-3" style="border-color: var(--glass-border-gold);">
-          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Cài Đặt Người Thắng Cho Lượt Tới</h4>
+          <h4 class="font-bold text-sm" style="color: var(--brand-primary);">Cài Đặt Người Thắng Cho Lượt Bấm Kế Tiếp</h4>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <div>
               <label class="block text-xs font-bold text-slate-300 mb-1">Mã số trúng định trước:</label>
@@ -686,6 +676,23 @@
           <div class="flex items-center justify-between pt-1">
             <span id="nextOverrideStatus" class="text-[11px] text-slate-400 italic">Chưa đặt lượt tới.</span>
             <button id="applyNextSecretBtn" class="px-4 py-2 rounded-xl text-slate-950 font-bold text-xs cursor-pointer" style="background-color: var(--brand-primary);">Khóa Lượt Tới</button>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-rose-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-rose-400 text-lg">block</span>
+              <h4 class="font-bold text-sm text-rose-300">Danh Sách Loại Trừ (Không Cho Phép Trúng Giải)</h4>
+            </div>
+            <span id="blacklistCountBadge" class="text-[11px] px-2 py-0.5 rounded font-mono font-bold bg-rose-950 text-rose-300 border border-rose-500/30">0 mục</span>
+          </div>
+          <p class="text-[11px] text-slate-400">Nhập mã số vé hoặc tên khách mời không được phép trúng thưởng (cách nhau bằng dấu phẩy hoặc xuống dòng). Hệ thống sẽ tự động bỏ qua các số/người này.</p>
+          <textarea id="settingBlacklistInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-rose-300 font-mono focus:border-rose-500" placeholder="VD: 004, 015, Nguyễn Văn B..."></textarea>
+          <div class="flex justify-end pt-1">
+            <button type="button" id="saveBlacklistBtn" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs shadow cursor-pointer transition">
+              Cập Nhật Loại Trừ
+            </button>
           </div>
         </div>
       </div>
@@ -761,7 +768,6 @@
 
     </div>
 
-    <!-- Modal Footer Actions -->
     <div class="flex items-center justify-between px-6 py-4 border-t border-white/10 bg-slate-950/60">
       <div class="flex items-center space-x-2 text-xs text-slate-400">
         <span class="material-symbols-outlined text-sm" style="color: var(--brand-primary);">verified_user</span>
@@ -776,17 +782,14 @@
     </div>
   </div>
 </div>
-<!-- END: Admin Settings & Configuration Modal -->
 
 <div id="toastNotification" class="fixed bottom-5 right-5 z-50 bg-slate-900 border text-amber-200 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transition-all duration-300 transform translate-y-20 opacity-0 pointer-events-none" style="border-color: var(--brand-primary);">
   <span class="material-symbols-outlined text-lg" style="color: var(--brand-primary);">check_circle</span>
   <span id="toastMessage" class="text-xs sm:text-sm font-semibold">Đã lưu thành công!</span>
 </div>
 
-<!-- JAVASCRIPT ENGINE & LOGIC -->
 <script>
-  // BỘ NHỚ LƯU TRỮ HÌNH ẢNH DUNG LƯỢNG LỚN INDEXEDDB (CHỐNG MẤT KHI F5 100%)
-  const IDB_CONFIG = { dbName: 'CH_MEDIA_STORE', storeName: 'assets', version: 1 };
+  const IDB_CONFIG = { dbName: 'CH_MEDIA_STORE_V2', storeName: 'assets', version: 1 };
   function initMediaDB() {
     return new Promise((resolve) => {
       const request = indexedDB.open(IDB_CONFIG.dbName, IDB_CONFIG.version);
@@ -864,6 +867,7 @@
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.05);
+      setTimeout(() => { osc.disconnect(); gain.disconnect(); }, 70);
     }
 
     playWhoosh() {
@@ -888,6 +892,7 @@
       filter.connect(gain);
       gain.connect(this.ctx.destination);
       noise.start();
+      setTimeout(() => { noise.disconnect(); filter.disconnect(); gain.disconnect(); }, 380);
     }
 
     playSnapCatch() {
@@ -905,6 +910,7 @@
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.14);
+      setTimeout(() => { osc.disconnect(); gain.disconnect(); }, 160);
     }
 
     playMissSlip() {
@@ -922,6 +928,7 @@
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.35);
+      setTimeout(() => { osc.disconnect(); gain.disconnect(); }, 370);
     }
 
     playStruggleStrain() {
@@ -939,6 +946,7 @@
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.45);
+      setTimeout(() => { osc.disconnect(); gain.disconnect(); }, 470);
     }
 
     playWinFanfare() {
@@ -959,6 +967,7 @@
         gain.connect(this.ctx.destination);
         osc.start(this.ctx.currentTime + times[idx]);
         osc.stop(this.ctx.currentTime + times[idx] + (idx === 3 ? 0.9 : 0.25));
+        setTimeout(() => { osc.disconnect(); gain.disconnect(); }, (times[idx] + 1) * 1000);
       });
     }
 
@@ -975,11 +984,16 @@
       gain.connect(this.ctx.destination);
       osc.start();
       osc.stop(this.ctx.currentTime + 0.02);
+      setTimeout(() => { osc.disconnect(); gain.disconnect(); }, 40);
     }
 
     startBGM() {
       this.init();
-      if (!this.ctx || this.bgmTimer) return;
+      if (!this.ctx) return;
+      if (this.bgmTimer) {
+        clearTimeout(this.bgmTimer);
+        this.bgmTimer = null;
+      }
       this.bgmEnabled = true;
 
       const bassProgression = [
@@ -1014,6 +1028,7 @@
           kickGain.connect(this.ctx.destination);
           kickOsc.start(now);
           kickOsc.stop(now + 0.12);
+          setTimeout(() => { kickOsc.disconnect(); kickGain.disconnect(); }, 140);
         }
 
         if (step % 2 !== 0 || step % 4 === 2) {
@@ -1037,6 +1052,7 @@
           filter.connect(hatGain);
           hatGain.connect(this.ctx.destination);
           noise.start(now);
+          setTimeout(() => { noise.disconnect(); filter.disconnect(); hatGain.disconnect(); }, 50);
         }
 
         const bassOsc = this.ctx.createOscillator();
@@ -1056,6 +1072,7 @@
         bassGain.connect(this.ctx.destination);
         bassOsc.start(now);
         bassOsc.stop(now + 0.18);
+        setTimeout(() => { bassOsc.disconnect(); bassFilter.disconnect(); bassGain.disconnect(); }, 200);
 
         if (step % 2 === 0) {
           const melodyOsc = this.ctx.createOscillator();
@@ -1069,6 +1086,7 @@
           melodyGain.connect(this.ctx.destination);
           melodyOsc.start(now);
           melodyOsc.stop(now + 0.14);
+          setTimeout(() => { melodyOsc.disconnect(); melodyGain.disconnect(); }, 160);
         }
 
         this.bgmStep = (this.bgmStep + 1) % 16;
@@ -1098,7 +1116,7 @@
     SETTINGS: 'ch_trading_settings_data_final',
     HISTORY: 'ch_trading_history_data_final',
     QUEUE: 'ch_trading_queue_data_final',
-    PERSISTENT_BG: 'ch_custom_bg_persistent' // Khóa lưu ảnh nền độc lập
+    PERSISTENT_BG: 'ch_custom_bg_persistent'
   };
 
   class GameApp {
@@ -1124,6 +1142,7 @@
         ropeSpeed: 1.0,
         missChance: 0,
         missForceCount: 0,
+        blacklist: [],
         autoAdvanceTier: true,
         globalNumType: 'range',
         globalNumberRange: '001-150',
@@ -1150,8 +1169,6 @@
       this.screenShake = 0;
       this.activeRopes = [];
       this.struggleTimer = 0;
-
-      this.init();
     }
 
     getUniqueTiers() {
@@ -1204,10 +1221,17 @@
       try {
         const storedGifts = localStorage.getItem(STORAGE_KEYS.GIFTS);
         if (storedGifts) this.gifts = JSON.parse(storedGifts);
-        else { this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS)); this.saveGifts(); }
+        else { this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS)); }
       } catch (err) {
         this.gifts = JSON.parse(JSON.stringify(DEFAULT_VIP_GIFTS));
       }
+
+      try {
+        for (let g of this.gifts) {
+          const imgFromDb = await idbGet(`gift_img_${g.id}`);
+          if (imgFromDb) g.imageUrl = imgFromDb;
+        }
+      } catch (e) {}
 
       try {
         const storedSettings = localStorage.getItem(STORAGE_KEYS.SETTINGS);
@@ -1216,18 +1240,15 @@
            this.settings = { ...this.settings, ...parsedSettings };
            if (!this.settings.tierPullCounts) this.settings.tierPullCounts = {};
            if (!this.settings.participantList) this.settings.participantList = [];
+           if (!this.settings.blacklist) this.settings.blacklist = [];
         }
-      } catch (err) { }
+      } catch (err) {}
 
-      // 1. Phục hồi trực tiếp từ khóa chuyên biệt trong localStorage
       try {
         const localBg = localStorage.getItem(STORAGE_KEYS.PERSISTENT_BG);
-        if (localBg) {
-          this.settings.bgImageUrl = localBg;
-        }
+        if (localBg) this.settings.bgImageUrl = localBg;
       } catch (e) {}
 
-      // 2. Phục hồi hỗ trợ thêm từ IndexedDB (Fallback phòng khi ảnh lớn)
       try {
         const idbLogo = await idbGet('brand_logo');
         if (idbLogo) this.settings.logoUrl = idbLogo;
@@ -1244,12 +1265,12 @@
           this.history = JSON.parse(storedHistory);
           this.history.forEach(h => { if (h.luckyNumber) this.usedNumbers.add(h.luckyNumber); });
         }
-      } catch (err) { }
+      } catch (err) {}
 
       try {
         const storedQueue = localStorage.getItem(STORAGE_KEYS.QUEUE);
         if (storedQueue) this.customQueue = JSON.parse(storedQueue);
-      } catch (err) { }
+      } catch (err) {}
 
       this.paradeSpeed = parseFloat(this.settings.paradeSpeed) || 1.2;
       this.sound.enabled = (this.settings.soundEnabled !== false);
@@ -1257,29 +1278,30 @@
       this.sound.sfxVolume = parseFloat(this.settings.sfxVolume) || 0.8;
     }
 
-    saveGifts() { 
+    async saveGifts() { 
       try { 
-        localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(this.gifts)); 
+        const safeGifts = this.gifts.map(g => {
+          const copy = { ...g };
+          if (copy.imageUrl && copy.imageUrl.startsWith('data:image')) {
+            idbSet(`gift_img_${copy.id}`, copy.imageUrl);
+            copy.imageUrl = '';
+          }
+          return copy;
+        });
+        localStorage.setItem(STORAGE_KEYS.GIFTS, JSON.stringify(safeGifts)); 
       } catch (e) {}
     }
     
     saveSettings() { 
       try { 
         const safeSettings = { ...this.settings };
-        // Giữ ảnh nền an toàn và lưu song song
         if (this.settings.bgImageUrl) {
-          try {
-            localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, this.settings.bgImageUrl);
-          } catch (err) {}
+          try { localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, this.settings.bgImageUrl); } catch (err) {}
         }
+        safeSettings.bgImageUrl = '';
+        safeSettings.logoUrl = '';
         localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(safeSettings)); 
-      } catch (e) {
-        try {
-          const safeSettings = { ...this.settings };
-          safeSettings.bgImageUrl = ''; // Nếu quá tải thì chỉ xóa trong obj tổng, khóa persistent vẫn còn
-          localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(safeSettings));
-        } catch (e2) {}
-      }
+      } catch (e) {}
     }
 
     saveHistory() { 
@@ -1360,8 +1382,12 @@
     setupCanvas() {
       const resize = () => {
         const rect = this.canvas.parentElement.getBoundingClientRect();
-        this.canvas.width = rect.width;
-        this.canvas.height = rect.height;
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.height * dpr;
+        this.canvas.style.width = `${rect.width}px`;
+        this.canvas.style.height = `${rect.height}px`;
+        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       };
       window.addEventListener('resize', resize);
       resize();
@@ -1537,8 +1563,8 @@
       const screenCenterX = carouselRect.left + carouselRect.width / 2;
 
       this.activeRopes = [];
-      const baseLaunchX = this.canvas.width / 2;
-      const launchY = this.canvas.height - 30;
+      const baseLaunchX = canvasRect.width / 2;
+      const launchY = canvasRect.height - 30;
       const usedTargetCards = new Set();
 
       awardedGifts.forEach((gift, idx) => {
@@ -1560,7 +1586,7 @@
 
         const targetX = bestCard ? (bestCard.getBoundingClientRect().left + bestCard.getBoundingClientRect().width / 2) - canvasRect.left : screenCenterX;
         const targetY = bestCard ? (bestCard.getBoundingClientRect().top + bestCard.getBoundingClientRect().height / 2) - canvasRect.top : carouselRect.top + 50;
-        const clampedTargetX = Math.max(50, Math.min(this.canvas.width - 50, targetX));
+        const clampedTargetX = Math.max(50, Math.min(canvasRect.width - 50, targetX));
 
         const maxSpread = Math.min(canvasRect.width * 0.35, 140);
         const spacing = Math.min(30, maxSpread / Math.max(ropeCount, 1));
@@ -1579,9 +1605,10 @@
     }
 
     drawLassoAnimation() {
+      const dpr = window.devicePixelRatio || 1;
       this.ctx.save();
-      this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      this.ctx.clearRect(0, 0, this.canvas.width / dpr, this.canvas.height / dpr);
 
       if (this.screenShake > 0) {
         this.screenShake -= 0.15;
@@ -1678,6 +1705,7 @@
       }
 
       if (allReeled && this.activeRopes.length > 0 && this.activeRopes[0].phase === 'reeling') {
+        clearTimeout(this._safetyTimer);
         this.activeRopes.forEach(r => { if (r.targetBox) r.targetBox.classList.remove('screen-shaking', 'ring-4', 'ring-amber-400'); });
         const isMissTurn = this.activeRopes[0].isMiss;
         const awardedGifts = this.activeRopes.map(r => r.awardedGift);
@@ -1781,10 +1809,12 @@
         this.settings.nextSecretWinnerName = '';
         this.saveSettings();
         this.renderAdminSecretSettings();
-      } else if (gift && gift.secretNumber && !batchUsed.has(gift.secretNumber) && !this.usedNumbers.has(gift.secretNumber)) {
+      } 
+      else if (gift && gift.secretNumber && !batchUsed.has(gift.secretNumber) && !this.usedNumbers.has(gift.secretNumber)) {
         luckyNumber = gift.secretNumber;
         winnerName = (gift.secretWinnerName || '').trim();
-      } else {
+      } 
+      else {
         luckyNumber = this.getRandomUniqueNumber(batchUsed);
         if (this.settings.participantList && this.settings.participantList.length > 0) {
             const p = this.settings.participantList.find(x => x.number === luckyNumber);
@@ -1799,11 +1829,28 @@
 
     getRandomUniqueNumber(batchUsed = new Set()) {
       let luckyNumber = '';
+      const blacklisted = new Set((this.settings.blacklist || []).map(s => String(s).trim().toLowerCase()));
+
+      const isAllowed = (num, name = '') => {
+        if (this.usedNumbers.has(num) || batchUsed.has(num)) return false;
+        if (blacklisted.has(String(num).toLowerCase())) return false;
+        if (name && blacklisted.has(String(name).toLowerCase())) return false;
+        return true;
+      };
+
       if (this.settings.globalNumType === 'list' && this.settings.globalNumberList) {
         const list = this.settings.globalNumberList.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
         if (list.length) {
-          const available = list.filter(n => !this.usedNumbers.has(n) && !batchUsed.has(n));
-          luckyNumber = available.length ? available[Math.floor(Math.random() * available.length)] : list[Math.floor(Math.random() * list.length)];
+          const available = list.filter(n => {
+            const p = (this.settings.participantList || []).find(x => x.number === n);
+            return isAllowed(n, p ? p.name : '');
+          });
+          if (available.length) {
+            luckyNumber = available[Math.floor(Math.random() * available.length)];
+          } else {
+            const fallbackPool = list.filter(n => !this.usedNumbers.has(n) && !batchUsed.has(n));
+            luckyNumber = fallbackPool.length ? fallbackPool[Math.floor(Math.random() * fallbackPool.length)] : list[Math.floor(Math.random() * list.length)];
+          }
         }
       } else if (this.settings.globalNumberRange) {
         const parts = this.settings.globalNumberRange.split('-').map(s => s.trim());
@@ -1811,12 +1858,18 @@
         const padLen = Math.max(parts[0].length, parts[1] ? parts[1].length : 3);
         
         const pool = [];
+        const fallbackPool = [];
         for (let n = min; n <= max; n++) {
           const fmt = String(n).padStart(padLen, '0');
-          if (!this.usedNumbers.has(fmt) && !batchUsed.has(fmt)) pool.push(fmt);
+          const p = (this.settings.participantList || []).find(x => x.number === fmt);
+          if (isAllowed(fmt, p ? p.name : '')) pool.push(fmt);
+          else if (!this.usedNumbers.has(fmt) && !batchUsed.has(fmt)) fallbackPool.push(fmt);
         }
+
         if (pool.length > 0) {
           luckyNumber = pool[Math.floor(Math.random() * pool.length)];
+        } else if (fallbackPool.length > 0) {
+          luckyNumber = fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
         } else {
           luckyNumber = String(Math.floor(Math.random() * (max - min + 1)) + min).padStart(padLen, '0');
         }
@@ -2155,7 +2208,7 @@
                 <span class="px-2 py-0.5 rounded text-[10px] font-bold border font-mono max-w-[120px] truncate block" style="color: var(--brand-primary); background: var(--brand-gold-subtle); border-color: var(--glass-border-gold);">${gift.tier}</span>
                 <h4 class="text-sm font-bold text-white truncate max-w-[200px]">${gift.name}</h4>
               </div>
-              <p class="text-xs font-mono text-slate-400 mt-0.5">Số lượng: ${gift.remaining} / ${gift.quantity}</p>
+              <p class="text-xs font-mono text-slate-400 mt-0.5">Số lượng: ${gift.remaining} / ${gift.quantity}${gift.secretNumber ? ` • <span class="text-emerald-400 font-bold">Khóa số: ${gift.secretNumber}</span>` : ''}</p>
             </div>
           </div>
           <div class="flex items-center space-x-1.5 pl-2 border-l border-white/10 shrink-0">
@@ -2247,12 +2300,16 @@
         document.getElementById('formGiftName').value = gift.name;
         document.getElementById('formGiftTier').value = gift.tier || 'Giải Ba';
         document.getElementById('formGiftQuantity').value = gift.quantity || 1;
+        document.getElementById('formGiftSecretNumber').value = gift.secretNumber || '';
+        document.getElementById('formGiftSecretName').value = gift.secretWinnerName || '';
         this.currentGiftImageBase64 = gift.imageUrl || '';
         document.getElementById('giftFormTitle').textContent = 'Chỉnh Sửa Phần Thưởng';
       } else {
         document.getElementById('giftItemForm').reset();
         document.getElementById('formGiftId').value = '';
         document.getElementById('formGiftQuantity').value = '1';
+        document.getElementById('formGiftSecretNumber').value = '';
+        document.getElementById('formGiftSecretName').value = '';
         this.currentGiftImageBase64 = '';
         document.getElementById('giftFormTitle').textContent = 'Thêm Phần Thưởng Mới';
       }
@@ -2271,12 +2328,13 @@
       document.getElementById('formImageUpload').value = '';
     }
 
-    deleteGift(giftId) {
+    async deleteGift(giftId) {
       if (this.gifts.length <= 1) { this.showToast('Cần ít nhất 1 phần quà để hệ thống vận hành!'); return; }
       if (confirm('Xóa phần quà này? (Sẽ bị xóa khỏi Queue và Cấu hình)')) {
         this.gifts = this.gifts.filter(g => g.id !== giftId);
         this.customQueue = this.customQueue.filter(id => id !== giftId);
         this.history = this.history.filter(h => h.giftId !== giftId);
+        await idbSet(`gift_img_${giftId}`, '');
         
         const availableTiers = this.getUniqueTiers();
         if (!availableTiers.includes(this.settings.activeTier)) {
@@ -2316,12 +2374,18 @@
 
     renderAdminSecretSettings() {
       const statusEl = document.getElementById('nextOverrideStatus');
-      if (!statusEl) return;
-      if (this.settings.nextSecretNumber) {
-        statusEl.innerHTML = `<span class="text-emerald-400 font-bold">Sắp tới: Số ${this.settings.nextSecretNumber} (${this.settings.nextSecretWinnerName || 'Ẩn danh'})</span>`;
-      } else {
-        statusEl.textContent = 'Chưa đặt lượt tới.';
+      if (statusEl) {
+        if (this.settings.nextSecretNumber) {
+          statusEl.innerHTML = `<span class="text-emerald-400 font-bold">Sắp tới: Số ${this.settings.nextSecretNumber} (${this.settings.nextSecretWinnerName || 'Ẩn danh'})</span>`;
+        } else {
+          statusEl.textContent = 'Chưa đặt lượt tới.';
+        }
       }
+
+      const blInput = document.getElementById('settingBlacklistInput');
+      if (blInput) blInput.value = (this.settings.blacklist || []).join(', ');
+      const blBadge = document.getElementById('blacklistCountBadge');
+      if (blBadge) blBadge.textContent = `${(this.settings.blacklist || []).length} mục`;
     }
 
     renderAdminAudioSettings() {
@@ -2594,7 +2658,6 @@
         this.showToast('Đã xóa logo');
       });
 
-      // LƯU ẢNH NỀN SONG SONG (CẢ LOCALSTORAGE VÀ INDEXEDDB)
       document.getElementById('settingBgFileInput')?.addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -2603,7 +2666,7 @@
             const img = new Image();
             img.onload = async () => {
               const canvas = document.createElement('canvas');
-              const maxDim = 1280; // Giới hạn kích thước vừa vặn cho màn chiếu
+              const maxDim = 1280;
               let w = img.width, h = img.height;
               if (w > maxDim || h > maxDim) {
                 if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
@@ -2615,9 +2678,7 @@
               const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
               
               this.settings.bgImageUrl = dataUrl;
-              try {
-                localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, dataUrl);
-              } catch (err) {}
+              try { localStorage.setItem(STORAGE_KEYS.PERSISTENT_BG, dataUrl); } catch (err) {}
               await idbSet('brand_background', dataUrl);
               this.saveSettings();
               this.applyCustomBrand();
@@ -2631,9 +2692,7 @@
 
       document.getElementById('removeBgBtn')?.addEventListener('click', async () => {
         this.settings.bgImageUrl = '';
-        try {
-          localStorage.removeItem(STORAGE_KEYS.PERSISTENT_BG);
-        } catch (e) {}
+        try { localStorage.removeItem(STORAGE_KEYS.PERSISTENT_BG); } catch (e) {}
         await idbSet('brand_background', '');
         this.saveSettings();
         this.applyCustomBrand();
@@ -2666,7 +2725,7 @@
               canvas.width = w; canvas.height = h;
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
-              this.currentGiftImageBase64 = canvas.toDataURL('image/jpeg', 0.55);
+              this.currentGiftImageBase64 = canvas.toDataURL('image/jpeg', 0.6);
               
               const preview = document.getElementById('formImagePreview');
               preview.src = this.currentGiftImageBase64;
@@ -2687,25 +2746,34 @@
         document.getElementById('formImageUpload').value = '';
       });
 
-      document.getElementById('giftItemForm')?.addEventListener('submit', (e) => {
+      document.getElementById('giftItemForm')?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('formGiftId').value || `g_${Date.now()}`;
         const name = document.getElementById('formGiftName').value.trim();
         const tier = document.getElementById('formGiftTier').value.trim() || 'Mặc định';
         const quantity = parseInt(document.getElementById('formGiftQuantity').value, 10) || 1;
+        const secNum = document.getElementById('formGiftSecretNumber').value.trim();
+        const secName = document.getElementById('formGiftSecretName').value.trim();
         const imageUrl = this.currentGiftImageBase64;
+
+        if (imageUrl) {
+          await idbSet(`gift_img_${id}`, imageUrl);
+        }
 
         const existingIndex = this.gifts.findIndex(g => g.id === id);
         let remaining = quantity;
         if (existingIndex >= 0) remaining = Math.min(this.gifts[existingIndex].remaining, quantity);
 
-        const giftData = { id, name, tier, badge: '', quantity, remaining, secretNumber: '', secretWinnerName: '', imageUrl };
+        const giftData = { id, name, tier, badge: '', quantity, remaining, secretNumber: secNum, secretWinnerName: secName, imageUrl };
         if (existingIndex >= 0) this.gifts[existingIndex] = giftData;
         else this.gifts.push(giftData);
 
-        this.saveGifts(); this.renderAdminGifts(); this.renderParade(); this.updateHUD();
+        await this.saveGifts();
+        this.renderAdminGifts(); 
+        this.renderParade(); 
+        this.updateHUD();
         document.getElementById('giftFormDrawer')?.classList.add('hidden');
-        this.showToast('Đã lưu phần thưởng!');
+        this.showToast('Đã lưu phần thưởng thành công (Ảnh không bị mất sau F5)!');
       });
 
       document.getElementById('btnTriggerParticipantCsv')?.addEventListener('click', () => {
@@ -2777,6 +2845,15 @@
         this.showToast(`Đã khóa lượt tới: Số ${secNum}`);
       });
 
+      document.getElementById('saveBlacklistBtn')?.addEventListener('click', () => {
+        const val = document.getElementById('settingBlacklistInput')?.value || '';
+        const list = val.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
+        this.settings.blacklist = list;
+        this.saveSettings();
+        this.renderAdminSecretSettings();
+        this.showToast(`Đã lưu ${list.length} mục vào danh sách loại trừ!`);
+      });
+
       document.getElementById('exportHistoryCsvBtn')?.addEventListener('click', () => {
         if (!this.history.length) {
           this.showToast('Chưa có dữ liệu người trúng giải để tải về!');
@@ -2815,7 +2892,10 @@
     }
   }
 
-  window.addEventListener('DOMContentLoaded', () => { window.gameApp = new GameApp(); });
+  window.addEventListener('DOMContentLoaded', async () => { 
+    window.gameApp = new GameApp(); 
+    await window.gameApp.init();
+  });
 </script>
 </body>
 </html>
